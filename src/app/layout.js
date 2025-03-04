@@ -2,7 +2,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { StoreProvider } from "@/store/StoreProvider.jsx";
-import Link from "next/link";
+import Authentication from "@/components/Authentication";
+import Toast from "@/components/Toast";
+import Navbar from "@/components/NavbarAuth";
+import Loading from "@/store/Loading";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +30,9 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <nav className="bg-red-500 text-white p-4 flex justify-between flex-wrap gap-[20px]">
-            <Link href="/login">login</Link>
-            <Link href="/signup">signup</Link>
-            <Link href="/register">register</Link>
-          </nav>
+          <Toast />
+          <Loading />
+          <Authentication />
           {children}
         </body>
       </StoreProvider>

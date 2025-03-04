@@ -1,7 +1,11 @@
 "use client";
+import { login } from "@/store/Action";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const page = () => {
+  const dispatch = useDispatch();  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,26 +18,7 @@ const page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch("https://detailed-renata-lms-bpi-b7c9011f.koyeb.app/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: "include", // This ensures cookies are sent with the request
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit email");
-      }
-
-      const data = await response.json();
-      console.log("API response:", data);
-    } catch (error) {
-      console.error("Error submitting email:", error);
-    }
+    dispatch(login({email, password}))    
   };
 
   return (
