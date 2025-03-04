@@ -4,21 +4,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const page = () => {
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login({email, password}))    
+    dispatch(login(email, password));
   };
 
   return (
@@ -27,7 +20,7 @@ const page = () => {
         type="email"
         name="email"
         value={email}
-        onChange={handleEmailChange}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
         className=""
         required
@@ -36,7 +29,7 @@ const page = () => {
         type="password"
         name="password"
         value={password}
-        onChange={handlePasswordChange}
+        onChange={(e) => setPassword(e.target.value)}
         placeholder="password"
         className=""
         required

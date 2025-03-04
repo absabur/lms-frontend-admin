@@ -64,19 +64,18 @@ export const login = (email, password) => async (dispatch) => {
   dispatch({
     type: LOADING_START,
   });
-
+  
   try {
     const response = await fetch("http://localhost:8888/api/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(email, password), // ✅ Fixed
+      body: JSON.stringify({email, password}), // ✅ Fixed
       credentials: "include",
     });
 
     const data = await response.json();
-    console.log(data);
 
     if (data.success) {
       dispatch({
