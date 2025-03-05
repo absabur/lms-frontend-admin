@@ -25,6 +25,7 @@ export const authenticated = () => async (dispatch) => {
     );
 
     const json = await response.json();
+    console.log(json)
 
     if (json.success) {
       dispatch({

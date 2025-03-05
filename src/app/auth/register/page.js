@@ -1,5 +1,6 @@
 "use client";
 import { register } from "@/store/Action";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
