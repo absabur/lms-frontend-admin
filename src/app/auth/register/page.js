@@ -124,6 +124,9 @@ const page = () => {
       <button type="submit" className="">
         Submit
       </button>
+      <p>
+        Already have an account? <Link href="/auth/login">Login</Link>
+      </p>
     </form>
   );
 };

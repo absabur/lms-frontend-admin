@@ -1,5 +1,6 @@
 "use client";
 import { login } from "@/store/Action";
+import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -37,6 +38,9 @@ const page = () => {
       <button type="submit" className="">
         Login
       </button>
+      <p>
+        Don't have an account? <Link href="/auth/signup">Sign Up</Link>
+      </p>
     </form>
   );
 };

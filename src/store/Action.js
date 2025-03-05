@@ -91,7 +91,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGIN_FAILED,
-      payload: error.message || "Something went wrong", // ✅ Fixed
+      payload: error.message || "Something went wrong",
     });
   } finally {
     dispatch({

@@ -1,6 +1,7 @@
 "use client";
 
 import { signup } from "@/store/Action";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,9 @@ const page = () => {
       <button type="submit" className="">
         Next
       </button>
+      <p>
+        Already have an account? <Link href="/auth/login">Login</Link>
+      </p>
     </form>
   );
 };
