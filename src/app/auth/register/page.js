@@ -2,8 +2,9 @@
 import { register } from "@/store/Action";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Formik, Field, Form } from "formik";
 
 const page = () => {
   const signupEmail = useSelector((state) => state.signupEmail);
@@ -14,40 +15,8 @@ const page = () => {
   useEffect(() => {
     if (!signupEmail) {
       router.push(`/auth/signup`, { scroll: false });
-    } else {
-      setFormData((prev) => ({ ...prev, email: signupEmail }));
     }
-  }, []);
-
-  const [formData, setFormData] = useState({
-    password: "",
-    confirmPassword: "",
-    verificationCode: "",
-    name: "",
-    email: "",
-    phone: "",
-    nId: "",
-    image: null,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-
-    dispatch(register(data));
-  };
+  }, [signupEmail]);
 
   useEffect(() => {
     if (registerSuccess) {
@@ -55,80 +24,115 @@ const page = () => {
     }
   }, [registerSuccess]);
 
+  const handleSubmit = (values) => {
+    const data = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      if (key === 'image') {
+        data.append(key, value);
+      } else {
+        data.append(key, value);
+      }
+    });
+    dispatch(register(data));
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="">
-      <p>
-        Don't refresh the page. Don't change the page. If you do, you will lose
-        this page..
-      </p>
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-        className=""
-        required
-      />
-      <input
-        type="password"
-        name="confirmPassword"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        placeholder="Confirm Password"
-        className=""
-        required
-      />
-      <input
-        type="text"
-        name="verificationCode"
-        value={formData.verificationCode}
-        onChange={handleChange}
-        placeholder="Verification Code"
-        className=""
-        required
-      />
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Name"
-        className=""
-        required
-      />
-      <input
-        type="text"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="Phone"
-        className=""
-        required
-      />
-      <input
-        type="text"
-        name="nId"
-        value={formData.nId}
-        onChange={handleChange}
-        placeholder="nId"
-        className=""
-        required
-      />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className=""
-        required
-      />
-      <button type="submit" className="">
-        Submit
-      </button>
-      <p>
-        Already have an account? <Link href="/auth/login">Login</Link>
-      </p>
-    </form>
+    <Formik
+      initialValues={{
+        password: "",
+        confirmPassword: "",
+        verificationCode: "",
+        name: "",
+        email: signupEmail || "",
+        phone: "",
+        nId: "",
+        image: null,
+      }}
+      onSubmit={handleSubmit}
+    >
+      {({ setFieldValue }) => (
+        <Form className="space-y-4 p-4 max-w-md mx-auto">
+          <p className="text-red-500">
+            Don't refresh the page. Don't change the page. If you do, you will lose this page..
+          </p>
+          <div>
+            <Field
+              type="password"
+              name="password"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div>
+            <Field
+              type="password"
+              name="confirmPassword"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+          <div>
+            <Field
+              type="text"
+              name="verificationCode"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Verification Code"
+              required
+            />
+          </div>
+          <div>
+            <Field
+              type="text"
+              name="name"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Name"
+              required
+            />
+          </div>
+          <div>
+            <Field
+              type="text"
+              name="phone"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Phone"
+              required
+            />
+          </div>
+          <div>
+            <Field
+              type="text"
+              name="nId"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="nId"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFieldValue("image", e.target.files[0])}
+              className="w-full p-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+          >
+            Submit
+          </button>
+          <p className="text-center">
+            Already have an account?{" "}
+            <Link href="/auth/login" className="text-blue-500 hover:underline">
+              Login
+            </Link>
+          </p>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

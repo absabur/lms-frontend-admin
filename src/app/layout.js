@@ -5,7 +5,7 @@ import { StoreProvider } from "@/store/StoreProvider.jsx";
 import Authentication from "@/components/Authentication";
 import Toast from "@/components/Toast";
 import Navbar from "@/components/NavbarAuth";
-import Loading from "@/store/Loading";
+import Loading from "@/components/Loading";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

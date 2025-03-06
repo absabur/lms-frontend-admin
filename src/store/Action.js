@@ -1,5 +1,9 @@
 import {
+  ADD_BOOK_FAILED,
+  ADD_BOOK_SUCCESS,
   AUTHENTICATED,
+  GET_BOOKS,
+  GET_FIXED_VALUES,
   LOADING_END,
   LOADING_START,
   LOGIN_FAILED,
@@ -17,7 +21,7 @@ export const authenticated = () => async (dispatch) => {
     });
 
     const response = await fetch(
-      "http://localhost:8888/api/admin/authenticated",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/authenticated`,
       {
         method: "GET",
         credentials: "include",
@@ -25,7 +29,6 @@ export const authenticated = () => async (dispatch) => {
     );
 
     const json = await response.json();
-    console.log(json)
 
     if (json.success) {
       dispatch({
@@ -52,10 +55,13 @@ export const authenticated = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    const response = await fetch("http://localhost:8888/api/admin/logout", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/logout`, {
       method: "POST",
       credentials: "include",
     });
+    if (response.ok) {
+      dispatch(authenticated());
+    }
   } catch (error) {
     console.log(error);
   }
@@ -65,14 +71,14 @@ export const login = (email, password) => async (dispatch) => {
   dispatch({
     type: LOADING_START,
   });
-  
+
   try {
-    const response = await fetch("http://localhost:8888/api/admin/login", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({email, password}), // ✅ Fixed
+      body: JSON.stringify({ email, password }), // ✅ Fixed
       credentials: "include",
     });
 
@@ -107,7 +113,7 @@ export const signup = (email) => async (dispatch) => {
   });
 
   try {
-    const response = await fetch(`http://localhost:8888/api/admin/signup`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -149,7 +155,7 @@ export const register = (data) => async (dispatch) => {
   });
 
   try {
-    const response = await fetch(`http://localhost:8888/api/admin/register`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/register`, {
       method: "POST",
       body: data, // Assuming 'data' is FormData, no need to set headers
     });
@@ -172,6 +178,105 @@ export const register = (data) => async (dispatch) => {
       type: REGISTER_FAILED,
       payload: error.message || "Something went wrong", // Fixed this
     });
+  } finally {
+    dispatch({
+      type: LOADING_END,
+    });
+  }
+};
+
+export const addBook = (data) => async (dispatch) => {
+  dispatch({
+    type: LOADING_START,
+  });
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/book/add-book`, {
+      method: "POST",
+      body: data,
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: ADD_BOOK_SUCCESS,
+        payload: result.message,
+      });
+    } else {
+      dispatch({
+        type: ADD_BOOK_FAILED,
+        payload: result.error || "Registration failed",
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: ADD_BOOK_FAILED,
+      payload: error.message || "Something went wrong", // Fixed this
+    });
+  } finally {
+    dispatch({
+      type: LOADING_END,
+    });
+  }
+};
+
+export const fixdeValues = () => async (dispatch) => {
+  dispatch({
+    type: LOADING_START,
+  });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/fixed-values/all-values`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: GET_FIXED_VALUES,
+        payload: result,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    dispatch({
+      type: LOADING_END,
+    });
+  }
+};
+
+export const getBooks = () => async (dispatch) => {
+  dispatch({
+    type: LOADING_START,
+  });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/book/all-books?page=1&limit=10`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: GET_BOOKS,
+        payload: result,
+      });
+    }
+  } catch (error) {
+    console.log(error);
   } finally {
     dispatch({
       type: LOADING_END,
