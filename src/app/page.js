@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -10,14 +10,14 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (loaded && !isAuthenticated) {
-      router.push("/auth/login", { scroll: false });
-    }
-    if (loaded && isAuthenticated) {
-      router.push("/dashboard", { scroll: false });
-    }
+    setTimeout(() => {
+      if (loaded && !isAuthenticated) {
+        router.push("/auth/login", { scroll: false });
+      }
+      if (loaded && isAuthenticated) {
+        router.push("/dashboard", { scroll: false });
+      }
+    }, 1000);
   }, [loaded]);
-  return (
-    <></>
-  );
+  return <></>;
 }

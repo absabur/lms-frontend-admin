@@ -1,4 +1,4 @@
-import { ADD_BOOK_FAILED, ADD_BOOK_SUCCESS, AUTHENTICATED, CLEAR_MESSAGE, GET_BOOKS, GET_FIXED_VALUES, LOADING_END, LOADING_START, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, SIGNUP_FAILED, SIGNUP_SUCCESS } from "./Constant";
+import { ADD_BOOK_FAILED, ADD_BOOK_SUCCESS, AUTHENTICATED, CLEAR_MESSAGE, GET_BOOKS, GET_FIXED_VALUES, GET_SINGLE_BOOK, LOADING_END, LOADING_START, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, SIGNUP_FAILED, SIGNUP_SUCCESS, UPDATE_BOOK_FAILED, UPDATE_BOOK_SUCCESS } from "./Constant";
 
 const initialState = {
   isAuthenticated: false,
@@ -10,6 +10,7 @@ const initialState = {
   fixedValues: {},
   bookAdded: false,
   books: {},
+  singleBook: {},
 };
 
 export const reducer = (state = initialState, action) => {
@@ -87,10 +88,26 @@ export const reducer = (state = initialState, action) => {
         ...state,
         message: {message: action.payload, status: "error"},
       };
+    case UPDATE_BOOK_SUCCESS:
+      return {
+        ...state,
+        message: {message: action.payload, status: "success"},
+        bookAdded: true,
+      };   
+    case UPDATE_BOOK_FAILED:
+      return {
+        ...state,
+        message: {message: action.payload, status: "error"},
+      };
     case GET_BOOKS:
       return {
         ...state,
         books: action.payload
+      };
+    case GET_SINGLE_BOOK:
+      return {
+        ...state,
+        singleBook: action.payload
       };
     default:
       return state;

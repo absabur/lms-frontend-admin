@@ -12,9 +12,11 @@ export default function NavbarDash() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loaded && !isAuthenticated) {
-      router.push("/auth/login", { scroll: false });
-    }
+    setTimeout(() => {
+      if (loaded && !isAuthenticated) {
+        router.push("/auth/login", { scroll: false });
+      }
+    }, 1000);
   }, [loaded]);
 
   return (

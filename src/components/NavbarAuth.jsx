@@ -10,9 +10,11 @@ export default function NavbarAuth() {
   const router = useRouter();
 
   useEffect(() => {
-    if (loaded && isAuthenticated) {
-      router.push("/dashboard", { scroll: false });
-    }
+    setTimeout(() => {
+      if (loaded && isAuthenticated) {
+        router.push("/dashboard", { scroll: false });
+      }
+    }, 1000);
   }, [loaded, isAuthenticated]);
 
   return <></>;
