@@ -258,7 +258,13 @@ export const updateBook = (bookId, data) => async (dispatch) => {
     const result = await response.json();
 
     if (result.success) {
-      dispatch(getBooks());
+      const savedFilters = localStorage.getItem("bookFilters");
+      if (savedFilters) {
+        const parsedFilters = JSON.parse(savedFilters);
+        dispatch(getBooks(parsedFilters)); // Re-fetch with saved filters
+      } else {
+        dispatch(getBooks()); // Fetch default if no filters
+      }
       dispatch({
         type: UPDATE_BOOK_SUCCESS,
         payload: result.message,
@@ -312,36 +318,48 @@ export const fixdeValues = () => async (dispatch) => {
   }
 };
 
-export const getBooks = () => async (dispatch) => {
-  dispatch({
-    type: LOADING_START,
-  });
+export const getBooks =
+  (filters = {}) =>
+  async (dispatch) => {
+    dispatch({ type: LOADING_START });
 
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/book/all-books?page=1&limit=10`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
+    try {
+      // Convert filters object to query string
+      const params = new URLSearchParams();
 
-    const result = await response.json();
-
-    if (result.success) {
-      dispatch({
-        type: GET_BOOKS,
-        payload: result,
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+          params.append(key, value);
+        }
       });
+
+      // You can set page/limit dynamically if needed
+      params.set("page", filters.page || 1);
+      params.set("limit", filters.limit || 10);
+
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/book/all-books?${params.toString()}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const result = await response.json();
+      if (result.success) {
+        dispatch({
+          type: GET_BOOKS,
+          payload: result,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    } finally {
+      dispatch({ type: LOADING_END });
     }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    dispatch({
-      type: LOADING_END,
-    });
-  }
-};
+  };
 
 export const getBookBySlug = (slug) => async (dispatch) => {
   dispatch({ type: LOADING_START });

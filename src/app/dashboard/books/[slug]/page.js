@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookBySlug } from "@/store/Action";
+import Link from "next/link";
 
 const BookDetails = () => {
   const { slug } = useParams();
@@ -24,14 +25,26 @@ const BookDetails = () => {
         {/* Left: Book Info */}
         <div className="space-y-6">
           {/* Title */}
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">{book.bookName}</h1>
-            <p className="text-sm text-gray-500">by {book.bookAuthor}</p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800">
+                {book.bookName}
+              </h1>
+              <p className="text-sm text-gray-500">by {book.bookAuthor}</p>
+            </div>
+            <Link
+              href={`/dashboard/books/edit-book/${book.slug}`}
+              className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs"
+            >
+              Edit Book
+            </Link>
           </div>
 
           {/* Description */}
           <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-1">Description</h2>
+            <h2 className="text-lg font-semibold text-gray-700 mb-1">
+              Description
+            </h2>
             <p className="text-gray-600">{book.description}</p>
           </div>
 
@@ -50,10 +63,15 @@ const BookDetails = () => {
           {/* Book Numbers */}
           {book.bookNumbers?.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-1">Book Numbers</h2>
+              <h2 className="text-lg font-semibold text-gray-700 mb-1">
+                Book Numbers
+              </h2>
               <div className="flex flex-wrap gap-2">
                 {book.bookNumbers.map((num, i) => (
-                  <span key={i} className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm">
+                  <span
+                    key={i}
+                    className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm"
+                  >
                     {num}
                   </span>
                 ))}
@@ -63,8 +81,14 @@ const BookDetails = () => {
 
           {/* Created & Updated Info */}
           <div className="grid sm:grid-cols-2 gap-4">
-            <DetailItem label="Created On" value={`${book.createDate?.date}, ${book.createDate?.formatedTime}`} />
-            <DetailItem label="Updated On" value={`${book.updateDate?.date}, ${book.updateDate?.formatedTime}`} />
+            <DetailItem
+              label="Created On"
+              value={`${book.createDate?.date}, ${book.createDate?.formatedTime}`}
+            />
+            <DetailItem
+              label="Updated On"
+              value={`${book.updateDate?.date}, ${book.updateDate?.formatedTime}`}
+            />
           </div>
         </div>
 

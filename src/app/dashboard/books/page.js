@@ -4,18 +4,26 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "@/store/Action.js";
 import { useRouter } from "next/navigation";
+import BooksFilterFrom from "@/components/BooksFilterFrom";
 
 const Page = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
 
   useEffect(() => {
-    dispatch(getBooks());
+    const savedFilters = localStorage.getItem("bookFilters");
+    if (savedFilters) {
+      const parsedFilters = JSON.parse(savedFilters);
+      dispatch(getBooks(parsedFilters)); // Re-fetch with saved filters
+    } else {
+      dispatch(getBooks()); // Fetch default if no filters
+    }
   }, []);
+
   const router = useRouter();
 
   return (
-    <div className="p-4 md:p-8 bg-gray-100 min-h-screen">
+    <div className="p-4 md:p-8 bg-gray-200 min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center md:text-left">
           All Books
@@ -28,8 +36,10 @@ const Page = () => {
         </Link>
       </div>
 
+      <BooksFilterFrom />
+
       <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
-        <table className="min-w-[1000px] w-full text-sm text-left text-gray-700">
+        <table className="min-w-full table-auto w-full text-sm text-left text-gray-700">
           <thead className="bg-blue-600 text-white sticky top-0 z-10">
             <tr>
               {[
@@ -107,21 +117,11 @@ const Page = () => {
                   <div className="flex gap-2">
                     <Link
                       href={`/dashboard/books/edit-book/${book.slug}`}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs"
+                      className="bg-yellow-400 hover:bg-yellow-500 hover:shadow-xl text-black px-3 py-1 rounded text-xs"
                       onClick={(e) => e.stopPropagation()} // <-- add this
                     >
                       Edit
                     </Link>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation(); // <-- add this
-                        handleDelete(book._id);
-                      }}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
-                    >
-                      Delete
-                    </button>
                   </div>
                 </td>
               </tr>
@@ -131,13 +131,6 @@ const Page = () => {
       </div>
     </div>
   );
-
-  function handleDelete(id) {
-    if (confirm("Are you sure you want to delete this book?")) {
-      // Dispatch your delete action here
-      console.log("Delete book ID:", id);
-    }
-  }
 };
 
 export default Page;
