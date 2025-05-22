@@ -23,13 +23,13 @@ const Page = () => {
   const router = useRouter();
 
   return (
-    <div className="p-4 md:p-8 bg-gray-200 min-h-screen">
+    <div className="min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center md:text-left">
           All Books
         </h1>
         <Link
-          href="/dashboard/add-book"
+          href="/dashboard/books/add-book"
           className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded shadow"
         >
           + Add Book

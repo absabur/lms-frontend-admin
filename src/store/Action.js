@@ -1,20 +1,19 @@
 import {
-  ADD_BOOK_FAILED,
-  ADD_BOOK_SUCCESS,
   AUTHENTICATED,
   GET_BOOKS,
   GET_FIXED_VALUES,
   GET_SINGLE_BOOK,
+  GET_SINGLE_TEACHER,
+  GET_TEACHERS,
   LOADING_END,
   LOADING_START,
-  LOGIN_FAILED,
-  LOGIN_SUCCESS,
-  REGISTER_FAILED,
   REGISTER_SUCCESS,
-  SIGNUP_FAILED,
   SIGNUP_SUCCESS,
-  UPDATE_BOOK_FAILED,
-  UPDATE_BOOK_SUCCESS,
+  GET_STUDENTS,
+  GET_SINGLE_STUDENT,
+  GET_ADMINS,
+  GET_SINGLE_ADMIN,
+  MESSAGE,
 } from "./Constant";
 
 export const authenticated = () => async (dispatch) => {
@@ -38,6 +37,7 @@ export const authenticated = () => async (dispatch) => {
         type: AUTHENTICATED,
         payload: true,
       });
+      dispatch(getProfile());
     } else {
       dispatch({
         type: AUTHENTICATED,
@@ -67,6 +67,14 @@ export const logout = () => async (dispatch) => {
     );
     if (response.ok) {
       dispatch(authenticated());
+      dispatch({
+        type: MESSAGE,
+        paylaod: {
+          message: "Logout Success",
+          status: "success",
+          path: "/auth/login",
+        },
+      });
     }
   } catch (error) {
     console.log(error);
@@ -95,19 +103,32 @@ export const login = (email, password) => async (dispatch) => {
 
     if (data.success) {
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: MESSAGE,
+        payload: {
+          message: "Login Successfull!",
+          status: "success",
+          path: "/dashboard",
+        },
       });
       dispatch(authenticated()); // This is fine.
     } else {
       dispatch({
-        type: LOGIN_FAILED,
-        payload: data.error,
+        type: MESSAGE,
+        payload: {
+          message: data.error || "Login failed!",
+          status: "error",
+          path: "",
+        },
       });
     }
   } catch (error) {
     dispatch({
-      type: LOGIN_FAILED,
-      payload: error.message || "Something went wrong",
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
     });
   } finally {
     dispatch({
@@ -145,14 +166,22 @@ export const signup = (email) => async (dispatch) => {
       });
     } else {
       dispatch({
-        type: SIGNUP_FAILED,
-        payload: result.error,
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Unable to signup",
+          status: "error",
+          path: "",
+        },
       });
     }
   } catch (error) {
     dispatch({
-      type: SIGNUP_FAILED,
-      payload: error.message || "Something went wrong", // Fixed this line
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
     });
   } finally {
     dispatch({
@@ -184,19 +213,124 @@ export const register = (data) => async (dispatch) => {
       });
     } else {
       dispatch({
-        type: REGISTER_FAILED,
-        payload: result.error || "Registration failed",
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Registration failed",
+          status: "error",
+          path: "",
+        },
       });
     }
+    MESSAGE;
   } catch (error) {
     dispatch({
-      type: REGISTER_FAILED,
-      payload: error.message || "Something went wrong", // Fixed this
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
     });
   } finally {
     dispatch({
       type: LOADING_END,
     });
+  }
+};
+
+export const updateProfile = (data) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/update-profile`,
+      {
+        method: "POST",
+        body: data, // FormData with optional file
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch(getProfile());
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Profile Updated Successfully!",
+          status: "success",
+          path: "/dashboard/profile",
+        },
+      });
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Failed to update profile",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+export const updateProfilePassword = (data) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/update-password`,
+      {
+        method: "POST",
+        body: data, // FormData with optional file
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Password Updated Successfully!",
+          status: "success",
+          path: "/dashboard/profile",
+        },
+      });
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Failed to update password",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({ type: LOADING_END });
   }
 };
 
@@ -219,19 +353,31 @@ export const addBook = (data) => async (dispatch) => {
 
     if (result.success) {
       dispatch({
-        type: ADD_BOOK_SUCCESS,
-        payload: result.message,
+        type: MESSAGE,
+        payload: {
+          message: result.message || "Book Added!",
+          status: "success",
+          path: "/dashboard/books",
+        },
       });
     } else {
       dispatch({
-        type: ADD_BOOK_FAILED,
-        payload: result.error || "Registration failed",
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Registration failed",
+          status: "error",
+          path: "",
+        },
       });
     }
   } catch (error) {
     dispatch({
-      type: ADD_BOOK_FAILED,
-      payload: error.message || "Something went wrong", // Fixed this
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
     });
   } finally {
     dispatch({
@@ -266,19 +412,31 @@ export const updateBook = (bookId, data) => async (dispatch) => {
         dispatch(getBooks()); // Fetch default if no filters
       }
       dispatch({
-        type: UPDATE_BOOK_SUCCESS,
-        payload: result.message,
+        type: MESSAGE,
+        payload: {
+          message: result.message,
+          status: "success",
+          path: "/dashboard/books",
+        },
       });
     } else {
       dispatch({
-        type: UPDATE_BOOK_FAILED,
-        payload: result.error || "Update failed",
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Update failed",
+          status: "error",
+          path: "",
+        },
       });
     }
   } catch (error) {
     dispatch({
-      type: UPDATE_BOOK_FAILED,
-      payload: error.message || "Something went wrong",
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
     });
   } finally {
     dispatch({
@@ -300,10 +458,9 @@ export const fixdeValues = () => async (dispatch) => {
         credentials: "include",
       }
     );
-
     const result = await response.json();
 
-    if (result.success) {
+    if (result) {
       dispatch({
         type: GET_FIXED_VALUES,
         payload: result,
@@ -385,5 +542,429 @@ export const getBookBySlug = (slug) => async (dispatch) => {
     console.error("Failed to fetch book by slug:", error);
   } finally {
     dispatch({ type: LOADING_END });
+  }
+};
+
+export const getTeachers =
+  (filters = {}) =>
+  async (dispatch) => {
+    dispatch({ type: LOADING_START });
+    try {
+      const params = new URLSearchParams();
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+          params.append(key, value);
+        }
+      });
+
+      // Set default pagination if not provided
+      params.set("page", filters.page || 1);
+      params.set("limit", filters.limit || 10);
+
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/admin/all-teachers?${params.toString()}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        dispatch({
+          type: GET_TEACHERS,
+          payload: result,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    } finally {
+      dispatch({ type: LOADING_END });
+    }
+  };
+export const addTeacher = (data) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/create-teacher`,
+      {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Teacher Added",
+          status: "success",
+          path: "/dashboard/teachers",
+        },
+      });
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Teacher registration failed",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const getTeacherById = (id) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/teacher-details/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: GET_SINGLE_TEACHER, // Make sure this action type exists
+        payload: result.teacher, // Adjust based on actual response structure
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch teacher by ID:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const updateTeacher = (id, data) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/update-teacher/${id}`,
+      {
+        method: "POST",
+        body: data, // FormData with optional file
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Teacher Updated",
+          status: "success",
+          path: "/dashboard/teachers",
+        },
+      });
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Failed to update teacher profile",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+// ====================
+
+export const getStudents =
+  (filters = {}) =>
+  async (dispatch) => {
+    dispatch({ type: LOADING_START });
+    try {
+      const params = new URLSearchParams();
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+          params.append(key, value);
+        }
+      });
+
+      // Set default pagination if not provided
+      params.set("page", filters.page || 1);
+      params.set("limit", filters.limit || 10);
+
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/admin/all-students?${params.toString()}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        dispatch({
+          type: GET_STUDENTS,
+          payload: result,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    } finally {
+      dispatch({ type: LOADING_END });
+    }
+  };
+export const addStudent = (data) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/create-student`,
+      {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Student Added",
+          status: "success",
+          path: "/dashboard/students",
+        },
+      });
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Student registration failed",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const getStudentById = (id) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/student-details/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: GET_SINGLE_STUDENT, // Make sure this action type exists
+        payload: result.student, // Adjust based on actual response structure
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch student by ID:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const updateStudent = (id, data) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/update-student/${id}`,
+      {
+        method: "POST",
+        body: data, // FormData with optional file
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Student Updated",
+          status: "success",
+          path: "/dashboard/students",
+        },
+      });
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Failed to update student profile",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+// ===========================
+
+export const getAdmins =
+  (filters = {}) =>
+  async (dispatch) => {
+    dispatch({ type: LOADING_START });
+    try {
+      const params = new URLSearchParams();
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+          params.append(key, value);
+        }
+      });
+
+      // Set default pagination if not provided
+      params.set("page", filters.page || 1);
+      params.set("limit", filters.limit || 10);
+
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/admin/all-admins?${params.toString()}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        dispatch({
+          type: GET_ADMINS,
+          payload: result,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching admins:", error);
+    } finally {
+      dispatch({ type: LOADING_END });
+    }
+  };
+
+export const getAdminById = (id) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/admin-details/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: GET_SINGLE_ADMIN, // Make sure this action type exists
+        payload: result.admin, // Adjust based on actual response structure
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch admin by ID:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const getProfile = () => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/profile`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: "GET_PROFILE", // Make sure this action type exists
+        payload: result.admin, // Adjust based on actual response structure
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch admin by ID:", error);
   }
 };

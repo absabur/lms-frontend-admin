@@ -5,18 +5,20 @@ import { useParams } from "next/navigation"; // or 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getBookBySlug, updateBook } from "@/store/Action";
+import { fixdeValues, getBookBySlug, updateBook } from "@/store/Action";
 
 const UpdateBookPage = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const book = useSelector((state) => state.singleBook);
+  const fixedValues = useSelector((state) => state.fixedValues);
   const bookUpdated = useSelector((state) => state.bookUpdated);
 
   useEffect(() => {
     if (slug) {
       dispatch(getBookBySlug(slug));
     }
+    dispatch(fixdeValues());
   }, [slug, dispatch]);
 
   const formik = useFormik({
@@ -34,7 +36,7 @@ const UpdateBookPage = () => {
       department: book?.department || "",
       quantity: book?.quantity || "",
       description: book?.description || "",
-      bookNumbers: book?.bookNumbers?.map(Number).join(', ') || "",
+      bookNumbers: book?.bookNumbers?.map(Number).join(", ") || "",
       images: null,
     },
     validationSchema: Yup.object({
@@ -80,7 +82,6 @@ const UpdateBookPage = () => {
     }
   }, [bookUpdated]);
 
-
   return (
     <div className="min-h-screen flex justify-center items-start bg-gray-50 py-8 px-4">
       <form
@@ -94,7 +95,9 @@ const UpdateBookPage = () => {
 
         {/* Left column inputs */}
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Book Name</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Book Name
+          </label>
           <input
             type="text"
             name="bookName"
@@ -111,7 +114,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Book Author</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Book Author
+          </label>
           <input
             type="text"
             name="bookAuthor"
@@ -128,7 +133,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Publisher</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Publisher
+          </label>
           <input
             type="text"
             name="publisher"
@@ -145,7 +152,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Edition</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Edition
+          </label>
           <input
             type="text"
             name="edition"
@@ -160,7 +169,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Number of Pages</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Number of Pages
+          </label>
           <input
             type="number"
             name="numberOfPages"
@@ -177,31 +188,54 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Country</label>
-          <input
-            type="text"
+          <label
+            htmlFor="country"
+            className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
+          >
+            Country
+          </label>
+          <select
+            id="country"
             name="country"
             value={formik.values.country}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="border border-gray-300 rounded-md p-3"
-          />
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">-- Select Country --</option>
+            {fixedValues?.countries?.map((option) => (
+              <option key={option._id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </select>
           {formik.touched.country && formik.errors.country && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.country}</p>
           )}
         </div>
 
-        {/* Right column inputs */}
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Language</label>
-          <input
-            type="text"
+          <label
+            htmlFor="language"
+            className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
+          >
+            Language
+          </label>
+          <select
+            id="language"
             name="language"
             value={formik.values.language}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="border border-gray-300 rounded-md p-3"
-          />
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">-- Select Language --</option>
+            {fixedValues?.languages?.map((option) => (
+              <option key={option._id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </select>
           {formik.touched.language && formik.errors.language && (
             <p className="text-red-500 text-sm mt-1">
               {formik.errors.language}
@@ -210,7 +244,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">MRP</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            MRP
+          </label>
           <input
             type="number"
             name="mrp"
@@ -225,30 +261,54 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Shelf</label>
-          <input
-            type="text"
+          <label
+            htmlFor="shelf"
+            className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
+          >
+            Shelf
+          </label>
+          <select
+            id="shelf"
             name="shelf"
             value={formik.values.shelf}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="border border-gray-300 rounded-md p-3"
-          />
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">-- Select Shelf --</option>
+            {fixedValues?.shelves?.map((option) => (
+              <option key={option._id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </select>
           {formik.touched.shelf && formik.errors.shelf && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.shelf}</p>
           )}
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Department</label>
-          <input
-            type="text"
+          <label
+            htmlFor="department"
+            className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
+          >
+            Department
+          </label>
+          <select
+            id="department"
             name="department"
             value={formik.values.department}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="border border-gray-300 rounded-md p-3"
-          />
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">-- Select Department --</option>
+            {fixedValues?.departments?.map((option) => (
+              <option key={option._id} value={option.name}>
+                {option.name}
+              </option>
+            ))}
+          </select>
           {formik.touched.department && formik.errors.department && (
             <p className="text-red-500 text-sm mt-1">
               {formik.errors.department}
@@ -257,7 +317,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-1 font-medium">Quantity</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Quantity
+          </label>
           <input
             type="number"
             name="quantity"
@@ -274,7 +336,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col col-span-full">
-          <label className="mb-1 font-medium">Description</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Description
+          </label>
           <textarea
             name="description"
             rows="4"
@@ -291,7 +355,9 @@ const UpdateBookPage = () => {
         </div>
 
         <div className="flex flex-col col-span-full">
-          <label className="mb-1 font-medium">Book Numbers</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Book Numbers
+          </label>
           <input
             type="text"
             name="bookNumbers"
@@ -332,7 +398,7 @@ const UpdateBookPage = () => {
         )}
 
         <div className="flex flex-col col-span-full">
-          <label className="mb-1 font-medium">
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
             Book Images (You can upload new ones)
           </label>
           <input

@@ -8,8 +8,6 @@ import * as Yup from "yup";
 const page = () => {
   const dispatch = useDispatch();
   const fixedValues = useSelector((state) => state.fixedValues);
-  const bookAdded = useSelector((state) => state.bookAdded);
-
   useEffect(() => {
     dispatch(fixdeValues());
   }, [dispatch]);
@@ -62,11 +60,6 @@ const page = () => {
     },
   });
 
-  useEffect(() => {
-    if (bookAdded) {
-      formik.resetForm();
-    }
-  }, [bookAdded, formik]);
 
   return (
     <div className="flex justify-center items-center bg-gray-50 px-4 py-6">
@@ -80,7 +73,9 @@ const page = () => {
         <div className="space-y-4">
           {/* Book Name */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Book Name:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Book Name:
+            </label>
             <input
               type="text"
               name="bookName"
@@ -99,7 +94,9 @@ const page = () => {
 
           {/* Book Author */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Book Author:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Book Author:
+            </label>
             <input
               type="text"
               name="bookAuthor"
@@ -118,7 +115,9 @@ const page = () => {
 
           {/* Publisher */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Publisher:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Publisher:
+            </label>
             <input
               type="text"
               name="publisher"
@@ -137,7 +136,9 @@ const page = () => {
 
           {/* Edition */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Edition:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Edition:
+            </label>
             <input
               type="text"
               name="edition"
@@ -156,7 +157,9 @@ const page = () => {
 
           {/* Number of Pages */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Number of Pages:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Number of Pages:
+            </label>
             <input
               type="number"
               name="numberOfPages"
@@ -175,7 +178,9 @@ const page = () => {
 
           {/* Country */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Country:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Country:
+            </label>
             <select
               name="country"
               value={formik.values.country}
@@ -200,7 +205,9 @@ const page = () => {
 
           {/* Language */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Language:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Language:
+            </label>
             <select
               name="language"
               value={formik.values.language}
@@ -225,7 +232,9 @@ const page = () => {
 
           {/* MRP */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">MRP:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              MRP:
+            </label>
             <input
               type="number"
               name="mrp"
@@ -242,7 +251,9 @@ const page = () => {
 
           {/* Shelf */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Shelf:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Shelf:
+            </label>
             <select
               name="shelf"
               value={formik.values.shelf}
@@ -265,7 +276,9 @@ const page = () => {
 
           {/* Department */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Department:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Department:
+            </label>
             <select
               name="department"
               value={formik.values.department}
@@ -290,7 +303,9 @@ const page = () => {
 
           {/* Quantity */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Quantity:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Quantity:
+            </label>
             <input
               type="number"
               name="quantity"
@@ -309,7 +324,9 @@ const page = () => {
 
           {/* Description */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Description:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Description:
+            </label>
             <textarea
               name="description"
               value={formik.values.description}
@@ -321,7 +338,9 @@ const page = () => {
 
           {/* Book Numbers */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Book Numbers:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Book Numbers:
+            </label>
             <input
               type="text"
               name="bookNumbers"
@@ -334,7 +353,9 @@ const page = () => {
 
           {/* Image Upload */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium">Book Images:</label>
+            <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+              Book Images:
+            </label>
             <input
               type="file"
               name="images"

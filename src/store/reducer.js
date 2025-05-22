@@ -1,16 +1,41 @@
-import { ADD_BOOK_FAILED, ADD_BOOK_SUCCESS, AUTHENTICATED, CLEAR_MESSAGE, GET_BOOKS, GET_FIXED_VALUES, GET_SINGLE_BOOK, LOADING_END, LOADING_START, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER_FAILED, REGISTER_SUCCESS, SIGNUP_FAILED, SIGNUP_SUCCESS, UPDATE_BOOK_FAILED, UPDATE_BOOK_SUCCESS } from "./Constant";
+import {
+  AUTHENTICATED,
+  CLEAR_MESSAGE,
+  GET_BOOKS,
+  GET_FIXED_VALUES,
+  GET_SINGLE_BOOK,
+  GET_SINGLE_TEACHER,
+  GET_TEACHERS,
+  LOADING_END,
+  LOADING_START,
+  REGISTER_SUCCESS,
+  SIGNUP_SUCCESS,
+  GET_STUDENTS,
+  GET_SINGLE_STUDENT,
+  GET_ADMINS,
+  GET_SINGLE_ADMIN,
+  MESSAGE,
+  CLEAR_PATH,
+} from "./Constant";
 
 const initialState = {
   isAuthenticated: false,
+  profile: {},
   isLoading: false,
   loaded: false,
   message: {},
+  path: "",
   signupEmail: "",
   registerSuccess: "",
   fixedValues: {},
-  bookAdded: false,
   books: {},
   singleBook: {},
+  teachers: [],
+  teacherDetails: {},
+  students: [],
+  studentDetails: {},
+  admins: [],
+  adminDetails: {},
 };
 
 export const reducer = (state = initialState, action) => {
@@ -19,95 +44,103 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: action.payload,
-      };    
+      };
+    case "GET_PROFILE":
+      return {
+        ...state,
+        profile: action.payload,
+      };
+    case MESSAGE:
+      return {
+        ...state,
+        message: {
+          message: action.payload.message,
+          status: action.payload.status,
+        },
+        path: action.payload.path,
+      };
+    case CLEAR_PATH:
+      return {
+        ...state,
+        path: "",
+      };
     case LOADING_START:
       return {
         ...state,
         isLoading: true,
         loaded: false,
-      };    
+      };
     case LOADING_END:
       return {
         ...state,
         isLoading: false,
         loaded: true,
-      };  
+      };
     case CLEAR_MESSAGE:
       return {
         ...state,
         message: {},
         registerSuccess: false,
-        bookAdded: false,
       };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        message: {message: "Login Successfull", status: "success"},
-      };    
-    case LOGIN_FAILED:
-      return {
-        ...state,
-        message: {message: action.payload, status: "error"},
-      };    
-    case SIGNUP_FAILED:
-      return {
-        ...state,
-        message: {message: action.payload, status: "error"},
-      };    
-    case REGISTER_FAILED:
-      return {
-        ...state,
-        message: {message: action.payload, status: "error"},
-      };    
+
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        message: {message: action.payload.message, status: "success"},
-        signupEmail: action.payload.email
-      };   
+        message: { message: action.payload.message, status: "success" },
+        signupEmail: action.payload.email,
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
-        message: {message: action.payload, status: "success"},
+        message: { message: action.payload, status: "success" },
         registerSuccess: true,
-        signupEmail: ""
-      };   
+        signupEmail: "",
+      };
+
     case GET_FIXED_VALUES:
       return {
         ...state,
         fixedValues: action.payload,
-      };   
-    case ADD_BOOK_SUCCESS:
-      return {
-        ...state,
-        message: {message: action.payload, status: "success"},
-        bookAdded: true,
-      };   
-    case ADD_BOOK_FAILED:
-      return {
-        ...state,
-        message: {message: action.payload, status: "error"},
-      };
-    case UPDATE_BOOK_SUCCESS:
-      return {
-        ...state,
-        message: {message: action.payload, status: "success"},
-        bookAdded: true,
-      };   
-    case UPDATE_BOOK_FAILED:
-      return {
-        ...state,
-        message: {message: action.payload, status: "error"},
       };
     case GET_BOOKS:
       return {
         ...state,
-        books: action.payload
+        books: action.payload,
       };
     case GET_SINGLE_BOOK:
       return {
         ...state,
-        singleBook: action.payload
+        singleBook: action.payload,
+      };
+    case GET_TEACHERS:
+      return {
+        ...state,
+        teachers: action.payload,
+      };
+    case GET_SINGLE_TEACHER:
+      return {
+        ...state,
+        teacherDetails: action.payload,
+      };
+    case GET_STUDENTS:
+      return {
+        ...state,
+        students: action.payload,
+      };
+    case GET_SINGLE_STUDENT:
+      return {
+        ...state,
+        studentDetails: action.payload,
+      };
+    case GET_ADMINS:
+      return {
+        ...state,
+        admins: action.payload,
+      };
+    case GET_SINGLE_ADMIN:
+      return {
+        ...state,
+        adminDetails: action.payload,
       };
     default:
       return state;

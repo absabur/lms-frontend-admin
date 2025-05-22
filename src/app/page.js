@@ -10,14 +10,16 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    setTimeout(() => {
-      if (loaded && !isAuthenticated) {
-        router.push("/auth/login", { scroll: false });
-      }
-      if (loaded && isAuthenticated) {
-        router.push("/dashboard", { scroll: false });
-      }
-    }, 1000);
+    if (loaded) {
+      setTimeout(() => {
+        if (isAuthenticated) {
+          router.push("/dashboard", { scroll: false });
+        }
+        if (!isAuthenticated) {
+          router.push("/auth/login", { scroll: false });
+        }
+      }, 1000);
+    }
   }, [loaded]);
   return <></>;
 }

@@ -1,20 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { useSelector } from "react-redux";
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [links, setLinks] = useState([]);
+  const profile = useSelector((state) => state.profile);
   const pathname = usePathname();
 
-  const links = [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/dashboard/books", label: "Manage Books" },
-    { href: "/dashboard/users", label: "Users" },
-    { href: "/dashboard/borrow", label: "Lended Books" },
-  ];
+  useEffect(() => {
+    if (profile && profile.isSuperAdmin) {
+      setLinks([
+        { href: "/dashboard", label: "Dashboard" },
+        { href: "/dashboard/borrow", label: "Lended Books" },
+        { href: "/dashboard/books", label: "Manage Books" },
+        { href: "/dashboard/teachers", label: "Teachers" },
+        { href: "/dashboard/students", label: "Students" },
+        { href: "/dashboard/admins", label: "Admins" },
+        { href: "/dashboard/form-values", label: "Form Values" },
+      ]);
+    } else {
+      setLinks([
+        { href: "/dashboard", label: "Dashboard" },
+        { href: "/dashboard/borrow", label: "Lended Books" },
+        { href: "/dashboard/books", label: "Manage Books" },
+        { href: "/dashboard/teachers", label: "Teachers" },
+        { href: "/dashboard/students", label: "Students" },
+        { href: "/dashboard/form-values", label: "Form Values" },
+      ]);
+    }
+  }, [profile]);
 
   return (
     <>
