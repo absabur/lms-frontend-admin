@@ -86,16 +86,6 @@ const LoginPage = () => {
               >
                 {isSubmitting ? "Loading..." : "Login"}
               </button>
-
-              <p className="mt-4 text-center text-sm">
-                Don't have an account?{" "}
-                <Link
-                  href="/auth/signup"
-                  className="text-indigo-600 hover:text-indigo-800"
-                >
-                  Sign Up
-                </Link>
-              </p>
             </Form>
           )}
         </Formik>

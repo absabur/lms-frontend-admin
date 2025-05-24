@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getBorrowBooks,
+  gettingRequestCancel,
   requestApprove,
   returnApprove,
 } from "@/store/Action.js";
@@ -31,6 +32,7 @@ const Page = () => {
         payload: { message: "Select book number", status: "warn", path: "" },
       });
     dispatch(requestApprove(id, selectedNumber, "teacher"));
+    setActiveFilter("all");
   };
 
   const teacherBorrow = useSelector((state) => state.teacherBorrow);
@@ -190,6 +192,15 @@ const Page = () => {
                     >
                       Approve
                     </button>
+                    <button
+                      onClick={() => {
+                        dispatch(gettingRequestCancel(item._id, "teacher"));
+                        setActiveFilter("all");
+                      }}
+                      className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition-all duration-300"
+                    >
+                      Reject
+                    </button>
                   </div>
                 )}
 
@@ -221,7 +232,9 @@ const Page = () => {
           <ReactPaginate
             breakLabel="..."
             nextLabel="Next →"
-            onPageChange={({ selected }) => setFilters({...filters, page: selected + 1})}
+            onPageChange={({ selected }) =>
+              setFilters({ ...filters, page: selected + 1 })
+            }
             pageRangeDisplayed={2}
             marginPagesDisplayed={1}
             pageCount={Math.ceil(teacherBorrow.total / filters.limit)}

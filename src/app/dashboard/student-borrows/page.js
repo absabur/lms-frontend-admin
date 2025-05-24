@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getBorrowBooks,
+  gettingRequestCancel,
   requestApprove,
   returnApprove,
 } from "@/store/Action.js";
@@ -31,6 +32,7 @@ const Page = () => {
         payload: { message: "Select book number", status: "warn", path: "" },
       });
     dispatch(requestApprove(id, selectedNumber, "student"));
+    setActiveFilter("all");
   };
 
   const studentBorrow = useSelector((state) => state.studentBorrow);
@@ -166,9 +168,11 @@ const Page = () => {
                       Shift: {item.studentId?.shift}
                     </p>
                     <p className="text-xs text-gray-400">
-                      {
-                        item.studentId?.boardRoll ? <span>Board Roll: {item.studentId?.boardRoll}</span> : <span>Board Roll: {item.studentId?.boardRoll}</span>
-                      }
+                      {item.studentId?.boardRoll ? (
+                        <span>Board Roll: {item.studentId?.boardRoll}</span>
+                      ) : (
+                        <span>Board Roll: {item.studentId?.boardRoll}</span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -195,6 +199,15 @@ const Page = () => {
                       className="px-4 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition-all duration-300"
                     >
                       Approve
+                    </button>
+                    <button
+                      onClick={() => {
+                        dispatch(gettingRequestCancel(item._id, "student"));
+                        setActiveFilter("all");
+                      }}
+                      className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition-all duration-300"
+                    >
+                      Reject
                     </button>
                   </div>
                 )}

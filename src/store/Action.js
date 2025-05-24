@@ -74,7 +74,7 @@ export const logout = () => async (dispatch) => {
       dispatch(authenticated());
       dispatch({
         type: MESSAGE,
-        paylaod: {
+        payload: {
           message: "Logout Success",
           status: "success",
           path: "/auth/login",
@@ -105,7 +105,6 @@ export const login = (email, password) => async (dispatch) => {
     );
 
     const data = await response.json();
-    console.log(data);
 
     if (data.success) {
       dispatch({
@@ -1051,6 +1050,15 @@ export const requestApprove = (id, bookNumber, role) => async (dispatch) => {
         },
       });
       dispatch(getBorrowBooks({}, role));
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Somthing Wrong",
+          status: "error",
+          path: "",
+        },
+      });
     }
   } catch (error) {
     console.error("Failed to fetch book by slug:", error);
@@ -1084,6 +1092,62 @@ export const returnApprove = (id, role) => async (dispatch) => {
         },
       });
       dispatch(getBorrowBooks({}, role));
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Somthing Wrong",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch book by slug:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const gettingRequestCancel = (id, role) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    let backend_path;
+    if (role == "teacher") {
+      backend_path = `/api/take-book/teacher/book-take-request-cancel-by-admin/${id}`;
+    } else {
+      backend_path = `/api/take-book/student/book-take-request-cancel-by-admin/${id}`;
+    }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${backend_path}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Getting Request Cancelled",
+          status: "success",
+          path: "",
+        },
+      });
+      dispatch(getBorrowBooks({}, role));
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Something Wrong",
+          status: "error",
+          path: "",
+        },
+      });
     }
   } catch (error) {
     console.error("Failed to fetch book by slug:", error);
