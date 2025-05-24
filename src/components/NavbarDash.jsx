@@ -7,18 +7,18 @@ import { useSelector } from "react-redux";
 export default function NavbarDash() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const profile = useSelector((state) => state.profile);
-  const loaded = useSelector((state) => state.loaded);
+  const auth_loaded = useSelector((state) => state.auth_loaded);
   const router = useRouter();
 
   useEffect(() => {
-    if (loaded) {
+    if (auth_loaded) {
       setTimeout(() => {
         if (!isAuthenticated) {
           router.push("/auth/login", { scroll: false });
         }
       }, 1000);
     }
-  }, [loaded]);
+  }, [auth_loaded]);
 
   return (
     <nav className="bg-blue-500 text-white flex justify-around items-center flex-wrap gap-[20px] p-2">

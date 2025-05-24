@@ -14,6 +14,8 @@ import {
   GET_ADMINS,
   GET_SINGLE_ADMIN,
   MESSAGE,
+  TEACHER_BORROW_BOOKS,
+  STUDENT_BORROW_BOOKS,
 } from "./Constant";
 
 export const authenticated = () => async (dispatch) => {
@@ -52,6 +54,9 @@ export const authenticated = () => async (dispatch) => {
   } finally {
     dispatch({
       type: LOADING_END,
+    });
+    dispatch({
+      type: "Auth_Loaded",
     });
   }
 };
@@ -100,6 +105,7 @@ export const login = (email, password) => async (dispatch) => {
     );
 
     const data = await response.json();
+    console.log(data);
 
     if (data.success) {
       dispatch({
@@ -221,7 +227,6 @@ export const register = (data) => async (dispatch) => {
         },
       });
     }
-    MESSAGE;
   } catch (error) {
     dispatch({
       type: MESSAGE,
@@ -535,7 +540,7 @@ export const getBookBySlug = (slug) => async (dispatch) => {
     if (result.success) {
       dispatch({
         type: GET_SINGLE_BOOK, // Make sure this action type is defined in your reducers
-        payload: result.data[0], // or result.data based on your API response shape
+        payload: { ...result.data[0], available: result.available }, // or result.data based on your API response shape
       });
     }
   } catch (error) {
@@ -966,5 +971,123 @@ export const getProfile = () => async (dispatch) => {
     }
   } catch (error) {
     console.error("Failed to fetch admin by ID:", error);
+  }
+};
+
+export const getBorrowBooks =
+  (filters = {}, role) =>
+  async (dispatch) => {
+    dispatch({ type: LOADING_START });
+
+    try {
+      // Convert filters object to query string
+      const params = new URLSearchParams();
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+          params.append(key, value);
+        }
+      });
+
+      // You can set page/limit dynamically if needed
+      params.set("page", filters.page || 1);
+      params.set("limit", filters.limit || 10);
+
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/take-book/${role}/get-borrow-lists-admin?${params.toString()}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        if (role == "teacher") {
+          dispatch({
+            type: TEACHER_BORROW_BOOKS,
+            payload: result,
+          });
+        }
+        if (role == "student") {
+          dispatch({
+            type: STUDENT_BORROW_BOOKS,
+            payload: result,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    } finally {
+      dispatch({ type: LOADING_END });
+    }
+  };
+
+export const requestApprove = (id, bookNumber, role) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    let backend_path = `/api/take-book/${role}/book-take-request-approve/${id}/${bookNumber}`;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${backend_path}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Getting Request Approved",
+          status: "success",
+          path: "",
+        },
+      });
+      dispatch(getBorrowBooks({}, role));
+    }
+  } catch (error) {
+    console.error("Failed to fetch book by slug:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const returnApprove = (id, role) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    let backend_path = `/api/take-book/${role}/book-return-request-approve/${id}`;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${backend_path}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Getting Request Approved",
+          status: "success",
+          path: "",
+        },
+      });
+      dispatch(getBorrowBooks({}, role));
+    }
+  } catch (error) {
+    console.error("Failed to fetch book by slug:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
   }
 };

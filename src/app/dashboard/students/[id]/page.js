@@ -15,6 +15,7 @@ const StudentCard = () => {
       dispatch(getStudentById(id));
     }
   }, [id]);
+  
   return (
     <div className="w-full max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-6 space-y-4">
       {/* Top Section */}
@@ -66,7 +67,7 @@ const StudentCard = () => {
         <p>Updated By: {student?.updatedBy || "N/A"}</p>
       </div>
       <div className="flex gap-3">
-        {student?.name && student?.isBan ? (
+        {student?._id && student?.isBan ? (
           <button
             onClick={() => {
               fetch(
@@ -103,7 +104,7 @@ const StudentCard = () => {
             Ban
           </button>
         )}
-        {student?.name && !student?.isApproved && (
+        {student?._id && !student?.isApproved && (
           <button
             onClick={() => {
               fetch(

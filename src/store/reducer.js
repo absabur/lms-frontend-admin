@@ -16,10 +16,13 @@ import {
   GET_SINGLE_ADMIN,
   MESSAGE,
   CLEAR_PATH,
+  TEACHER_BORROW_BOOKS,
+  STUDENT_BORROW_BOOKS,
 } from "./Constant";
 
 const initialState = {
   isAuthenticated: false,
+  auth_loaded: false,
   profile: {},
   isLoading: false,
   loaded: false,
@@ -36,6 +39,8 @@ const initialState = {
   studentDetails: {},
   admins: [],
   adminDetails: {},
+  teacherBorrow: {},
+  studentBorrow: {},
 };
 
 export const reducer = (state = initialState, action) => {
@@ -44,6 +49,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: action.payload,
+      };
+    case "Auth_Loaded":
+      return {
+        ...state,
+        auth_loaded: true,
       };
     case "GET_PROFILE":
       return {
@@ -141,6 +151,16 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         adminDetails: action.payload,
+      };
+    case TEACHER_BORROW_BOOKS:
+      return {
+        ...state,
+        teacherBorrow: action.payload,
+      };
+    case STUDENT_BORROW_BOOKS:
+      return {
+        ...state,
+        studentBorrow: action.payload,
       };
     default:
       return state;

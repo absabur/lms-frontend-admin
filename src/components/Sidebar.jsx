@@ -16,7 +16,8 @@ export default function Sidebar() {
     if (profile && profile.isSuperAdmin) {
       setLinks([
         { href: "/dashboard", label: "Dashboard" },
-        { href: "/dashboard/borrow", label: "Lended Books" },
+        { href: "/dashboard/teacher-borrows", label: "Teacher Borrows" },
+        { href: "/dashboard/student-borrows", label: "Student Borrows" },
         { href: "/dashboard/books", label: "Manage Books" },
         { href: "/dashboard/teachers", label: "Teachers" },
         { href: "/dashboard/students", label: "Students" },
@@ -26,7 +27,8 @@ export default function Sidebar() {
     } else {
       setLinks([
         { href: "/dashboard", label: "Dashboard" },
-        { href: "/dashboard/borrow", label: "Lended Books" },
+        { href: "/dashboard/teacher-borrows", label: "Teacher Borrows" },
+        { href: "/dashboard/student-borrows", label: "Student Borrows" },
         { href: "/dashboard/books", label: "Manage Books" },
         { href: "/dashboard/teachers", label: "Teachers" },
         { href: "/dashboard/students", label: "Students" },
