@@ -374,14 +374,50 @@ const UpdateBookPage = () => {
         </div>
         {formik.values.images && formik.values.images.length > 0 ? (
           <div className="col-span-full mb-4 flex flex-wrap gap-4">
-            {[...formik.values.images].map((file, index) => (
-              <img
-                key={`${file.name}-${file.size}-${index}`} // better unique key
-                src={URL.createObjectURL(file)}
-                alt={`Preview ${index + 1}`}
-                className="w-24 h-24 object-cover rounded-md border border-gray-300"
-                onLoad={(e) => URL.revokeObjectURL(e.target.src)} // free memory after load
-              />
+            {formik.values.images.map((file, index) => (
+              <div
+                key={`${file.name}-${file.size}-${index}`}
+                className="relative"
+              >
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={`Preview ${index + 1}`}
+                  className="w-24 h-24 object-cover rounded-md border border-gray-300"
+                  onLoad={(e) => URL.revokeObjectURL(e.target.src)}
+                />
+                <div className="flex justify-between mt-1">
+                  <button
+                    type="button"
+                    disabled={index === 0}
+                    onClick={() => {
+                      const newImages = [...formik.values.images];
+                      [newImages[index - 1], newImages[index]] = [
+                        newImages[index],
+                        newImages[index - 1],
+                      ];
+                      formik.setFieldValue("images", newImages);
+                    }}
+                    className="text-sm px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    disabled={index === formik.values.images.length - 1}
+                    onClick={() => {
+                      const newImages = [...formik.values.images];
+                      [newImages[index], newImages[index + 1]] = [
+                        newImages[index + 1],
+                        newImages[index],
+                      ];
+                      formik.setFieldValue("images", newImages);
+                    }}
+                    className="text-sm px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         ) : (
@@ -407,7 +443,10 @@ const UpdateBookPage = () => {
             accept="image/*"
             multiple
             onChange={(event) =>
-              formik.setFieldValue("images", event.currentTarget.files)
+              formik.setFieldValue(
+                "images",
+                Array.from(event.currentTarget.files)
+              )
             }
             className="border border-gray-300 rounded-md p-3"
           />

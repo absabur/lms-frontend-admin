@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookBySlug } from "@/store/Action";
 import Link from "next/link";
+import BookModal from "@/components/BookModal";
 
 const BookDetails = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const book = useSelector((state) => state.singleBook);
+  const [modal, setModal] = useState(false);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = book?.images || [];
@@ -50,7 +52,16 @@ const BookDetails = () => {
               Edit Book
             </Link>
           </div>
+          <h2 className="mb-6">
+            <button
+              onClick={() => setModal(true)}
+              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
+            >
+              Read This Book
+            </button>
+          </h2>
 
+          <BookModal images={book.images} isOpen={modal} setIsOpen={setModal} />
           {/* Description */}
           <div>
             <h2 className="text-lg font-semibold text-gray-700 mb-1">

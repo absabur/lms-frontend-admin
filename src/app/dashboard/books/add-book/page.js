@@ -60,7 +60,6 @@ const page = () => {
     },
   });
 
-
   return (
     <div className="flex justify-center items-center bg-gray-50 px-4 py-6">
       <form
@@ -351,6 +350,56 @@ const page = () => {
             />
           </div>
 
+          {formik.values.images && formik.values.images.length > 0 ? (
+            <div className="col-span-full mb-4 flex flex-wrap gap-4">
+              {[...formik.values.images].map((file, index) => (
+                <div
+                  key={`${file.name}-${file.size}-${index}`}
+                  className="relative"
+                >
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`Preview ${index + 1}`}
+                    className="w-24 h-24 object-cover rounded-md border border-gray-300"
+                    onLoad={(e) => URL.revokeObjectURL(e.target.src)}
+                  />
+                  <div className="flex justify-between mt-1">
+                    <button
+                      type="button"
+                      disabled={index === 0}
+                      onClick={() => {
+                        const imagesArray = Array.from(formik.values.images);
+                        [imagesArray[index - 1], imagesArray[index]] = [
+                          imagesArray[index],
+                          imagesArray[index - 1],
+                        ];
+                        formik.setFieldValue("images", imagesArray);
+                      }}
+                      className="text-sm px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
+                    >
+                      ←
+                    </button>
+                    <button
+                      type="button"
+                      disabled={index === formik.values.images.length - 1}
+                      onClick={() => {
+                        const imagesArray = Array.from(formik.values.images);
+                        [imagesArray[index], imagesArray[index + 1]] = [
+                          imagesArray[index + 1],
+                          imagesArray[index],
+                        ];
+                        formik.setFieldValue("images", imagesArray);
+                      }}
+                      className="text-sm px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
           {/* Image Upload */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
@@ -360,12 +409,12 @@ const page = () => {
               type="file"
               name="images"
               accept="image/*"
-              onChange={(event) =>
-                formik.setFieldValue("images", event.target.files)
-              }
-              className="border border-gray-300 p-3 rounded-md"
               multiple
               required
+              onChange={(event) =>
+                formik.setFieldValue("images", Array.from(event.target.files))
+              }
+              className="border border-gray-300 p-3 rounded-md"
             />
             {formik.touched.images && formik.errors.images && (
               <div className="text-red-500 text-sm">{formik.errors.images}</div>
