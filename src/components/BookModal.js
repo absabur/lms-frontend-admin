@@ -5,7 +5,7 @@ export default function BookModal({ images, isOpen, setIsOpen }) {
 
   return (
     <div
-      className="fixed top-0 left-0 inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      className="fixed top-[-25px] left-0 inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
       onClick={() => setIsOpen(false)} // Close modal on overlay click
     >
       <div
@@ -34,10 +34,6 @@ export default function BookModal({ images, isOpen, setIsOpen }) {
                   src={file.url}
                   alt={`Page ${index + 1}`}
                   className="w-full rounded-md shadow-md"
-                  onLoad={(e) => {
-                    if (typeof file !== "string")
-                      URL.revokeObjectURL(e.target.src);
-                  }}
                 />
               );
             })
