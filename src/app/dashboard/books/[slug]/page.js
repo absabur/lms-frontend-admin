@@ -104,7 +104,7 @@ const BookDetails = () => {
         </div>
 
         {/* Right: Book Image */}
-        <div className="flex justify-center items-start">
+        <div className="flex justify-center items-center flex-col gap-3">
           {book.images?.[0]?.url ? (
             <div className="relative w-full max-w-md mx-auto aspect-[3/5]">
               <img
@@ -132,6 +132,22 @@ const BookDetails = () => {
           ) : (
             <div className="w-full max-w-md h-64 bg-gray-100 flex items-center justify-center rounded-xl text-gray-400">
               No Image Available
+            </div>
+          )}
+          {images.length > 1 && (
+            <div className="flex gap-2 flex-wrap justify-center">
+              {images.map((img, i) => (
+                <img
+                  key={i}
+                  src={img.url}
+                  className={`w-16 h-16 object-cover rounded border ${
+                    i === currentIndex
+                      ? "border-blue-500"
+                      : "border-transparent"
+                  } cursor-pointer`}
+                  onClick={() => setCurrentIndex(i)}
+                />
+              ))}
             </div>
           )}
         </div>
