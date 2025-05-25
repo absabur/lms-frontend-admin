@@ -41,6 +41,7 @@ const initialState = {
   adminDetails: {},
   teacherBorrow: {},
   studentBorrow: {},
+  dashboard: {}
 };
 
 export const reducer = (state = initialState, action) => {
@@ -93,6 +94,11 @@ export const reducer = (state = initialState, action) => {
         registerSuccess: false,
       };
 
+    case "DASHBOARD_DATA":
+      return {
+        ...state,
+        dashboard: action.payload
+      };
     case SIGNUP_SUCCESS:
       return {
         ...state,
