@@ -6,22 +6,19 @@ import { MESSAGE } from "@/store/Constant";
 
 export default function RootLayout({ children }) {
   const profile = useSelector((state) => state.profile);
+  const auth_loaded = useSelector((state) => state.auth_loaded);
   const loaded = useSelector((state) => state.loaded);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (loaded) {
-      setTimeout(() => {
-        if (profile._id && !profile.isSuperAdmin) {
-          dispatch({
-            type: MESSAGE,
-            payload: {
-              message: "You don't have access for this page",
-              status: "error",
-              path: "/dashboard",
-            },
-          });
-        }
-      }, 1000);
+    if (profile._id && !profile.isSuperAdmin && auth_loaded && loaded) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "",
+          status: "",
+          path: "/dashboard",
+        },
+      });
     }
   }, [loaded, profile]);
 

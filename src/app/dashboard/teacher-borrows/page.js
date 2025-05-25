@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  directReturn,
   getBorrowBooks,
   gettingRequestCancel,
   requestApprove,
@@ -90,6 +91,12 @@ const Page = () => {
             {btn.label}
           </button>
         ))}
+        <Link
+          href={`/dashboard/teacher-borrows/direct-assign`}
+          className="px-4 py-2 rounded ml-auto bg-yellow-300 hover:bg-yellow-500 border text-sm font-medium transition-all duration-300"
+        >
+          Direct Assign A Book
+        </Link>
       </div>
 
       {teacherBorrow?.bookTeachers?.length > 0 ? (
@@ -101,39 +108,42 @@ const Page = () => {
             >
               <div className="p-4 flex flex-col gap-4">
                 {/* Top: Book Image */}
-                <div className="w-full aspect-[3/2] bg-gray-100 rounded-lg overflow-hidden">
-                  {item.book?.images?.[0]?.url ? (
-                    <img
-                      src={item.book.images[0].url}
-                      alt={item.book.bookName}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 italic">
-                      No Book Image
-                    </div>
-                  )}
-                </div>
+                <div className="flex flex-row gap-4 p-4 border rounded-lg shadow-sm bg-white">
+                  {/* Book Image */}
+                  <div className="w-40 aspect-[3/2] bg-gray-100 rounded-lg overflow-hidden">
+                    {item.book?.images?.[0]?.url ? (
+                      <img
+                        src={item.book.images[0].url}
+                        alt={item.book.bookName || "Book Image"}
+                        className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 italic text-sm">
+                        No Book Image
+                      </div>
+                    )}
+                  </div>
 
-                {/* Book Info */}
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-800">
-                    <Link
-                      target="_blank"
-                      href={`/dashboard/books/${item.book?.slug}`}
-                    >
-                      {item.book?.bookName}
-                    </Link>
-                  </h2>
-                  <p className="text-sm text-gray-600">
-                    Author: {item.book?.bookAuthor}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Department: {item.book?.department}
-                  </p>
-                  <p className="text-green-600 font-bold text-right mt-2">
-                    ৳{item.book?.mrp}
-                  </p>
+                  {/* Book Info */}
+                  <div className="flex flex-col justify-between flex-1">
+                    <h2 className="text-lg font-semibold text-gray-800">
+                      <Link
+                        target="_blank"
+                        href={`/dashboard/books/${item.book?.slug || "#"}`}
+                      >
+                        {item.book?.bookName || "Unknown Book"}
+                      </Link>
+                    </h2>
+                    <p className="text-sm text-gray-600">
+                      Author: {item.book?.bookAuthor || "N/A"}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Department: {item.book?.department || "N/A"}
+                    </p>
+                    <p className="text-green-600 font-bold text-right mt-2">
+                      ৳{item.book?.mrp ?? "N/A"}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Divider */}
@@ -203,15 +213,31 @@ const Page = () => {
                     </button>
                   </div>
                 )}
+                {item.takingApproveBy &&
+                  item.returnApproveBy == null &&
+                  item.returnRequestDate == null && (
+                    <div className="flex gap-3 mt-4">
+                      <button
+                        onClick={() => {
+                          dispatch(directReturn(item._id, "teacher"));
+                          setActiveFilter("all");
+                        }}
+                        className="px-4 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition-all duration-300"
+                      >
+                        Direct Return
+                      </button>
+                    </div>
+                  )}
 
                 {item.takingApproveBy &&
                   item.returnApproveBy == null &&
                   item.returnRequestDate && (
                     <div className="flex gap-3 mt-4">
                       <button
-                        onClick={() =>
-                          dispatch(returnApprove(item._id, "teacher"))
-                        }
+                        onClick={() => {
+                          dispatch(returnApprove(item._id, "teacher"));
+                          setActiveFilter("all");
+                        }}
                         className="px-4 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition-all duration-300"
                       >
                         Retrun Approve

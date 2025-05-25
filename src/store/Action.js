@@ -1109,6 +1109,48 @@ export const returnApprove = (id, role) => async (dispatch) => {
   }
 };
 
+export const directReturn = (id, role) => async (dispatch) => {
+  dispatch({ type: LOADING_START });
+
+  try {
+    let backend_path = `/api/take-book/${role}/return-book-directly/${id}`;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${backend_path}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Book Returnd",
+          status: "success",
+          path: "",
+        },
+      });
+      dispatch(getBorrowBooks({}, role));
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error || "Somthing Wrong",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch book by slug:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
 export const gettingRequestCancel = (id, role) => async (dispatch) => {
   dispatch({ type: LOADING_START });
 
@@ -1153,5 +1195,110 @@ export const gettingRequestCancel = (id, role) => async (dispatch) => {
     console.error("Failed to fetch book by slug:", error);
   } finally {
     dispatch({ type: LOADING_END });
+  }
+};
+
+
+
+export const assignBook = (student, book, bookNumber) => async (dispatch) => {
+  dispatch({
+    type: LOADING_START,
+  });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/take-book/student/assign-book-directly/${student}/${book}/${bookNumber}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Book Assign Successfull",
+          status: "success",
+          path: "/dashboard/student-borrows",
+        },
+      });
+      dispatch(authenticated()); // This is fine.
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: data.error || "Login failed!",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({
+      type: LOADING_END,
+    });
+  }
+};
+export const assignBookTeacher = (teacher, book, bookNumber) => async (dispatch) => {
+  dispatch({
+    type: LOADING_START,
+  });
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/take-book/teacher/assign-book-directly/${teacher}/${book}/${bookNumber}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Book Assign Successfull",
+          status: "success",
+          path: "/dashboard/teacher-borrows",
+        },
+      });
+      dispatch(authenticated()); // This is fine.
+    } else {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: data.error || "Login failed!",
+          status: "error",
+          path: "",
+        },
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE,
+      payload: {
+        message: error.message || "Something went wrong",
+        status: "error",
+        path: "",
+      },
+    });
+  } finally {
+    dispatch({
+      type: LOADING_END,
+    });
   }
 };
