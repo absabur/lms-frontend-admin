@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookBySlug } from "@/store/Action";
 import Link from "next/link";
@@ -10,6 +10,17 @@ const BookDetails = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const book = useSelector((state) => state.singleBook);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const images = book?.images || [];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
   useEffect(() => {
     if (slug) {
@@ -95,11 +106,29 @@ const BookDetails = () => {
         {/* Right: Book Image */}
         <div className="flex justify-center items-start">
           {book.images?.[0]?.url ? (
-            <img
-              src={book.images[0].url}
-              alt="Book Cover"
-              className="w-full h-auto max-w-md rounded-xl shadow"
-            />
+            <div className="relative w-full max-w-md mx-auto aspect-[3/5]">
+              <img
+                src={images[currentIndex]?.url}
+                alt={`Book image ${currentIndex + 1}`}
+                className="absolute top-0 left-0 w-full h-full object-contain rounded-xl shadow-xl"
+              />
+
+              {/* Prev Button */}
+              <button
+                onClick={handlePrev}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-60"
+              >
+                ‹
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-60"
+              >
+                ›
+              </button>
+            </div>
           ) : (
             <div className="w-full max-w-md h-64 bg-gray-100 flex items-center justify-center rounded-xl text-gray-400">
               No Image Available
