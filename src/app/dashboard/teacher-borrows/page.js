@@ -17,6 +17,14 @@ const Page = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedBookNumbers, setSelectedBookNumbers] = useState({});
   const dispatch = useDispatch();
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleWithDelay = (callback) => {
+    if (isDisabled) return;
+    setIsDisabled(true);
+    callback(); // call your logic immediately
+    setTimeout(() => setIsDisabled(false), 5000); // re-enable after 5s
+  };
 
   const handleSelectChange = (id, value) => {
     setSelectedBookNumbers((prev) => ({
@@ -182,6 +190,7 @@ const Page = () => {
                 {item.takingApproveBy == null && (
                   <div className="flex gap-3 mt-4">
                     <select
+                      disabled={isDisabled}
                       className="mt-2 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                       value={selectedBookNumbers[item._id] || ""}
                       onChange={(e) =>
@@ -197,32 +206,55 @@ const Page = () => {
                     </select>
 
                     <button
-                      onClick={() => handleApprove(item._id)}
-                      className="px-4 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition-all duration-300"
+                      disabled={isDisabled}
+                      onClick={() =>
+                        handleWithDelay(() => handleApprove(item._id))
+                      }
+                      className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
+                        isDisabled
+                          ? "bg-gray-400"
+                          : "bg-green-600 hover:bg-green-700"
+                      }`}
                     >
                       Approve
                     </button>
+
                     <button
-                      onClick={() => {
-                        dispatch(gettingRequestCancel(item._id, "teacher"));
-                        setActiveFilter("all");
-                      }}
-                      className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition-all duration-300"
+                      disabled={isDisabled}
+                      onClick={() =>
+                        handleWithDelay(() => {
+                          dispatch(gettingRequestCancel(item._id, "teacher"));
+                          setActiveFilter("all");
+                        })
+                      }
+                      className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
+                        isDisabled
+                          ? "bg-gray-400"
+                          : "bg-red-600 hover:bg-red-700"
+                      }`}
                     >
                       Reject
                     </button>
                   </div>
                 )}
+
                 {item.takingApproveBy &&
                   item.returnApproveBy == null &&
                   item.returnRequestDate == null && (
                     <div className="flex gap-3 mt-4">
                       <button
-                        onClick={() => {
-                          dispatch(directReturn(item._id, "teacher"));
-                          setActiveFilter("all");
-                        }}
-                        className="px-4 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition-all duration-300"
+                        disabled={isDisabled}
+                        onClick={() =>
+                          handleWithDelay(() => {
+                            dispatch(directReturn(item._id, "teacher"));
+                            setActiveFilter("all");
+                          })
+                        }
+                        className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
+                          isDisabled
+                            ? "bg-gray-400"
+                            : "bg-green-600 hover:bg-green-700"
+                        }`}
                       >
                         Direct Return
                       </button>
@@ -234,13 +266,20 @@ const Page = () => {
                   item.returnRequestDate && (
                     <div className="flex gap-3 mt-4">
                       <button
-                        onClick={() => {
-                          dispatch(returnApprove(item._id, "teacher"));
-                          setActiveFilter("all");
-                        }}
-                        className="px-4 py-2 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition-all duration-300"
+                        disabled={isDisabled}
+                        onClick={() =>
+                          handleWithDelay(() => {
+                            dispatch(returnApprove(item._id, "teacher"));
+                            setActiveFilter("all");
+                          })
+                        }
+                        className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
+                          isDisabled
+                            ? "bg-gray-400"
+                            : "bg-green-600 hover:bg-green-700"
+                        }`}
                       >
-                        Retrun Approve
+                        Return Approve
                       </button>
                     </div>
                   )}

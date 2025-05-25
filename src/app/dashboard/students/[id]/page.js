@@ -2,20 +2,28 @@
 import { getStudentById } from "@/store/Action";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const StudentCard = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const student = useSelector((state) => state.studentDetails);
-  
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleWithDelay = (callback) => {
+    if (isDisabled) return;
+    setIsDisabled(true);
+    callback(); // execute your logic
+    setTimeout(() => setIsDisabled(false), 5000); // re-enable after 5 seconds
+  };
+
   useEffect(() => {
     if (id) {
       dispatch(getStudentById(id));
     }
   }, [id]);
-  
+
   return (
     <div className="w-full max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-6 space-y-4">
       {/* Top Section */}
@@ -69,58 +77,80 @@ const StudentCard = () => {
       <div className="flex gap-3">
         {student?._id && student?.isBan ? (
           <button
-            onClick={() => {
-              fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/unban-student/${student._id}`,
-                {
-                  method: "GET", // or "PUT"/"POST" depending on your API
-                  credentials: "include",
-                }
-              )
-                .then((res) => res.json())
-                .then((data) => dispatch(getStudentById(id)))
-                .catch((err) => console.error("API error:", err));
-            }}
-            className="cursor-pointer bg-green-400 hover:bg-green-500 hover:shadow-xl text-black px-3 py-1 rounded text-xs border-none"
+            disabled={isDisabled}
+            onClick={() =>
+              handleWithDelay(() => {
+                fetch(
+                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/unban-student/${student._id}`,
+                  {
+                    method: "GET",
+                    credentials: "include",
+                  }
+                )
+                  .then((res) => res.json())
+                  .then(() => dispatch(getStudentById(id)))
+                  .catch((err) => console.error("API error:", err));
+              })
+            }
+            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-black transition-all ${
+              isDisabled
+                ? "bg-gray-300"
+                : "bg-green-400 hover:bg-green-500 hover:shadow-xl"
+            }`}
           >
             Unban
           </button>
         ) : (
           <button
-            onClick={() => {
-              fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/ban-student/${student._id}`,
-                {
-                  method: "GET", // or "PUT"/"POST" depending on your API
-                  credentials: "include",
-                }
-              )
-                .then((res) => res.json())
-                .then((data) => dispatch(getStudentById(id)))
-                .catch((err) => console.error("API error:", err));
-            }}
-            className="cursor-pointer bg-red-400 hover:bg-red-500 hover:shadow-xl text-black px-3 py-1 rounded text-xs border-none"
+            disabled={isDisabled}
+            onClick={() =>
+              handleWithDelay(() => {
+                fetch(
+                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/ban-student/${student._id}`,
+                  {
+                    method: "GET",
+                    credentials: "include",
+                  }
+                )
+                  .then((res) => res.json())
+                  .then(() => dispatch(getStudentById(id)))
+                  .catch((err) => console.error("API error:", err));
+              })
+            }
+            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-black transition-all ${
+              isDisabled
+                ? "bg-gray-300"
+                : "bg-red-400 hover:bg-red-500 hover:shadow-xl"
+            }`}
           >
             Ban
           </button>
         )}
+
         {student?._id && !student?.isApproved && (
           <button
-            onClick={() => {
-              fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/approve-student/${student._id}`,
-                {
-                  method: "GET", // or "PUT"/"POST" depending on your API
-                  credentials: "include",
-                }
-              )
-                .then((res) => res.json())
-                .then((data) => dispatch(getStudentById(id)))
-                .catch((err) => console.error("API error:", err));
-            }}
-            className="cursor-pointer bg-green-400 hover:bg-green-500 hover:shadow-xl text-black px-3 py-1 rounded text-xs border-none"
+            disabled={isDisabled}
+            onClick={() =>
+              handleWithDelay(() => {
+                fetch(
+                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/approve-student/${student._id}`,
+                  {
+                    method: "GET",
+                    credentials: "include",
+                  }
+                )
+                  .then((res) => res.json())
+                  .then(() => dispatch(getStudentById(id)))
+                  .catch((err) => console.error("API error:", err));
+              })
+            }
+            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-black transition-all ${
+              isDisabled
+                ? "bg-gray-300"
+                : "bg-green-400 hover:bg-green-500 hover:shadow-xl"
+            }`}
           >
-            Approved
+            Approve
           </button>
         )}
 
