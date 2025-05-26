@@ -28,6 +28,7 @@ const Page = () => {
     if (isDisabled) return;
     setIsDisabled(true);
     callback(); // call your logic immediately
+    setActiveFilter("all");
     setTimeout(() => setIsDisabled(false), 5000); // re-enable after 5s
   };
 
@@ -46,7 +47,6 @@ const Page = () => {
         payload: { message: "Select book number", status: "warn", path: "" },
       });
     dispatch(requestApprove(id, selectedNumber, "teacher"));
-    setActiveFilter("inCollection");
   };
 
   const teacherBorrow = useSelector((state) => state.teacherBorrow);
@@ -56,6 +56,7 @@ const Page = () => {
   }, [filters]);
 
   const filterButtons = [
+    { label: "All", value: "all", filters: { page: 1, limit: 10 } },
     {
       label: "Get Requests",
       value: "gettingRequested",
@@ -248,7 +249,6 @@ const Page = () => {
                                 dispatch(
                                   gettingRequestCancel(item._id, "teacher")
                                 );
-                                setActiveFilter("inCollection");
                               })
                             }
                             className={`w-1/2 px-2 py-1 text-white text-xs rounded ${
@@ -271,7 +271,6 @@ const Page = () => {
                           onClick={() =>
                             handleWithDelay(() => {
                               dispatch(directReturn(item._id, "teacher"));
-                              setActiveFilter("inCollection");
                             })
                           }
                           className={`w-full px-2 py-1 text-xs text-white rounded ${
@@ -292,7 +291,6 @@ const Page = () => {
                           onClick={() =>
                             handleWithDelay(() => {
                               dispatch(returnApprove(item._id, "teacher"));
-                              setActiveFilter("inCollection");
                             })
                           }
                           className={`w-full px-2 py-1 text-xs text-white rounded ${
@@ -304,6 +302,11 @@ const Page = () => {
                           Return Approve
                         </button>
                       )}
+                    {item.takingApproveBy && item.returnApproveBy && (
+                      <span className="text-green-600 font-semibold text-sm">
+                        Returned
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}

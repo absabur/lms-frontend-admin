@@ -29,6 +29,7 @@ const Page = () => {
     setIsButtonDisabled(true);
     setTimeout(() => setIsButtonDisabled(false), 5000);
     callback();
+    setActiveFilter("all");
   };
 
   const handleSelectChange = (id, value) => {
@@ -46,7 +47,6 @@ const Page = () => {
         payload: { message: "Select book number", status: "warn", path: "" },
       });
     dispatch(requestApprove(id, selectedNumber, "student"));
-    setActiveFilter("inCollection");
   };
 
   const studentBorrow = useSelector((state) => state.studentBorrow);
@@ -182,7 +182,6 @@ const Page = () => {
                               dispatch(
                                 gettingRequestCancel(item._id, "student")
                               );
-                              setActiveFilter("inCollection");
                             })
                           }
                           className="w-full bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-xs"
@@ -197,7 +196,6 @@ const Page = () => {
                         onClick={() =>
                           handleAction(() => {
                             dispatch(directReturn(item._id, "student"));
-                            setActiveFilter("inCollection");
                           })
                         }
                         className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-xs"
@@ -211,7 +209,6 @@ const Page = () => {
                         onClick={() =>
                           handleAction(() => {
                             dispatch(returnApprove(item._id, "student"));
-                            setActiveFilter("inCollection");
                           })
                         }
                         className="w-full bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-xs"
@@ -265,7 +262,7 @@ const Page = () => {
 export default Page;
 
 const filterButtons = [
-  // { label: "All", value: "inCollection", filters: { page: 1, limit: 10 } },
+  { label: "All", value: "all", filters: { page: 1, limit: 10 } },
   {
     label: "Get Requests",
     value: "gettingRequested",
