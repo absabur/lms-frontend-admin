@@ -35,7 +35,7 @@ const AddCardOptions = () => {
             onClick={() => setModalType("book")}
             className="relative flex items-center gap-4 p-4 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition"
           >
-            {bookValues.slug && (singleBook.available <= 0) && (
+            {bookValues.slug && (singleBook.quantity <= 0) && (
               <div className="flex items-center justify-center absolute top-[0] left-[0] w-full h-full bg-gray-500 bg-opacity-70 z-[2]">
                 Book is out of stock
               </div>

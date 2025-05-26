@@ -539,7 +539,7 @@ export const getBookBySlug = (slug) => async (dispatch) => {
     if (result.success) {
       dispatch({
         type: GET_SINGLE_BOOK, // Make sure this action type is defined in your reducers
-        payload: { ...result.data[0], available: result.available }, // or result.data based on your API response shape
+        payload: { ...result.data[0] }, // or result.data based on your API response shape
       });
     }
   } catch (error) {
