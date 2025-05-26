@@ -13,8 +13,13 @@ import { MESSAGE } from "@/store/Constant";
 import ReactPaginate from "react-paginate";
 
 const Page = () => {
-  const [filters, setFilters] = useState({ page: 1, limit: 10 });
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [filters, setFilters] = useState({
+    takingApproveBy: true,
+    returnApproveBy: false,
+    page: 1,
+    limit: 10,
+  });
+  const [activeFilter, setActiveFilter] = useState("inCollection");
   const [selectedBookNumbers, setSelectedBookNumbers] = useState({});
   const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(false);
@@ -41,7 +46,7 @@ const Page = () => {
         payload: { message: "Select book number", status: "warn", path: "" },
       });
     dispatch(requestApprove(id, selectedNumber, "teacher"));
-    setActiveFilter("all");
+    setActiveFilter("inCollection");
   };
 
   const teacherBorrow = useSelector((state) => state.teacherBorrow);
@@ -51,7 +56,6 @@ const Page = () => {
   }, [filters]);
 
   const filterButtons = [
-    { label: "All", value: "all", filters: { page: 1, limit: 10 } },
     {
       label: "Get Requests",
       value: "gettingRequested",
@@ -78,10 +82,20 @@ const Page = () => {
         limit: 10,
       },
     },
+    {
+      label: "Returned",
+      value: "returned",
+      filters: {
+        takingApproveBy: true,
+        returnApproveBy: true,
+        page: 1,
+        limit: 10,
+      },
+    },
   ];
 
   return (
-    <div className="min-h-screen px-4 py-6 md:px-12 bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
         {filterButtons.map((btn) => (
           <button
@@ -108,184 +122,193 @@ const Page = () => {
       </div>
 
       {teacherBorrow?.bookTeachers?.length > 0 ? (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {teacherBorrow.bookTeachers.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 overflow-hidden"
-            >
-              <div className="p-4 flex flex-col gap-4">
-                {/* Top: Book Image */}
-                <div className="flex flex-row gap-4 p-4 border rounded-lg shadow-sm bg-white">
-                  {/* Book Image */}
-                  <div className="w-40 aspect-[3/2] bg-gray-100 rounded-lg overflow-hidden">
-                    {item.book?.images?.[0]?.url ? (
-                      <img
-                        src={item.book.images[0].url}
-                        alt={item.book.bookName || "Book Image"}
-                        className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400 italic text-sm">
-                        No Book Image
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Book Info */}
-                  <div className="flex flex-col justify-between flex-1">
-                    <h2 className="text-lg font-semibold text-gray-800">
+        <div className="w-full overflow-x-auto">
+          <table className="min-w-[1000px] w-full border-separate">
+            <thead>
+              <tr className="bg-gray-100 text-sm text-gray-600">
+                <th className="px-4 py-3 text-left rounded-l-lg">Book</th>
+                <th className="px-4 py-3 text-left rounded-l-lg">Number</th>
+                <th className="px-4 py-3 text-left">Author</th>
+                <th className="px-4 py-3 text-left">Department</th>
+                <th className="px-4 py-3 text-left">Shelf</th>
+                <th className="px-4 py-3 text-left">Price</th>
+                <th className="px-4 py-3 text-left">Teacher</th>
+                <th className="px-4 py-3 text-left">Id</th>
+                <th className="px-4 py-3 text-left">Department</th>
+                <th className="px-4 py-3 text-left">Post</th>
+                <th className="px-4 py-3 text-left rounded-r-lg">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {teacherBorrow.bookTeachers.map((item) => (
+                <tr key={item._id} className="bg-white shadow-md rounded-lg">
+                  {/* Book */}
+                  <td className="px-4 py-3 flex items-center gap-4 rounded-l-lg">
+                    <div className="w-14 h-14 flex items-center justify-center bg-gray-100 border rounded-md">
+                      {item.book?.images?.[0]?.url ? (
+                        <img
+                          src={item.book.images[0].url}
+                          alt={item.book.bookName}
+                          className="object-contain w-full h-full"
+                        />
+                      ) : (
+                        <span className="text-xs text-gray-400">No Image</span>
+                      )}
+                    </div>
+                    <div>
                       <Link
-                        target="_blank"
                         href={`/dashboard/books/${item.book?.slug || "#"}`}
+                        target="_blank"
+                        className="font-medium text-gray-800 hover:underline"
                       >
                         {item.book?.bookName || "Unknown Book"}
                       </Link>
-                    </h2>
-                    <p className="text-sm text-gray-600">
-                      Author: {item.book?.bookAuthor || "N/A"}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Department: {item.book?.department?.name || "N/A"}
-                    </p>
-                    <p className="text-green-600 font-bold text-right mt-2">
-                      ৳{item.book?.mrp ?? "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Divider */}
-                <hr className="my-2 border-gray-200" />
-
-                {/* Teacher Info */}
-                <div className="flex items-center gap-4">
-                  {item.teacherId?.avatar?.url ? (
-                    <img
-                      src={item.teacherId.avatar.url}
-                      alt={item.teacherId.name}
-                      className="w-14 h-14 rounded-full object-cover border border-gray-300"
-                    />
-                  ) : (
-                    <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-                      No Image
                     </div>
-                  )}
-                  <div>
+                  </td>
+
+                  {/* Author */}
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item?.bookNumber || "N/A"}
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.book?.bookAuthor || "N/A"}
+                  </td>
+
+                  {/* Department */}
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.book?.department?.name || "N/A"}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.book?.shelf?.name || "N/A"}
+                  </td>
+
+                  {/* Price */}
+                  <td className="px-4 py-3 font-semibold text-green-600">
+                    ৳{item.book?.mrp ?? "N/A"}
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     <Link
                       href={`/dashboard/teachers/${item.teacherId._id}`}
                       target="_blank"
-                      className="font-medium text-gray-800"
+                      className="font-medium text-gray-800 hover:underline"
                     >
                       {item.teacherId?.name}
                     </Link>
-                    <p className="text-xs text-gray-500">
-                      {item.teacherId?.department?.name} | {item.teacherId?.post?.name}
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      ID: {item.teacherId?.teacherId}
-                    </p>
-                  </div>
-                </div>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.teacherId?.teacherId}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.teacherId?.department?.name}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.teacherId?.post?.name}
+                  </td>
 
-                {item.takingApproveBy == null && (
-                  <div className="flex gap-3 mt-4">
-                    <select
-                      disabled={isDisabled}
-                      className="mt-2 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      value={selectedBookNumbers[item._id] || ""}
-                      onChange={(e) =>
-                        handleSelectChange(item._id, e.target.value)
-                      }
-                    >
-                      <option value="">Book Number</option>
-                      {item.book.bookNumbers?.map((num, index) => (
-                        <option key={index} value={num}>
-                          {num}
-                        </option>
-                      ))}
-                    </select>
+                  {/* Actions */}
+                  <td className="px-4 py-3 space-y-2 rounded-r-lg">
+                    {!item.takingApproveBy && (
+                      <>
+                        <select
+                          disabled={isDisabled}
+                          className="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          value={selectedBookNumbers[item._id] || ""}
+                          onChange={(e) =>
+                            handleSelectChange(item._id, e.target.value)
+                          }
+                        >
+                          <option value="">Book Number</option>
+                          {item.book.bookNumbers?.map((num, idx) => (
+                            <option key={idx} value={num}>
+                              {num}
+                            </option>
+                          ))}
+                        </select>
 
-                    <button
-                      disabled={isDisabled}
-                      onClick={() =>
-                        handleWithDelay(() => handleApprove(item._id))
-                      }
-                      className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
-                        isDisabled
-                          ? "bg-gray-400"
-                          : "bg-green-600 hover:bg-green-700"
-                      }`}
-                    >
-                      Approve
-                    </button>
+                        <div className="flex gap-2">
+                          <button
+                            disabled={isDisabled}
+                            onClick={() =>
+                              handleWithDelay(() => handleApprove(item._id))
+                            }
+                            className={`w-1/2 px-2 py-1 text-white text-xs rounded ${
+                              isDisabled
+                                ? "bg-gray-400"
+                                : "bg-green-600 hover:bg-green-700"
+                            }`}
+                          >
+                            Approve
+                          </button>
+                          <button
+                            disabled={isDisabled}
+                            onClick={() =>
+                              handleWithDelay(() => {
+                                dispatch(
+                                  gettingRequestCancel(item._id, "teacher")
+                                );
+                                setActiveFilter("inCollection");
+                              })
+                            }
+                            className={`w-1/2 px-2 py-1 text-white text-xs rounded ${
+                              isDisabled
+                                ? "bg-gray-400"
+                                : "bg-red-600 hover:bg-red-700"
+                            }`}
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      </>
+                    )}
 
-                    <button
-                      disabled={isDisabled}
-                      onClick={() =>
-                        handleWithDelay(() => {
-                          dispatch(gettingRequestCancel(item._id, "teacher"));
-                          setActiveFilter("all");
-                        })
-                      }
-                      className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
-                        isDisabled
-                          ? "bg-gray-400"
-                          : "bg-red-600 hover:bg-red-700"
-                      }`}
-                    >
-                      Reject
-                    </button>
-                  </div>
-                )}
+                    {item.takingApproveBy &&
+                      item.returnApproveBy == null &&
+                      item.returnRequestDate == null && (
+                        <button
+                          disabled={isDisabled}
+                          onClick={() =>
+                            handleWithDelay(() => {
+                              dispatch(directReturn(item._id, "teacher"));
+                              setActiveFilter("inCollection");
+                            })
+                          }
+                          className={`w-full px-2 py-1 text-xs text-white rounded ${
+                            isDisabled
+                              ? "bg-gray-400"
+                              : "bg-blue-600 hover:bg-blue-700"
+                          }`}
+                        >
+                          Direct Return
+                        </button>
+                      )}
 
-                {item.takingApproveBy &&
-                  item.returnApproveBy == null &&
-                  item.returnRequestDate == null && (
-                    <div className="flex gap-3 mt-4">
-                      <button
-                        disabled={isDisabled}
-                        onClick={() =>
-                          handleWithDelay(() => {
-                            dispatch(directReturn(item._id, "teacher"));
-                            setActiveFilter("all");
-                          })
-                        }
-                        className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
-                          isDisabled
-                            ? "bg-gray-400"
-                            : "bg-green-600 hover:bg-green-700"
-                        }`}
-                      >
-                        Direct Return
-                      </button>
-                    </div>
-                  )}
-
-                {item.takingApproveBy &&
-                  item.returnApproveBy == null &&
-                  item.returnRequestDate && (
-                    <div className="flex gap-3 mt-4">
-                      <button
-                        disabled={isDisabled}
-                        onClick={() =>
-                          handleWithDelay(() => {
-                            dispatch(returnApprove(item._id, "teacher"));
-                            setActiveFilter("all");
-                          })
-                        }
-                        className={`px-4 py-2 text-sm font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
-                          isDisabled
-                            ? "bg-gray-400"
-                            : "bg-green-600 hover:bg-green-700"
-                        }`}
-                      >
-                        Return Approve
-                      </button>
-                    </div>
-                  )}
-              </div>
-            </div>
-          ))}
+                    {item.takingApproveBy &&
+                      item.returnApproveBy == null &&
+                      item.returnRequestDate && (
+                        <button
+                          disabled={isDisabled}
+                          onClick={() =>
+                            handleWithDelay(() => {
+                              dispatch(returnApprove(item._id, "teacher"));
+                              setActiveFilter("inCollection");
+                            })
+                          }
+                          className={`w-full px-2 py-1 text-xs text-white rounded ${
+                            isDisabled
+                              ? "bg-gray-400"
+                              : "bg-indigo-600 hover:bg-indigo-700"
+                          }`}
+                        >
+                          Return Approve
+                        </button>
+                      )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p className="text-center text-gray-500 mt-10 text-sm">

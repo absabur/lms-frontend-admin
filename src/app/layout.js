@@ -2,7 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { StoreProvider } from "@/store/StoreProvider.jsx";
-import Authentication from "@/components/Authentication";
 import Toast from "@/components/Toast";
 import Navbar from "@/components/NavbarAuth";
 import Loading from "@/components/Loading";
@@ -32,7 +31,6 @@ export default function RootLayout({ children }) {
         >
           <Toast />
           <Loading />
-          <Authentication />
           {children}
         </body>
       </StoreProvider>

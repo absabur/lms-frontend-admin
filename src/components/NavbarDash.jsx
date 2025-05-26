@@ -1,8 +1,9 @@
 "use client";
+import { authenticated } from "@/store/Action";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NavbarDash() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -10,6 +11,12 @@ export default function NavbarDash() {
   const auth_loaded = useSelector((state) => state.auth_loaded);
   const loaded = useSelector((state) => state.loaded);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    dispatch(authenticated());
+  }, [pathname]);
 
   useEffect(() => {
     if (!isAuthenticated && auth_loaded && loaded) {
