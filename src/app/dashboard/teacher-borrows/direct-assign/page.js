@@ -99,10 +99,10 @@ const AddCardOptions = () => {
                     {teacherValues.name}
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Department: {teacherValues.department || "N/A"}
+                    Department: {teacherValues.department?.name || "N/A"}
                   </p>
                   <p className="text-sm text-gray-600">
-                    Post: {teacherValues.post || "N/A"}
+                    Post: {teacherValues.post?.name || "N/A"}
                   </p>
                 </div>
               </>

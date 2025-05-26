@@ -35,7 +35,7 @@ const StudentCard = () => {
 
         <div className="flex-1 text-center md:text-left">
           <h2 className="text-2xl font-bold text-gray-800">{student?.name}</h2>
-          <p className="text-sm text-gray-500">{student?.department}</p>
+          <p className="text-sm text-gray-500">{student?.department?.name}</p>
         </div>
       </div>
 
@@ -48,11 +48,11 @@ const StudentCard = () => {
         <Info label="addmissionRoll" value={student?.addmissionRoll || "N/A"} />
         <Info label="boardRoll" value={student?.boardRoll || "N/A"} />
         <Info label="registration" value={student?.registration || "N/A"} />
-        <Info label="department" value={student?.department || "N/A"} />
-        <Info label="session" value={student?.session || "N/A"} />
-        <Info label="shift" value={student?.shift || "N/A"} />
-        <Info label="district" value={student?.district || "N/A"} />
-        <Info label="upazila" value={student?.upazila || "N/A"} />
+        <Info label="department" value={student?.department?.name || "N/A"} />
+        <Info label="session" value={student?.session?.name || "N/A"} />
+        <Info label="shift" value={student?.shift?.name || "N/A"} />
+        <Info label="district" value={student?.district?.name || "N/A"} />
+        <Info label="upazila" value={student?.upazila?.name || "N/A"} />
         <Info label="union" value={student?.union || "N/A"} />
         <Info label="village" value={student?.village || "N/A"} />
         <Info label="address" value={student?.address || "N/A"} />

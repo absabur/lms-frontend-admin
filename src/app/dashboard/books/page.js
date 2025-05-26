@@ -84,11 +84,11 @@ const Page = () => {
                 <td className="px-3 py-2">{book.publisher}</td>
                 <td className="px-3 py-2">{book.edition}</td>
                 <td className="px-3 py-2">{book.numberOfPages}</td>
-                <td className="px-3 py-2">{book.country}</td>
-                <td className="px-3 py-2">{book.language}</td>
+                <td className="px-3 py-2">{book?.country?.name}</td>
+                <td className="px-3 py-2">{book.language?.name}</td>
                 <td className="px-3 py-2">{book.mrp}</td>
-                <td className="px-3 py-2">{book.shelf}</td>
-                <td className="px-3 py-2">{book.department}</td>
+                <td className="px-3 py-2">{book.shelf?.name}</td>
+                <td className="px-3 py-2">{book.department?.name}</td>
                 <td className="px-3 py-2">{book.quantity}</td>
                 <td className="px-3 py-2">
                   {book.bookNumbers?.join(", ") || "-"}

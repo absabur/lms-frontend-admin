@@ -146,7 +146,7 @@ const Page = () => {
                       Author: {item.book?.bookAuthor || "N/A"}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Department: {item.book?.department || "N/A"}
+                      Department: {item.book?.department?.name || "N/A"}
                     </p>
                     <p className="text-green-600 font-bold text-right mt-2">
                       ৳{item.book?.mrp ?? "N/A"}
@@ -179,7 +179,7 @@ const Page = () => {
                       {item.teacherId?.name}
                     </Link>
                     <p className="text-xs text-gray-500">
-                      {item.teacherId?.department} | {item.teacherId?.post}
+                      {item.teacherId?.department?.name} | {item.teacherId?.post?.name}
                     </p>
                     <p className="text-xs text-gray-400">
                       ID: {item.teacherId?.teacherId}

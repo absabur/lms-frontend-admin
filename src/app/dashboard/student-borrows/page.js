@@ -106,7 +106,7 @@ const Page = () => {
           Direct Assign A Book
         </Link>
       </div>
-
+      
       {studentBorrow?.bookStudents?.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {studentBorrow.bookStudents.map((item, index) => (
@@ -147,7 +147,7 @@ const Page = () => {
                         Author: {item.book?.bookAuthor || "N/A"}
                       </p>
                       <p className="text-sm text-gray-500">
-                        Department: {item.book?.department || "N/A"}
+                        Department: {item.book?.department?.name || "N/A"}
                       </p>
                     </div>
 
@@ -183,10 +183,11 @@ const Page = () => {
                       {item.studentId?.name}
                     </Link>
                     <p className="text-xs text-gray-500">
-                      {item.studentId?.department} | {item.studentId?.session}
+                      {item.studentId?.department?.name} |{" "}
+                      {item.studentId?.session?.name}
                     </p>
                     <p className="text-xs text-gray-400">
-                      Shift: {item.studentId?.shift}
+                      Shift: {item.studentId?.shift?.name}
                     </p>
                     <p className="text-xs text-gray-400">
                       {item.studentId?.boardRoll ? (

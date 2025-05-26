@@ -74,12 +74,12 @@ const BookDetails = () => {
           <div className="grid sm:grid-cols-2 gap-4">
             <DetailItem label="Edition" value={book.edition} />
             <DetailItem label="Publisher" value={book.publisher} />
-            <DetailItem label="Shelf" value={book.shelf} />
+            <DetailItem label="Shelf" value={book.shelf?.name} />
             <DetailItem label="Quantity" value={book.quantity} />
             <DetailItem label="MRP" value={`৳${book.mrp}`} />
             <DetailItem label="Pages" value={book.numberOfPages} />
-            <DetailItem label="Language" value={book.language} />
-            <DetailItem label="Country" value={book.country} />
+            <DetailItem label="Language" value={book.language?.name} />
+            <DetailItem label="Country" value={book?.country?.name} />
           </div>
 
           {/* Book Numbers */}

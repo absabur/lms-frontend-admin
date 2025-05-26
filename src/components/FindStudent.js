@@ -69,7 +69,7 @@ const FindStudent = ({ closeModal, setStudentValues }) => {
                   Roll: {student.boardRoll || student.addmissionRoll}
                 </p>
                 <p className="text-sm text-gray-600">
-                  Dept: {student.department || "N/A"}
+                  Dept: {student.department?.name || "N/A"}
                 </p>
               </div>
             </div>

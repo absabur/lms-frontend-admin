@@ -41,8 +41,6 @@ const Profile = () => {
         {/* Info */}
         <div className="flex-1 text-center md:text-left">
           <h2 className="text-2xl font-bold text-gray-800">{profile?.name}</h2>
-          <p className="text-sm text-gray-500">{profile?.post}</p>
-          <p className="text-sm text-gray-500">{profile?.department}</p>
         </div>
       </div>
 

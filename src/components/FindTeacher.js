@@ -66,10 +66,10 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
                   {teacher.name}
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Post: {teacher.post}
+                  Post: {teacher.post?.name}
                 </p>
                 <p className="text-sm text-gray-600">
-                  Dept: {teacher.department || "N/A"}
+                  Dept: {teacher.department?.name || "N/A"}
                 </p>
               </div>
             </div>

@@ -72,7 +72,7 @@ const FindBook = ({ closeModal, setBookId }) => {
                   {book.bookAuthor || "Unknown Department"}
                 </p>
                 <p className="text-sm text-gray-600">
-                  {book.department || "Unknown Department"}
+                  {book.department?.name || "Unknown Department"}
                 </p>
               </div>
             </div>

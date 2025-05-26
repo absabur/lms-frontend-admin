@@ -17,6 +17,7 @@ const UpdateStudentPage = () => {
   useEffect(() => {
     if (id) {
       dispatch(getStudentById(id));
+      dispatch(fixdeValues());
     }
   }, [id, dispatch]);
 
@@ -32,15 +33,13 @@ const UpdateStudentPage = () => {
       addmissionRoll: student?.addmissionRoll || "",
       boardRoll: student?.boardRoll || "",
       registration: student?.registration || "",
-      session: student?.session || "",
-      shift: student?.shift || "",
-      district: student?.district || "",
-      upazila: student?.upazila || "",
+      session: student?.session?._id || "",
+      shift: student?.shift?._id || "",
+      district: student?.district?._id || "",
+      upazila: student?.upazila?._id || "",
       union: student?.union || "",
       village: student?.village || "",
-      department: student?.department || "",
-      post: student?.post || "",
-      studentId: student?.studentId || "",
+      department: student?.department?._id || "",
       password: student?.password || "",
       confirmPassword: student?.confirmPassword || "",
       address: student?.address || "",
@@ -141,7 +140,7 @@ const UpdateStudentPage = () => {
           >
             <option value="">-- Select Session --</option>
             {fixedValues?.sessions?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -164,7 +163,7 @@ const UpdateStudentPage = () => {
           >
             <option value="">-- Select Shift --</option>
             {fixedValues?.shifts?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -189,7 +188,7 @@ const UpdateStudentPage = () => {
           >
             <option value="">-- Select Department --</option>
             {fixedValues?.departments?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -210,7 +209,11 @@ const UpdateStudentPage = () => {
                 id={name}
                 name={name}
                 value={formik.values[name]}
-                onChange={formik.handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const selected = options?.find((opt) => opt.name === value);
+                  formik.setFieldValue(name, selected?._id || value);
+                }}
                 onBlur={formik.handleBlur}
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder={`Select ${label}`}
@@ -237,14 +240,18 @@ const UpdateStudentPage = () => {
                 id={name}
                 name={name}
                 value={formik.values[name]}
-                onChange={formik.handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const selected = options?.find((opt) => opt.name === value);
+                  formik.setFieldValue(name, selected?._id || value);
+                }}
                 onBlur={formik.handleBlur}
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder={`Select ${label}`}
               />
               <datalist id={`${name}-options`}>
                 {options?.map((option) => {
-                  if (option?.districtId?.name == formik.values.district) {
+                  if (option?.districtId?._id === formik.values.district) {
                     return <option key={option._id} value={option.name} />;
                   }
                 })}

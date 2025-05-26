@@ -92,9 +92,9 @@ const AllStudentsPage = () => {
                 <td className="px-3 py-2">{student.addmissionRoll}</td>
                 <td className="px-3 py-2">{student.boardRoll}</td>
                 <td className="px-3 py-2">{student.registration}</td>
-                <td className="px-3 py-2">{student.session}</td>
-                <td className="px-3 py-2">{student.department}</td>
-                <td className="px-3 py-2">{student.shift}</td>
+                <td className="px-3 py-2">{student.session?.name}</td>
+                <td className="px-3 py-2">{student.department?.name}</td>
+                <td className="px-3 py-2">{student.shift?.name}</td>
                 <td className="px-3 py-2">
                   {student.isApproved ? "Yes" : "No"}
                 </td>

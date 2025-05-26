@@ -30,8 +30,7 @@ const AdminCard = () => {
         {/* Info */}
         <div className="flex-1 text-center md:text-left">
           <h2 className="text-2xl font-bold text-gray-800">{admin?.name}</h2>
-          <p className="text-sm text-gray-500">{admin?.post}</p>
-          <p className="text-sm text-gray-500">{admin?.department}</p>
+          <p className="text-sm text-gray-500">{admin?.department?.name}</p>
         </div>
       </div>
 

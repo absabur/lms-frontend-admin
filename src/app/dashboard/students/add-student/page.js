@@ -41,7 +41,26 @@ const AddStudentPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    // Get related options: "districts", "upazilas", etc.
+    const options = fixedValues?.[`${name}s`] || [];
+
+    // Find matching option by name
+    const matchedOption = options.find((opt) => opt.name === value);
+
+    setForm((prev) => {
+      const updatedForm = {
+        ...prev,
+        [name]: matchedOption?._id || value, // Store _id if matched, else raw value
+      };
+
+      // Optional: clear dependent fields if parent changes
+      if (name === "district") {
+        updatedForm["upazila"] = ""; // Reset upazila when district changes
+      }
+
+      return updatedForm;
+    });
   };
 
   const handleFileChange = (e) => {
@@ -120,7 +139,7 @@ const AddStudentPage = () => {
             >
               <option value="">-- Select {label} --</option>
               {options?.map((option) => (
-                <option key={option._id} value={option.name}>
+                <option key={option._id} value={option._id}>
                   {option.name}
                 </option>
               ))}
@@ -174,7 +193,7 @@ const AddStudentPage = () => {
               />
               <datalist id={`${name}-options`}>
                 {options?.map((option) => {
-                  if (option?.districtId?.name == form.district) {
+                  if (option?.districtId?._id === form.district) {
                     return <option key={option._id} value={option.name} />;
                   }
                 })}

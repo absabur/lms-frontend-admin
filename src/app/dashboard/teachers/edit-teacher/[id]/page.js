@@ -12,12 +12,12 @@ const UpdateTeacherPage = () => {
   const dispatch = useDispatch();
   const teacher = useSelector((state) => state.teacherDetails);
 
-
   const fixedValues = useSelector((state) => state.fixedValues);
 
   useEffect(() => {
     if (id) {
       dispatch(getTeacherById(id));
+      dispatch(fixdeValues());
     }
   }, [id, dispatch]);
 
@@ -29,8 +29,8 @@ const UpdateTeacherPage = () => {
       email: teacher?.email || "",
       nId: teacher?.nId || "",
       teacherId: teacher?.teacherId || "",
-      department: teacher?.department || "",
-      post: teacher?.post || "",
+      department: teacher?.department?._id || "",
+      post: teacher?.post?._id || "",
       address: teacher?.address || "",
       image: null,
     },
@@ -114,7 +114,7 @@ const UpdateTeacherPage = () => {
           >
             <option value="">-- Select Posts --</option>
             {fixedValues?.posts?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -139,7 +139,7 @@ const UpdateTeacherPage = () => {
           >
             <option value="">-- Select Department --</option>
             {fixedValues?.departments?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -184,7 +184,9 @@ const UpdateTeacherPage = () => {
 
         {/* Image Upload (full width) */}
         <div className="flex flex-col col-span-2">
-          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">Image (Upload new image)</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            Image (Upload new image)
+          </label>
           <input
             type="file"
             name="image"

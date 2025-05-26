@@ -29,11 +29,11 @@ const UpdateBookPage = () => {
       publisher: book?.publisher || "",
       edition: book?.edition || "",
       numberOfPages: book?.numberOfPages || "",
-      country: book?.country || "",
-      language: book?.language || "",
+      country: book?.country?._id || "",
+      language: book?.language?._id || "",
       mrp: book?.mrp || "",
-      shelf: book?.shelf || "",
-      department: book?.department || "",
+      shelf: book?.shelf?._id || "",
+      department: book?.department?._id || "",
       quantity: book?.quantity || "",
       description: book?.description || "",
       bookNumbers: book?.bookNumbers?.map(Number).join(", ") || "",
@@ -204,7 +204,7 @@ const UpdateBookPage = () => {
           >
             <option value="">-- Select Country --</option>
             {fixedValues?.countries?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -231,7 +231,7 @@ const UpdateBookPage = () => {
           >
             <option value="">-- Select Language --</option>
             {fixedValues?.languages?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -277,7 +277,7 @@ const UpdateBookPage = () => {
           >
             <option value="">-- Select Shelf --</option>
             {fixedValues?.shelves?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}
@@ -304,7 +304,7 @@ const UpdateBookPage = () => {
           >
             <option value="">-- Select Department --</option>
             {fixedValues?.departments?.map((option) => (
-              <option key={option._id} value={option.name}>
+              <option key={option._id} value={option._id}>
                 {option.name}
               </option>
             ))}

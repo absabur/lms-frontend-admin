@@ -85,8 +85,8 @@ const AllTeachersPage = () => {
                 </td>
                 <td className="px-3 py-2">{teacher.email}</td>
                 <td className="px-3 py-2">{teacher.phone}</td>
-                <td className="px-3 py-2">{teacher.post}</td>
-                <td className="px-3 py-2">{teacher.department}</td>
+                <td className="px-3 py-2">{teacher.post?.name}</td>
+                <td className="px-3 py-2">{teacher.department?.name}</td>
                 <td className="px-3 py-2">
                   {teacher.isApproved ? "Yes" : "No"}
                 </td>

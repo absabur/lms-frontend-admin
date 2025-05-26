@@ -190,7 +190,7 @@ const page = () => {
             >
               <option value="">Select Country</option>
               {fixedValues?.countries?.map((country) => (
-                <option key={country._id} value={country.name}>
+                <option key={country._id} value={country._id}>
                   {country.name}
                 </option>
               ))}
@@ -217,7 +217,7 @@ const page = () => {
             >
               <option value="">Select Language</option>
               {fixedValues?.languages?.map((lang) => (
-                <option key={lang._id} value={lang.name}>
+                <option key={lang._id} value={lang._id}>
                   {lang.name}
                 </option>
               ))}
@@ -263,7 +263,7 @@ const page = () => {
             >
               <option value="">Select Shelf</option>
               {fixedValues?.shelves?.map((shelf) => (
-                <option key={shelf._id} value={shelf.name}>
+                <option key={shelf._id} value={shelf._id}>
                   {shelf.name}
                 </option>
               ))}
@@ -288,7 +288,7 @@ const page = () => {
             >
               <option value="">Select Department</option>
               {fixedValues?.departments?.map((department) => (
-                <option key={department._id} value={department.name}>
+                <option key={department._id} value={department._id}>
                   {department.name}
                 </option>
               ))}
