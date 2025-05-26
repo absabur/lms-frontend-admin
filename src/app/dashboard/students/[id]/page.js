@@ -14,8 +14,8 @@ const StudentCard = () => {
   const handleWithDelay = (callback) => {
     if (isDisabled) return;
     setIsDisabled(true);
-    callback(); // execute your logic
-    setTimeout(() => setIsDisabled(false), 5000); // re-enable after 5 seconds
+    callback();
+    setTimeout(() => setIsDisabled(false), 5000);
   };
 
   useEffect(() => {
@@ -26,23 +26,19 @@ const StudentCard = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-6 space-y-4">
-      {/* Top Section */}
       <div className="flex flex-col md:flex-row md:items-center gap-4">
-        {/* Avatar */}
         <img
           src={student?.avatar?.url}
           alt="Avatar"
           className="w-24 h-24 rounded-full border object-cover mx-auto md:mx-0"
         />
 
-        {/* Info */}
         <div className="flex-1 text-center md:text-left">
           <h2 className="text-2xl font-bold text-gray-800">{student?.name}</h2>
           <p className="text-sm text-gray-500">{student?.department}</p>
         </div>
       </div>
 
-      {/* Contact Info */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Info label="Email" value={student?.email} />
         <Info label="Phone" value={student?.phone} />
@@ -62,13 +58,11 @@ const StudentCard = () => {
         <Info label="address" value={student?.address || "N/A"} />
       </div>
 
-      {/* Status Tags */}
       <div className="flex gap-4 flex-wrap">
         <StatusBadge label="Approved" active={student?.isApproved} />
         <StatusBadge label="Banned" active={student?.isBan} inverse />
       </div>
 
-      {/* Metadata */}
       <div className="text-xs text-gray-500">
         <p>Created: {student?.createDate?.date || "N/A"}</p>
         <p>Updated: {student?.updateDate?.date || "N/A"}</p>
@@ -165,7 +159,6 @@ const StudentCard = () => {
   );
 };
 
-// Helper Components
 const Info = ({ label, value }) => (
   <div>
     <p className="text-gray-600 text-sm font-medium">{label}</p>
