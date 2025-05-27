@@ -1,12 +1,51 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getStudents } from "@/store/Action";
-import StudentFilterForm from "@/components/StudentFilterForm"
+import StudentFilterForm from "@/components/StudentFilterForm";
+import StudentPaginate from "@/components/StudentPaginate";
+import SortableTableHeader from "@/components/SortStudent";
 
 const AllStudentsPage = () => {
+  const [filters, setFilters] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("studentFilters");
+      return stored
+        ? JSON.parse(stored)
+        : {
+            name: "",
+            email: "",
+            phone: "",
+            session: "",
+            shift: "",
+            department: "",
+            isApproved: "",
+            isBan: "",
+            search: "",
+            sortBy: "",
+            sortOrder: "",
+            page: 1,
+            limit: 10,
+          };
+    }
+    return {
+      name: "",
+      email: "",
+      phone: "",
+      session: "",
+      shift: "",
+      department: "",
+      isApproved: "",
+      isBan: "",
+      search: "",
+      sortBy: "",
+      sortOrder: "",
+      page: 1,
+      limit: 10,
+    };
+  });
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
   const router = useRouter();
@@ -35,42 +74,15 @@ const AllStudentsPage = () => {
         </Link>
       </div>
 
-      
-      <StudentFilterForm />
       {/* Add optional StudentsFilterForm component here if needed */}
 
       <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
         <table className="min-w-full table-auto w-full text-sm text-left text-gray-700">
           <thead className="bg-blue-600 text-white sticky top-0 z-10">
-            <tr>
-              {[
-                "#",
-                "Name",
-                "Image",
-                "Email",
-                "Phone",
-                "Addmission Roll",
-                "Board Roll",
-                "Registration",
-                "Sesstion",
-                "Department",
-                "Shift",
-                "Approved",
-                "Banned",
-                "Created At",
-                "Updated At",
-                "Actions",
-              ].map((head, idx) => (
-                <th
-                  key={idx}
-                  className="px-3 py-2 border border-blue-600 whitespace-nowrap"
-                >
-                  {head}
-                </th>
-              ))}
-            </tr>
+            <SortableTableHeader filters={filters} setFilters={setFilters} />
           </thead>
           <tbody>
+            <StudentFilterForm filters={filters} setFilters={setFilters} />
             {students?.students?.map((student, index) => (
               <tr
                 key={index}
@@ -80,13 +92,13 @@ const AllStudentsPage = () => {
                 className="odd:bg-gray-100 even:bg-white hover:bg-blue-100 border-t border-black-200 cursor-pointer"
               >
                 <td className="px-3 py-2">{index + 1}</td>
-                <td className="px-3 py-2">{student.name}</td>
                 <td className="px-3 py-2">
                   <img
                     src={student?.avatar?.url}
                     className="w-12 h-12 object-cover rounded-full border border-gray-300"
                   />
                 </td>
+                <td className="px-3 py-2">{student.name}</td>
                 <td className="px-3 py-2">{student.email}</td>
                 <td className="px-3 py-2">{student.phone}</td>
                 <td className="px-3 py-2">{student.addmissionRoll}</td>
@@ -99,12 +111,6 @@ const AllStudentsPage = () => {
                   {student.isApproved ? "Yes" : "No"}
                 </td>
                 <td className="px-3 py-2">{student.isBan ? "Yes" : "No"}</td>
-                <td className="px-3 py-2">
-                  {student.createDate?.date} {student.createDate?.formatedTime}
-                </td>
-                <td className="px-3 py-2">
-                  {student.updateDate?.date} {student.updateDate?.formatedTime}
-                </td>
                 <td className="px-3 py-2">
                   <div className="flex gap-2">
                     <Link
@@ -121,6 +127,11 @@ const AllStudentsPage = () => {
           </tbody>
         </table>
       </div>
+      <StudentPaginate
+        filters={filters}
+        setFilters={setFilters}
+        students={students}
+      />
     </div>
   );
 };

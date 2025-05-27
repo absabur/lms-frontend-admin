@@ -1,65 +1,16 @@
 "use client";
 import { fixdeValues, getBooks } from "@/store/Action";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
-import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
+import React, { useEffect } from "react";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
-const BooksFilterFrom = () => {
+const BooksFilterFrom = ({ filters, setFilters }) => {
   const fixedValues = useSelector((state) => state.fixedValues);
-  const books = useSelector((state) => state.books);
   const dispatch = useDispatch();
-  const [collaps, setCollaps] = useState(true);
 
   useEffect(() => {
     dispatch(fixdeValues());
   }, []);
-
-  const [filters, setFilters] = useState(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("bookFilters");
-      return stored
-        ? JSON.parse(stored)
-        : {
-            bookName: "",
-            bookAuthor: "",
-            publisher: "",
-            language: "",
-            department: "",
-            country: "",
-            shelf: "",
-            edition: "",
-            mrpMin: "",
-            mrpMax: "",
-            quantityMin: "",
-            quantityMax: "",
-            search: "",
-            sortBy: "",
-            sortOrder: "",
-            page: 1,
-            limit: 10,
-          };
-    }
-    return {
-      bookName: "",
-      bookAuthor: "",
-      publisher: "",
-      language: "",
-      department: "",
-      country: "",
-      shelf: "",
-      edition: "",
-      mrpMin: "",
-      mrpMax: "",
-      quantityMin: "",
-      quantityMax: "",
-      search: "",
-      sortBy: "",
-      sortOrder: "",
-      page: 1,
-      limit: 10,
-    };
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -69,266 +20,189 @@ const BooksFilterFrom = () => {
     dispatch(getBooks(newFilters));
   };
 
-  const changePage = (newPage) => {
-    const newFilters = { ...filters, page: newPage };
-    setFilters(newFilters);
-    localStorage.setItem("bookFilters", JSON.stringify(newFilters));
-    dispatch(getBooks(newFilters));
-  };
-
-  const handleFilterSubmit = (e) => {
-    e.preventDefault();
-  };
   return (
     <>
-      <form
-        onSubmit={handleFilterSubmit}
-        className="relative bg-white p-6 rounded-xl shadow-lg space-y-6 mb-3 overflow-hidden transition-all duration-300"
-        style={{
-          maxHeight: collaps ? "90px" : "2200px", // Set 1000px or a large enough value to cover content
-        }}
-      >
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl">Filters</h2>
-          <button
-            className="rounded-full border-none shadow-xl text-4xl"
-            onClick={() => setCollaps(!collaps)}
+      <tr>
+        <td colSpan={2} className="border px-2 py-1 font-semibold">
+          <div className="flex items-center gap-2">
+            Filters <FaLongArrowAltRight />
+          </div>
+        </td>
+        {/* Book Name */}
+        <td className="border px-2 py-1">
+          <input
+            type="text"
+            name="bookName"
+            value={filters.bookName}
+            onChange={handleInputChange}
+            placeholder="Book Name"
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          />
+        </td>
+        {/* Author */}
+        <td className="border px-2 py-1">
+          <input
+            type="text"
+            name="bookAuthor"
+            value={filters.bookAuthor}
+            onChange={handleInputChange}
+            placeholder="Author"
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          />
+        </td>
+        {/* Publisher */}
+        <td className="border px-2 py-1">
+          <input
+            type="text"
+            name="publisher"
+            value={filters.publisher}
+            onChange={handleInputChange}
+            placeholder="Publisher"
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          />
+        </td>
+        {/* Edition */}
+        <td className="border px-2 py-1">
+          <input
+            type="text"
+            name="edition"
+            value={filters.edition}
+            onChange={handleInputChange}
+            placeholder="Edition"
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          />
+        </td>
+        {/* Pages (optional filter?) */}
+        <td className="border px-2 py-1" />
+
+        {/* Country Dropdown */}
+        <td className="border px-2 py-1">
+          <select
+            name="country"
+            value={filters.country}
+            onChange={handleInputChange}
+            className="w-full border border-gray-300 rounded px-2 py-1"
           >
-            {collaps ? <FaChevronCircleDown /> : <FaChevronCircleUp />}
-          </button>
-        </div>
+            <option value="">Country</option>
+            {fixedValues?.countries?.map((option) => (
+              <option key={option._id} value={option._id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </td>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {[
-            ["bookName", "Book Name"],
-            ["bookAuthor", "Author"],
-            ["publisher", "Publisher"],
-            //   ["edition", "Edition"],
-          ].map(([name, label]) => (
-            <div key={name} className="flex flex-col">
-              <label
-                htmlFor={name}
-                className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-              >
-                {label}
-              </label>
-              <input
-                type="text"
-                id={name}
-                name={name}
-                value={filters[name]}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder={`Enter ${label}`}
-              />
-            </div>
-          ))}
+        {/* Language Dropdown */}
+        <td className="border px-2 py-1">
+          <select
+            name="language"
+            value={filters.language}
+            onChange={handleInputChange}
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="">Language</option>
+            {fixedValues?.languages?.map((option) => (
+              <option key={option._id} value={option._id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </td>
 
-          {/* Select Dropdowns */}
-          {[
-            ["country", "Country", fixedValues?.countries],
-            ["language", "Language", fixedValues?.languages],
-            ["shelf", "Shelf", fixedValues?.shelves],
-            ["department", "Department", fixedValues?.departments],
-          ].map(([name, label, options]) => (
-            <div key={name} className="flex flex-col">
-              <label
-                htmlFor={name}
-                className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-              >
-                {label}
-              </label>
-              <select
-                id={name}
-                name={name}
-                value={filters[name]}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">-- Select {label} --</option>
-                {options?.map((option) => (
-                  <option key={option._id} value={option._id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          ))}
-
-          {/* Min/Max Inputs */}
-          {[
-            ["mrpMin", "Min MRP"],
-            ["mrpMax", "Max MRP"],
-            //   ["quantityMin", "Min Qty"],
-            //   ["quantityMax", "Max Qty"],
-          ].map(([name, label]) => (
-            <div key={name} className="flex flex-col">
-              <label
-                htmlFor={name}
-                className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-              >
-                {label}
-              </label>
-              <input
-                type="number"
-                id={name}
-                name={name}
-                value={filters[name]}
-                onChange={handleInputChange}
-                placeholder={label}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          ))}
-
-          {/* Global Search Field */}
-          <div className="flex flex-col sm:col-span-2 lg:col-span-3 xl:col-span-4">
-            <label
-              htmlFor="search"
-              className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-            >
-              Search Anything
-            </label>
+        {/* MRP Min/Max */}
+        <td className="border px-2 py-1">
+          <div className="flex gap-1">
             <input
-              type="text"
-              id="search"
-              name="search"
-              placeholder="Search by any field"
-              value={filters.search}
+              type="number"
+              name="mrpMin"
+              value={filters.mrpMin}
               onChange={handleInputChange}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Min"
+              className="w-1/2 border border-gray-300 rounded px-1 py-1"
+            />
+            <input
+              type="number"
+              name="mrpMax"
+              value={filters.mrpMax}
+              onChange={handleInputChange}
+              placeholder="Max"
+              className="w-1/2 border border-gray-300 rounded px-1 py-1"
             />
           </div>
-        </div>
+        </td>
 
-        {/* Buttons */}
-        <div className="w-full flex flex-col gap-1">
-          {/* Sort Options */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col">
-              <label
-                htmlFor="sortBy"
-                className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-              >
-                Sort By
-              </label>
-              <select
-                id="sortBy"
-                name="sortBy"
-                value={filters.sortBy}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Field</option>
-                <option value="bookName">Book Name</option>
-                <option value="bookAuthor">Author</option>
-                <option value="publisher">Publisher</option>
-                <option value="mrp">MRP</option>
-                <option value="quantity">Quantity</option>
-                <option value="edition">Edition</option>
-              </select>
-            </div>
+        {/* Shelf Dropdown */}
+        <td className="border px-2 py-1">
+          <select
+            name="shelf"
+            value={filters.shelf}
+            onChange={handleInputChange}
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="">Shelf</option>
+            {fixedValues?.shelves?.map((option) => (
+              <option key={option._id} value={option._id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </td>
 
-            <div className="flex flex-col">
-              <label
-                htmlFor="sortOrder"
-                className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-              >
-                Sort Order
-              </label>
-              <select
-                id="sortOrder"
-                name="sortOrder"
-                value={filters.sortOrder}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Order</option>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-            </div>
-          </div>
+        {/* Department Dropdown */}
+        <td className="border px-2 py-1">
+          <select
+            name="department"
+            value={filters.department}
+            onChange={handleInputChange}
+            className="w-full border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="">Department</option>
+            {fixedValues?.departments?.map((option) => (
+              <option key={option._id} value={option._id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </td>
 
-          {/* Pagination & Limit Selector */}
-          {books?.total > 0 && (
-            <div className="flex m-auto flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mt-4">
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel="Next →"
-                onPageChange={({ selected }) => changePage(selected + 1)}
-                pageRangeDisplayed={2}
-                marginPagesDisplayed={1}
-                pageCount={Math.ceil(books.total / filters.limit)}
-                forcePage={filters.page - 1}
-                previousLabel="← Previous"
-                containerClassName="flex flex-wrap gap-2 items-center justify-center sm:justify-start"
-                pageClassName="px-3 py-1 rounded bg-gray-200 text-sm"
-                activeClassName="bg-green-100 text-black"
-                previousClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-                nextClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-                breakClassName="px-3 py-1 rounded bg-gray-100"
-                disabledClassName="opacity-50 cursor-not-allowed"
-              />
-            </div>
-          )}
+        {/* Quantity */}
+        <td className="border px-2 py-1" />
 
-          {/* Reset Button */}
-          <div className="flex justify-center pt-3">
-            <button
-              type="button"
-              className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-md font-medium shadow border-none"
-              onClick={() => {
-                const defaultFilters = {
-                  bookName: "",
-                  bookAuthor: "",
-                  publisher: "",
-                  language: "",
-                  department: "",
-                  country: "",
-                  shelf: "",
-                  edition: "",
-                  mrpMin: "",
-                  mrpMax: "",
-                  quantityMin: "",
-                  quantityMax: "",
-                  search: "",
-                  sortBy: "",
-                  sortOrder: "",
-                  page: 1,
-                  limit: 10, // make sure you include `limit` and `page`
-                };
-                setFilters(defaultFilters);
-                localStorage.removeItem("bookFilters");
-                dispatch(getBooks(defaultFilters)); // <-- fix here
-              }}
-            >
-              Reset Filters
-            </button>
-          </div>
-        </div>
-      </form>
-      {collaps && books?.total > 0 && (
-        <div className="pb-2">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next →"
-            onPageChange={({ selected }) => changePage(selected + 1)}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={1}
-            pageCount={Math.ceil(books.total / filters.limit)}
-            forcePage={filters.page - 1}
-            previousLabel="← Previous"
-            containerClassName="flex flex-wrap gap-2 items-center justify-center"
-            pageClassName="px-3 py-1 rounded bg-gray-200 text-sm"
-            activeClassName="bg-green-100 text-black"
-            previousClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-            nextClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-            breakClassName="px-3 py-1 rounded bg-gray-100"
-            disabledClassName="opacity-50 cursor-not-allowed"
-          />
-        </div>
-      )}
+        <td className="border px-2 py-1" />
+
+        {/* Actions (reset/search etc.) */}
+        <td className="border px-2 py-1 text-center">
+          <button
+            className="bg-red-500 text-white px-2 py-1 rounded"
+            onClick={() => {
+              const defaultFilters = {
+                bookName: "",
+                bookAuthor: "",
+                publisher: "",
+                language: "",
+                department: "",
+                country: "",
+                shelf: "",
+                edition: "",
+                mrpMin: "",
+                mrpMax: "",
+                quantityMin: "",
+                quantityMax: "",
+                search: "",
+                sortBy: "",
+                sortOrder: "",
+                page: 1,
+                limit: 10,
+              };
+              setFilters(defaultFilters);
+              localStorage.removeItem("bookFilters");
+              dispatch(getBooks(defaultFilters));
+            }}
+          >
+            Reset
+          </button>
+        </td>
+      </tr>
     </>
   );
 };

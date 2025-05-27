@@ -1,12 +1,59 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "@/store/Action.js";
 import { useRouter } from "next/navigation";
 import BooksFilterFrom from "@/components/BooksFilterFrom";
+import BookPaginate from "@/components/BookPaginate";
+import TableHead from "@/components/BookSort";
 
 const Page = () => {
+  const [filters, setFilters] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("bookFilters");
+      return stored
+        ? JSON.parse(stored)
+        : {
+            bookName: "",
+            bookAuthor: "",
+            publisher: "",
+            language: "",
+            department: "",
+            country: "",
+            shelf: "",
+            edition: "",
+            mrpMin: "",
+            mrpMax: "",
+            quantityMin: "",
+            quantityMax: "",
+            search: "",
+            sortBy: "",
+            sortOrder: "",
+            page: 1,
+            limit: 10,
+          };
+    }
+    return {
+      bookName: "",
+      bookAuthor: "",
+      publisher: "",
+      language: "",
+      department: "",
+      country: "",
+      shelf: "",
+      edition: "",
+      mrpMin: "",
+      mrpMax: "",
+      quantityMin: "",
+      quantityMax: "",
+      search: "",
+      sortBy: "",
+      sortOrder: "",
+      page: 1,
+      limit: 10,
+    };
+  });
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
 
@@ -21,7 +68,7 @@ const Page = () => {
   }, []);
 
   const router = useRouter();
-
+  
   return (
     <div className="min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
@@ -36,42 +83,16 @@ const Page = () => {
         </Link>
       </div>
 
-      <BooksFilterFrom />
-
       <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
         <table className="min-w-full table-auto w-full text-sm text-left text-gray-700">
           <thead className="bg-blue-600 text-white sticky top-0 z-10">
-            <tr>
-              {[
-                "#",
-                "Book Name",
-                "Author",
-                "Publisher",
-                "Edition",
-                "Pages",
-                "Country",
-                "Language",
-                "MRP",
-                "Shelf",
-                "Department",
-                "Quantity",
-                "Book Numbers",
-                "Description",
-                "Image",
-                "Created At",
-                "Updated At",
-                "Actions",
-              ].map((head, idx) => (
-                <th
-                  key={idx}
-                  className="px-3 py-2 border border-blue-600 whitespace-nowrap"
-                >
-                  {head}
-                </th>
-              ))}
-            </tr>
+            <TableHead
+              filters={filters}
+              setFilters={setFilters}
+            />
           </thead>
           <tbody>
+            <BooksFilterFrom filters={filters} setFilters={setFilters} />
             {books?.books?.map((book, index) => (
               <tr
                 key={index}
@@ -79,6 +100,17 @@ const Page = () => {
                 className="odd:bg-gray-100 even:bg-white hover:bg-blue-100 border-t border-black-200 cursor-pointer"
               >
                 <td className="px-3 py-2">{index + 1}</td>
+                <td className="px-3 py-2">
+                  {book?.images?.[0]?.url ? (
+                    <img
+                      src={book.images[0].url}
+                      alt={book.bookName}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                  ) : (
+                    <span className="text-gray-400 italic">No image</span>
+                  )}
+                </td>
                 <td className="px-3 py-2">{book.bookName}</td>
                 <td className="px-3 py-2">{book.bookAuthor}</td>
                 <td className="px-3 py-2">{book.publisher}</td>
@@ -92,26 +124,6 @@ const Page = () => {
                 <td className="px-3 py-2">{book.quantity}</td>
                 <td className="px-3 py-2">
                   {book.bookNumbers?.join(", ") || "-"}
-                </td>
-                <td className="px-3 py-2 truncate max-w-[200px]">
-                  {book.description || "-"}
-                </td>
-                <td className="px-3 py-2">
-                  {book?.images?.[0]?.url ? (
-                    <img
-                      src={book.images[0].url}
-                      alt={book.bookName}
-                      className="w-12 h-12 object-cover rounded"
-                    />
-                  ) : (
-                    <span className="text-gray-400 italic">No image</span>
-                  )}
-                </td>
-                <td className="px-3 py-2">
-                  {book.createDate?.date} {book.createDate?.formatedTime}
-                </td>
-                <td className="px-3 py-2">
-                  {book.updateDate?.date} {book.updateDate?.formatedTime}
                 </td>
                 <td className="px-3 py-2">
                   <div className="flex gap-2">
@@ -129,6 +141,7 @@ const Page = () => {
           </tbody>
         </table>
       </div>
+      <BookPaginate books={books} filters={filters} setFilters={setFilters} />
     </div>
   );
 };

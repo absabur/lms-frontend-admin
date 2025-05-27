@@ -1,12 +1,47 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getTeachers } from "@/store/Action";
 import TeacherFilterForm from "@/components/TeacherFilter";
+import TeacherPaginate from "@/components/TeacherPaginate";
+import TableHeaderTeacher from "@/components/SortTeacher";
 
 const AllTeachersPage = () => {
+  const [filters, setFilters] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("teacherFilters");
+      return stored
+        ? JSON.parse(stored)
+        : {
+            name: "",
+            email: "",
+            phone: "",
+            post: "",
+            department: "",
+            isApproved: "",
+            isBan: "",
+            sortBy: "",
+            sortOrder: "",
+            page: 1,
+            limit: 10,
+          };
+    }
+    return {
+      name: "",
+      email: "",
+      phone: "",
+      post: "",
+      department: "",
+      isApproved: "",
+      isBan: "",
+      sortBy: "",
+      sortOrder: "",
+      page: 1,
+      limit: 10,
+    };
+  });
   const dispatch = useDispatch();
   const teachers = useSelector((state) => state.teachers);
   const router = useRouter();
@@ -34,39 +69,15 @@ const AllTeachersPage = () => {
           + Add Teacher
         </Link>
       </div>
-
-      
-      <TeacherFilterForm />
       {/* Add optional TeachersFilterForm component here if needed */}
 
       <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
         <table className="min-w-full table-auto w-full text-sm text-left text-gray-700">
           <thead className="bg-blue-600 text-white sticky top-0 z-10">
-            <tr>
-              {[
-                "#",
-                "Name",
-                "Image",
-                "Email",
-                "Phone",
-                "Post",
-                "Department",
-                "Approved",
-                "Banned",
-                "Created At",
-                "Updated At",
-                "Actions",
-              ].map((head, idx) => (
-                <th
-                  key={idx}
-                  className="px-3 py-2 border border-blue-600 whitespace-nowrap"
-                >
-                  {head}
-                </th>
-              ))}
-            </tr>
+            <TableHeaderTeacher filters={filters} setFilters={setFilters} />
           </thead>
           <tbody>
+            <TeacherFilterForm filters={filters} setFilters={setFilters} />
             {teachers?.teachers?.map((teacher, index) => (
               <tr
                 key={index}
@@ -92,12 +103,6 @@ const AllTeachersPage = () => {
                 </td>
                 <td className="px-3 py-2">{teacher.isBan ? "Yes" : "No"}</td>
                 <td className="px-3 py-2">
-                  {teacher.createDate?.date} {teacher.createDate?.formatedTime}
-                </td>
-                <td className="px-3 py-2">
-                  {teacher.updateDate?.date} {teacher.updateDate?.formatedTime}
-                </td>
-                <td className="px-3 py-2">
                   <div className="flex gap-2">
                     <Link
                       href={`/dashboard/teachers/edit-teacher/${teacher._id}`}
@@ -113,6 +118,11 @@ const AllTeachersPage = () => {
           </tbody>
         </table>
       </div>
+      <TeacherPaginate
+        filters={filters}
+        setFilters={setFilters}
+        teachers={teachers}
+      />
     </div>
   );
 };
