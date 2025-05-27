@@ -12,7 +12,7 @@ const BookPaginate = ({ books, filters, setFilters }) => {
     localStorage.setItem("bookFilters", JSON.stringify(newFilters));
     dispatch(getBooks(newFilters));
   };
-  console.log(filters)
+  
   return (
     <>
       {books?.total > 0 && (

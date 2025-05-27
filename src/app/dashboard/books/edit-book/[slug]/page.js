@@ -36,7 +36,7 @@ const UpdateBookPage = () => {
       department: book?.department?._id || "",
       quantity: book?.quantity || "",
       description: book?.description || "",
-      bookNumbers: book?.bookNumbers?.map(Number).join(", ") || "",
+      bookNumbers: book?.bookNumbers?.map(String).join(", ") || "",
       images: null,
     },
     validationSchema: Yup.object({
