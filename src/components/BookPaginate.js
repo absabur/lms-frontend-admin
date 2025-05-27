@@ -1,4 +1,5 @@
 'use client'
+import { getBooks } from "@/store/Action";
 import React from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
@@ -11,6 +12,7 @@ const BookPaginate = ({ books, filters, setFilters }) => {
     localStorage.setItem("bookFilters", JSON.stringify(newFilters));
     dispatch(getBooks(newFilters));
   };
+  console.log(filters)
   return (
     <>
       {books?.total > 0 && (
