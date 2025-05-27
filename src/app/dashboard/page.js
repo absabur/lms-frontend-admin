@@ -20,81 +20,107 @@ import {
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-
   const dashboardData = useSelector((state) => state.dashboard);
 
   useEffect(() => {
     dispatch(getDashboard());
   }, [dispatch]);
 
-  // Fallback if data is still loading
   if (!dashboardData || !dashboardData.success) {
-    return <div className="p-6">Loading...</div>;
+    return (
+      <div className="p-6 text-center text-xl text-gray-600">
+        Loading Dashboard...
+      </div>
+    );
   }
 
-  // Real summary data
   const summary = {
     teachers: dashboardData.teachersCount,
     students: dashboardData.studentsCount,
+    uniqueBooksCount: dashboardData.uniqueBooksCount,
     totalBooks: dashboardData.booksCount,
     teacherBorrow: dashboardData.currentBorrowTeachersCount,
     studentBorrow: dashboardData.currentBorrowStudentsCount,
+    totalteacherBorrow: dashboardData.totalBorrowTeachersCount,
+    totalstudentBorrow: dashboardData.totalBorrowStudentsCount,
   };
 
   const borrowRatio = [
-    { name: "Teachers", value: summary.teacherBorrow },
-    { name: "Students", value: summary.studentBorrow },
+    { name: "Teachers", value: summary.totalteacherBorrow },
+    { name: "Students", value: summary.totalstudentBorrow },
+  ];
+
+  const summaryData = [
+    { name: "Teachers", value: summary.teachers },
+    { name: "Students", value: summary.students },
+    { name: "Unique Books", value: summary.uniqueBooksCount },
+    {
+      name: "Total Books",
+      value: summary.totalBooks + summary.teacherBorrow + summary.studentBorrow,
+    },
+    { name: "Teacher Borrow", value: summary.teacherBorrow },
+    { name: "Student Borrow", value: summary.studentBorrow },
+    {
+      name: "Available Books",
+      value: summary.totalBooks,
+    },
   ];
 
   return (
-    <div className="p-6 space-y-8">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {[
-          { label: "Teachers", value: summary.teachers },
-          { label: "Students", value: summary.students },
-          { label: "Total Books", value: summary.totalBooks },
-          { label: "Teacher Borrow", value: summary.teacherBorrow },
-          { label: "Student Borrow", value: summary.studentBorrow },
-          {
-            label: "Available Books",
-            value:
-              summary.totalBooks -
-              (summary.teacherBorrow + summary.studentBorrow),
-          },
-        ].map((item) => (
-          <div
-            key={item.label}
-            className="bg-white shadow rounded-2xl p-4 text-center border border-gray-100"
-          >
-            <div className="text-gray-500 text-sm font-medium">
-              {item.label}
-            </div>
-            <div className="text-xl font-bold text-gray-800">{item.value}</div>
-          </div>
-        ))}
+    <div className="p-4 md:p-8 bg-gradient-to-br from-indigo-100 via-white to-purple-100 min-h-screen">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-indigo-700">
+          📚 Library Dashboard
+        </h1>
+        <p className="text-gray-500 mt-2">
+          Monitor borrowing, users, and book stats at a glance
+        </p>
       </div>
 
-      {/* Bar Chart */}
-      <div className="bg-white shadow rounded-2xl p-4">
-        <h2 className="text-lg font-semibold mb-2">Monthly Borrowing Trend</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={dashboardData.chartData || []}>
+      {/* Summary Chart */}
+      <div className="rounded-2xl bg-white shadow-xl p-6 mb-8 backdrop-blur-md border border-gray-100">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4 text-center">
+          📊 Library Summary
+        </h2>
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart
+            data={summaryData}
+            margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
             <YAxis />
             <Tooltip />
-            <Legend />
-            <Bar dataKey="teachers" fill="#8884d8" name="Teacher Borrowings" />
-            <Bar dataKey="students" fill="#82ca9d" name="Student Borrowings" />
+            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+              {summaryData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={
+                    [
+                      "#6366f1", // Indigo
+                      "#10b981", // Emerald
+                      "#f59e0b", // Amber
+                      "#ef4444", // Red
+                      "#3b82f6", // Blue
+                      "#a855f7", // Purple
+                      "#14b8a6", // Teal
+                    ][index % 7]
+                  } // Loop colors if more bars
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Pie and Line Charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white shadow rounded-2xl p-4">
-          <h2 className="text-lg font-semibold mb-2">Borrowing Ratio</h2>
+      {/* Two-Column Layout for Charts */}
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        {/* Pie Chart */}
+        <div className="bg-white rounded-2xl shadow-xl p-6">
+          <h2 className="text-lg font-semibold mb-4 text-indigo-600">
+            🍰 Borrowing Ratio
+          </h2>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
@@ -108,7 +134,7 @@ const Dashboard = () => {
                 {borrowRatio.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={index % 2 === 0 ? "#0088FE" : "#00C49F"}
+                    fill={index % 2 === 0 ? "#a23ff1" : "#a8ab61"}
                   />
                 ))}
               </Pie>
@@ -117,23 +143,69 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* <div className="bg-white shadow rounded-2xl p-4">
-          <h2 className="text-lg font-semibold mb-2">New Users Over Time</h2>
-          <div className="text-sm text-gray-500">
-            * No real user registration chart data available yet.
-          </div>
+        {/* Department-wise Book Count */}
+        <div className="bg-white rounded-2xl shadow-xl p-6">
+          <h2 className="text-lg font-semibold mb-4 text-indigo-600">
+            🏫 Books by Department
+          </h2>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={[]}>
+            <BarChart
+              data={Object.entries(
+                dashboardData?.bookCountByDepartment || {}
+              ).map(([department, count]) => ({ department, count }))}
+              layout="vertical"
+              margin={{ top: 10, right: 30, left: 50, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
+              <XAxis type="number" allowDecimals={false} />
+              <YAxis type="category" dataKey="department" width={160} />
               <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="teachers" stroke="#8884d8" />
-              <Line type="monotone" dataKey="students" stroke="#82ca9d" />
-            </LineChart>
+              <Bar dataKey="count" radius={[0, 8, 8, 0]}>
+                {Object.entries(dashboardData?.bookCountByDepartment || {}).map(
+                  (_, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={
+                        [
+                          "#f59e0b", // Amber
+                          "#14b8a6", // Teal
+                          "#10b981", // Emerald
+                          "#8b5cf6", // Violet
+                          "#ef4444", // Red
+                          "#3b82f6", // Blue
+                          "#a855f7", // Purple
+                        ][index % 7]
+                      } // Cycles through the colors
+                    />
+                  )
+                )}
+              </Bar>
+            </BarChart>
           </ResponsiveContainer>
-        </div> */}
+        </div>
+      </div>
+
+      {/* Monthly Borrow Trend */}
+      <div className="bg-white rounded-2xl shadow-xl p-6">
+        <h2 className="text-lg font-semibold mb-4 text-indigo-600">
+          📈 Monthly Borrowing Trend
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart
+            // data={dashboardData.chartData || []}
+            data={Array(4)
+              .fill(dashboardData.chartData || [])
+              .flat()}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="teachers" fill="#6366f1" name="Teacher Borrowings" />
+            <Bar dataKey="students" fill="#10b981" name="Student Borrowings" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
