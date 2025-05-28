@@ -22,6 +22,14 @@ const AddTeacherPage = () => {
     address: "",
     image: null,
   });
+  useEffect(() => {
+    dispatch(
+      fixdeValues({
+        posts: true,
+        departments: true,
+      })
+    );
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +46,6 @@ const AddTeacherPage = () => {
     Object.entries(form).forEach(([key, value]) => formData.append(key, value));
     dispatch(addTeacher(formData, router));
   };
-
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-6 shadow rounded-lg">
@@ -108,7 +115,9 @@ const AddTeacherPage = () => {
         ))}
 
         <div className="col-span-2">
-          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">image</label>
+          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+            image
+          </label>
           <input
             type="file"
             accept="image/*"

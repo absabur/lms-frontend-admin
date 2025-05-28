@@ -17,7 +17,12 @@ const UpdateTeacherPage = () => {
   useEffect(() => {
     if (id) {
       dispatch(getTeacherById(id));
-      dispatch(fixdeValues());
+      dispatch(
+        fixdeValues({
+          departments: true,
+          posts: true,
+        })
+      );
     }
   }, [id, dispatch]);
 

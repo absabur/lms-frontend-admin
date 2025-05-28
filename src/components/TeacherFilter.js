@@ -18,7 +18,12 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
   };
 
   useEffect(() => {
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        posts: true,
+        departments: true,
+      })
+    );
   }, []);
 
   return (

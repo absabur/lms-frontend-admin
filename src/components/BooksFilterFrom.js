@@ -9,7 +9,14 @@ const BooksFilterFrom = ({ filters, setFilters }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        countries: true,
+        languages: true,
+        shelves: true,
+        departments: true,
+      })
+    );
   }, []);
 
   const handleInputChange = (e) => {

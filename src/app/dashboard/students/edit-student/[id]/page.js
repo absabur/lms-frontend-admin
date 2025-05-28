@@ -17,7 +17,15 @@ const UpdateStudentPage = () => {
   useEffect(() => {
     if (id) {
       dispatch(getStudentById(id));
-      dispatch(fixdeValues());
+      dispatch(
+        fixdeValues({
+          sessions: true,
+          shifts: true,
+          districts: true,
+          upazilas: true,
+          departments: true,
+        })
+      );
     }
   }, [id, dispatch]);
 

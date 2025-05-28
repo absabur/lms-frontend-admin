@@ -9,7 +9,13 @@ const StudentFilterRow = ({ filters, setFilters }) => {
   const fixedValues = useSelector((state) => state.fixedValues);
 
   useEffect(() => {
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        sessions: true,
+        departments: true,
+        shifts: true,
+      })
+    );
   }, [dispatch]);
 
   const handleInputChange = (e) => {

@@ -18,7 +18,14 @@ const UpdateBookPage = () => {
     if (slug) {
       dispatch(getBookBySlug(slug));
     }
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        countries: true,
+        languages: true,
+        shelves: true,
+        departments: true,
+      })
+    );
   }, [slug, dispatch]);
 
   const formik = useFormik({

@@ -35,7 +35,7 @@ const page = () => {
         payload: { message: `${keys} added!`, status: "success" },
       });
       dispatch(fixdeValues());
-      setInputValue("")
+      setInputValue("");
     } catch (error) {
       dispatch({
         type: "MESSAGE",
@@ -48,7 +48,19 @@ const page = () => {
   const fixedValues = useSelector((state) => state.fixedValues);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        countries: true,
+        languages: true,
+        shelves: true,
+        departments: true,
+        sessions: true,
+        shifts: true,
+        districts: true,
+        posts: true,
+        upazilas: true,
+      })
+    );
   }, []);
 
   return (

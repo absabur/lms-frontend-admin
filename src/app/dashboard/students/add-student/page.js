@@ -10,7 +10,15 @@ const AddStudentPage = () => {
   const fixedValues = useSelector((state) => state.fixedValues);
 
   useEffect(() => {
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        sessions: true,
+        shifts: true,
+        districts: true,
+        upazilas: true,
+        departments: true,
+      })
+    );
   }, []);
 
   const router = useRouter();
@@ -31,8 +39,6 @@ const AddStudentPage = () => {
     union: "",
     village: "",
     department: "",
-    post: "",
-    studentId: "",
     password: "",
     confirmPassword: "",
     address: "",

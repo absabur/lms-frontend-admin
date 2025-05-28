@@ -9,7 +9,14 @@ const page = () => {
   const dispatch = useDispatch();
   const fixedValues = useSelector((state) => state.fixedValues);
   useEffect(() => {
-    dispatch(fixdeValues());
+    dispatch(
+      fixdeValues({
+        countries: true,
+        languages: true,
+        shelves: true,
+        departments: true,
+      })
+    );
   }, [dispatch]);
 
   const formik = useFormik({
