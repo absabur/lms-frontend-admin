@@ -1,15 +1,15 @@
 "use client";
+import { getBooks } from "@/store/Action";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from "@/store/Action.js";
+import { useDispatch } from "react-redux";
 
 const FindBook = ({ closeModal, setBookId }) => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
-  const books = useSelector((state) => state.books);
+  const [books, setBooks] = useState({});
 
   useEffect(() => {
-    dispatch(getBooks({ search: searchValue }));
+    getBooks({ search: searchValue }, dispatch, setBooks);
   }, [searchValue]);
 
   const handleAddBook = (values) => {
@@ -43,7 +43,7 @@ const FindBook = ({ closeModal, setBookId }) => {
                   image: book.images[0].url,
                   author: book.bookAuthor,
                   bookNumbers: book.bookNumbers,
-                  slug: book.slug
+                  slug: book.slug,
                 })
               }
               className="bg-white rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"

@@ -1,7 +1,6 @@
 import {
   AUTHENTICATED,
   CLEAR_MESSAGE,
-  GET_BOOKS,
   GET_FIXED_VALUES,
   GET_SINGLE_BOOK,
   GET_SINGLE_TEACHER,
@@ -16,8 +15,6 @@ import {
   GET_SINGLE_ADMIN,
   MESSAGE,
   CLEAR_PATH,
-  TEACHER_BORROW_BOOKS,
-  STUDENT_BORROW_BOOKS,
 } from "./Constant";
 
 const initialState = {
@@ -31,7 +28,6 @@ const initialState = {
   signupEmail: "",
   registerSuccess: "",
   fixedValues: {},
-  books: {},
   singleBook: {},
   teachers: [],
   teacherDetails: {},
@@ -39,9 +35,6 @@ const initialState = {
   studentDetails: {},
   admins: [],
   adminDetails: {},
-  teacherBorrow: {},
-  studentBorrow: {},
-  dashboard: {}
 };
 
 export const reducer = (state = initialState, action) => {
@@ -93,12 +86,6 @@ export const reducer = (state = initialState, action) => {
         message: {},
         registerSuccess: false,
       };
-
-    case "DASHBOARD_DATA":
-      return {
-        ...state,
-        dashboard: action.payload
-      };
     case SIGNUP_SUCCESS:
       return {
         ...state,
@@ -117,11 +104,6 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         fixedValues: action.payload,
-      };
-    case GET_BOOKS:
-      return {
-        ...state,
-        books: action.payload,
       };
     case GET_SINGLE_BOOK:
       return {
@@ -157,16 +139,6 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         adminDetails: action.payload,
-      };
-    case TEACHER_BORROW_BOOKS:
-      return {
-        ...state,
-        teacherBorrow: action.payload,
-      };
-    case STUDENT_BORROW_BOOKS:
-      return {
-        ...state,
-        studentBorrow: action.payload,
       };
     default:
       return state;

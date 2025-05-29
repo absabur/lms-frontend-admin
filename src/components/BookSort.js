@@ -15,7 +15,7 @@ const sortableFields = {
   Pages: "numberOfPages",
 };
 
-const TableHead = ({ filters, setFilters }) => {
+const TableHead = ({ filters, setFilters, setBooks }) => {
   const dispatch = useDispatch();
   const handleSort = (field) => {
     const isCurrent = filters.sortBy === field;
@@ -30,7 +30,7 @@ const TableHead = ({ filters, setFilters }) => {
 
     setFilters(updatedFilters);
     localStorage.setItem("bookFilters", JSON.stringify(updatedFilters));
-    dispatch(getBooks(updatedFilters));
+    getBooks(updatedFilters, dispatch, setBooks);
   };
 
   return (

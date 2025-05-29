@@ -1,14 +1,13 @@
 "use client";
+import DashboardSkeleton from "@/components/DashboardSkeleton";
 import { getDashboard } from "@/store/Action";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BarChart,
   Bar,
   PieChart,
   Pie,
-  LineChart,
-  Line,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -20,20 +19,15 @@ import {
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const dashboardData = useSelector((state) => state.dashboard);
+  const [dashboardData, setDashboardData] = useState();
 
   useEffect(() => {
-    dispatch(getDashboard());
+    getDashboard(dispatch, setDashboardData);
   }, [dispatch]);
 
   if (!dashboardData || !dashboardData.success) {
-    return (
-      <div className="p-6 text-center text-xl text-gray-600">
-        Loading Dashboard...
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
-
   const summary = {
     teachers: dashboardData.teachersCount,
     students: dashboardData.studentsCount,
@@ -67,10 +61,10 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-4 md:p-8 bg-gradient-to-br from-indigo-100 via-white to-purple-100 min-h-screen">
+    <div className="p-4 sm:p-6 md:p-8 min-h-screen">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-indigo-700">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-700">
           📚 Library Dashboard
         </h1>
         <p className="text-gray-500 mt-2">
@@ -115,13 +109,16 @@ const Dashboard = () => {
       </div>
 
       {/* Two-Column Layout for Charts */}
-      <div className="grid md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Pie Chart */}
         <div className="bg-white rounded-2xl shadow-xl p-6">
           <h2 className="text-lg font-semibold mb-4 text-indigo-600">
             🍰 Borrowing Ratio
           </h2>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer
+            width="100%"
+            height={window.innerWidth < 640 ? 220 : 300}
+          >
             <PieChart>
               <Pie
                 dataKey="value"
@@ -148,40 +145,51 @@ const Dashboard = () => {
           <h2 className="text-lg font-semibold mb-4 text-indigo-600">
             🏫 Books by Department
           </h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart
-              data={Object.entries(
-                dashboardData?.bookCountByDepartment || {}
-              ).map(([department, count]) => ({ department, count }))}
-              layout="vertical"
-              margin={{ top: 10, right: 30, left: 50, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" allowDecimals={false} />
-              <YAxis type="category" dataKey="department" width={160} />
-              <Tooltip />
-              <Bar dataKey="count" radius={[0, 8, 8, 0]}>
-                {Object.entries(dashboardData?.bookCountByDepartment || {}).map(
-                  (_, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={
-                        [
-                          "#f59e0b", // Amber
-                          "#14b8a6", // Teal
-                          "#10b981", // Emerald
-                          "#8b5cf6", // Violet
-                          "#ef4444", // Red
-                          "#3b82f6", // Blue
-                          "#a855f7", // Purple
-                        ][index % 7]
-                      } // Cycles through the colors
-                    />
-                  )
-                )}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="overflow-x-auto">
+            <div style={{ minWidth: "500px" }}>
+              {" "}
+              {/* Adjust width as needed */}
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  data={Object.entries(
+                    dashboardData?.bookCountByDepartment || {}
+                  ).map(([department, count]) => ({ department, count }))}
+                  layout="vertical"
+                  margin={{ top: 10, right: 30, left: 80, bottom: 5 }} // more left margin for label
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis type="number" allowDecimals={false} />
+                  <YAxis
+                    type="category"
+                    dataKey="department"
+                    width={160}
+                    tick={{ fontSize: 12 }}
+                  />
+                  <Tooltip />
+                  <Bar dataKey="count" radius={[0, 8, 8, 0]}>
+                    {Object.entries(
+                      dashboardData?.bookCountByDepartment || {}
+                    ).map((_, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={
+                          [
+                            "#f59e0b",
+                            "#14b8a6",
+                            "#10b981",
+                            "#8b5cf6",
+                            "#ef4444",
+                            "#3b82f6",
+                            "#a855f7",
+                          ][index % 7]
+                        }
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 const page = () => {
   const fixedValues = useSelector((state) => state.fixedValues);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(
       fixdeValues({
@@ -24,18 +25,30 @@ const page = () => {
     );
   }, []);
 
+  const isLoading = !fixedValues.countries;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <Loading manualLoading={!fixedValues.countries} />
-      {Object.entries(fixedValues).map(([key, value]) => (
-        <Link href={`/dashboard/form-values/${key}`} key={key}>
-          <div className="border p-4 rounded-lg shadow-md hover:bg-gray-100 transition">
-            <h3 className="text-sm text-gray-600 capitalize">
-              {key} ({fixedValues[key].length})
-            </h3>
-          </div>
-        </Link>
-      ))}
+      {isLoading
+        ? Array(9)
+            .fill(0)
+            .map((_, i) => (
+              <div
+                key={i}
+                className="border p-4 rounded-lg shadow-md animate-pulse bg-white"
+              >
+                <div className="h-4 w-2/3 bg-gray-300 rounded" />
+              </div>
+            ))
+        : Object.entries(fixedValues).map(([key, value]) => (
+            <Link href={`/dashboard/form-values/${key}`} key={key}>
+              <div className="border p-4 rounded-lg bg-white shadow-md hover:bg-gray-100 transition">
+                <h3 className="text-sm text-gray-600 capitalize">
+                  {key} ({value.length})
+                </h3>
+              </div>
+            </Link>
+          ))}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBookBySlug } from "@/store/Action";
 import Link from "next/link";
 import BookModal from "@/components/BookModal";
+import BookSkeleton from "@/components/BookSkeleton";
 
 const BookDetails = () => {
   const { slug } = useParams();
@@ -30,94 +31,18 @@ const BookDetails = () => {
     }
   }, [slug]);
 
-  if (!book?._id) return <p className="p-6">Loading...</p>;
+  if (!book?._id) return <BookSkeleton />;
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Left: Book Info */}
-        <div className="space-y-6">
-          {/* Title */}
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800">
-                {book.bookName}
-              </h1>
-              <p className="text-sm text-gray-500">by {book.bookAuthor}</p>
-            </div>
-            <Link
-              href={`/dashboard/books/edit-book/${book.slug}`}
-              className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs"
-            >
-              Edit Book
-            </Link>
-          </div>
-          <h2 className="mb-6">
-            <button
-              onClick={() => setModal(true)}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
-            >
-              Read This Book
-            </button>
-          </h2>
-
-          <BookModal images={book.images} isOpen={modal} setIsOpen={setModal} />
-          {/* Description */}
-          <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-1">
-              Description
-            </h2>
-            <p className="text-gray-600">{book.description}</p>
-          </div>
-
-          {/* Detail Grid */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <DetailItem label="Edition" value={book.edition} />
-            <DetailItem label="Publisher" value={book.publisher} />
-            <DetailItem label="Shelf" value={book.shelf?.name} />
-            <DetailItem label="Quantity" value={book.quantity} />
-            <DetailItem label="MRP" value={`৳${book.mrp}`} />
-            <DetailItem label="Pages" value={book.numberOfPages} />
-            <DetailItem label="Language" value={book.language?.name} />
-            <DetailItem label="Country" value={book?.country?.name} />
-          </div>
-
-          {/* Book Numbers */}
-          {book.bookNumbers?.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-1">
-                Book Numbers
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {book.bookNumbers.map((num, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm"
-                  >
-                    {num}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Created & Updated Info */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <DetailItem
-              label="Created On"
-              value={`${book.createDate?.date}, ${book.createDate?.formatedTime}`}
-            />
-            <DetailItem
-              label="Updated On"
-              value={`${book.updateDate?.date}, ${book.updateDate?.formatedTime}`}
-            />
-          </div>
+    <div className="mx-auto p-6">
+      <div className="flex flex-wrap gap-6">
+        <div className="w-[100%] flex flex-col justify-center items-center mb-3">
+          <h1 className="text-3xl font-bold text-gray-800">{book.bookName}</h1>
+          <p className="text-sm text-gray-500">by {book.bookAuthor}</p>
         </div>
-
-        {/* Right: Book Image */}
-        <div className="flex justify-center items-center flex-col gap-3">
+        <div className="w-[100%] lg:w-[45%] flex justify-start items-center flex-col gap-3">
           {book.images?.[0]?.url ? (
-            <div className="relative w-full max-w-md mx-auto aspect-[3/5]">
+            <div className="relative w-full max-w-md mx-auto aspect-[3/4]">
               <img
                 src={images[currentIndex]?.url}
                 alt={`Book image ${currentIndex + 1}`}
@@ -162,6 +87,82 @@ const BookDetails = () => {
             </div>
           )}
         </div>
+        {/* Left: Book Info */}
+        <div className="w-[100%] lg:w-[45%] space-y-6">
+          {/* Title */}
+          <div className="flex justify-between items-center">
+            <h2>
+              <button
+                onClick={() => setModal(true)}
+                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
+              >
+                Read This Book
+              </button>
+            </h2>
+            <Link
+              href={`/dashboard/books/edit-book/${book.slug}`}
+              className="px-6 py-3 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 transition-colors duration-300"
+            >
+              Edit Book
+            </Link>
+          </div>
+
+          <BookModal images={book.images} isOpen={modal} setIsOpen={setModal} />
+          {/* Description */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <DetailItem label="Edition" value={book.edition} />
+            <DetailItem label="Publisher" value={book.publisher} />
+            <DetailItem label="Shelf" value={book.shelf?.name} />
+            <DetailItem label="Quantity" value={book.quantity} />
+            <DetailItem label="MRP" value={`৳${book.mrp}`} />
+            <DetailItem label="Pages" value={book.numberOfPages} />
+            <DetailItem label="Language" value={book.language?.name} />
+            <DetailItem label="Country" value={book?.country?.name} />
+          </div>
+
+          {/* Detail Grid */}
+
+          {/* Book Numbers */}
+          {book.bookNumbers?.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold text-gray-700 mb-1">
+                Book Numbers
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {book.bookNumbers.map((num, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm"
+                  >
+                    {num}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Created & Updated Info */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <DetailItem
+              label="Created On"
+              value={`${book.createDate?.date}, ${book.createDate?.formatedTime}`}
+            />
+            <DetailItem
+              label="Updated On"
+              value={`${book.updateDate?.date}, ${book.updateDate?.formatedTime}`}
+            />
+          </div>
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold text-gray-700 mb-1">
+            Description
+          </h2>
+          <pre className="text-gray-600 p-2 max-w-full overflow-x-auto whitespace-pre-wrap break-words">
+            {book.description}
+          </pre>
+        </div>
+
+        {/* Right: Book Image */}
       </div>
     </div>
   );

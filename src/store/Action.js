@@ -1,6 +1,5 @@
 import {
   AUTHENTICATED,
-  GET_BOOKS,
   GET_FIXED_VALUES,
   GET_SINGLE_BOOK,
   GET_SINGLE_TEACHER,
@@ -14,8 +13,6 @@ import {
   GET_ADMINS,
   GET_SINGLE_ADMIN,
   MESSAGE,
-  TEACHER_BORROW_BOOKS,
-  STUDENT_BORROW_BOOKS,
 } from "./Constant";
 
 export const authenticated = () => async (dispatch) => {
@@ -408,13 +405,6 @@ export const updateBook = (bookId, data) => async (dispatch) => {
     const result = await response.json();
 
     if (result.success) {
-      const savedFilters = localStorage.getItem("bookFilters");
-      if (savedFilters) {
-        const parsedFilters = JSON.parse(savedFilters);
-        dispatch(getBooks(parsedFilters)); // Re-fetch with saved filters
-      } else {
-        dispatch(getBooks()); // Fetch default if no filters
-      }
       dispatch({
         type: MESSAGE,
         payload: {
@@ -488,48 +478,43 @@ export const fixdeValues = (filters) => async (dispatch) => {
   }
 };
 
-export const getBooks =
-  (filters = {}) =>
-  async (dispatch) => {
-    dispatch({ type: LOADING_START });
+export const getBooks = async (filters = {}, dispatch, setBooks) => {
+  dispatch({ type: LOADING_START });
 
-    try {
-      // Convert filters object to query string
-      const params = new URLSearchParams();
+  try {
+    // Convert filters object to query string
+    const params = new URLSearchParams();
 
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value !== undefined && value !== "") {
-          params.append(key, value);
-        }
-      });
-
-      // You can set page/limit dynamically if needed
-      params.set("page", filters.page || 1);
-      params.set("limit", filters.limit || 10);
-
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_BACKEND_URL
-        }/api/book/all-books?${params.toString()}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-
-      const result = await response.json();
-      if (result.success) {
-        dispatch({
-          type: GET_BOOKS,
-          payload: result,
-        });
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== "") {
+        params.append(key, value);
       }
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    } finally {
-      dispatch({ type: LOADING_END });
+    });
+
+    // You can set page/limit dynamically if needed
+    params.set("page", filters.page || 1);
+    params.set("limit", filters.limit || 10);
+
+    const response = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URL
+      }/api/book/all-books?${params.toString()}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+    if (result.success) {
+      setBooks(result);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching books:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
 
 export const getBookBySlug = (slug) => async (dispatch) => {
   dispatch({ type: LOADING_START });
@@ -982,59 +967,58 @@ export const getProfile = () => async (dispatch) => {
   }
 };
 
-export const getBorrowBooks =
-  (filters = {}, role) =>
-  async (dispatch) => {
-    dispatch({ type: LOADING_START });
+export const getBorrowBooks = async (
+  filters = {},
+  role,
+  dispatch,
+  setBorrow
+) => {
+  dispatch({ type: LOADING_START });
 
-    try {
-      // Convert filters object to query string
-      const params = new URLSearchParams();
+  try {
+    // Convert filters object to query string
+    const params = new URLSearchParams();
 
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value !== undefined && value !== "") {
-          params.append(key, value);
-        }
-      });
-
-      // You can set page/limit dynamically if needed
-      params.set("page", filters.page || 1);
-      params.set("limit", filters.limit || 10);
-
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_BACKEND_URL
-        }/api/take-book/${role}/get-borrow-lists-admin?${params.toString()}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.success) {
-        if (role == "teacher") {
-          dispatch({
-            type: TEACHER_BORROW_BOOKS,
-            payload: result,
-          });
-        }
-        if (role == "student") {
-          dispatch({
-            type: STUDENT_BORROW_BOOKS,
-            payload: result,
-          });
-        }
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== "") {
+        params.append(key, value);
       }
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    } finally {
-      dispatch({ type: LOADING_END });
-    }
-  };
+    });
 
-export const requestApprove = (id, bookNumber, role) => async (dispatch) => {
+    // You can set page/limit dynamically if needed
+    params.set("page", filters.page || 1);
+    params.set("limit", filters.limit || 10);
+
+    const response = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URL
+      }/api/take-book/${role}/get-borrow-lists-admin?${params.toString()}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      setBorrow(result);
+    }
+  } catch (error) {
+    console.error("Error fetching books:", error);
+  } finally {
+    dispatch({ type: LOADING_END });
+  }
+};
+
+export const requestApprove = async (
+  id,
+  bookNumber,
+  role,
+  filters,
+  dispatch,
+  setBorrow
+) => {
   dispatch({ type: LOADING_START });
 
   try {
@@ -1058,7 +1042,7 @@ export const requestApprove = (id, bookNumber, role) => async (dispatch) => {
           path: "",
         },
       });
-      dispatch(getBorrowBooks({}, role));
+      getBorrowBooks(filters, role, dispatch, setBorrow);
     } else {
       dispatch({
         type: MESSAGE,
@@ -1076,7 +1060,7 @@ export const requestApprove = (id, bookNumber, role) => async (dispatch) => {
   }
 };
 
-export const returnApprove = (id, role) => async (dispatch) => {
+export const returnApprove = async (id, role, filters, dispatch, setBorrow) => {
   dispatch({ type: LOADING_START });
 
   try {
@@ -1100,7 +1084,7 @@ export const returnApprove = (id, role) => async (dispatch) => {
           path: "",
         },
       });
-      dispatch(getBorrowBooks({}, role));
+      getBorrowBooks(filters, role, dispatch, setBorrow);
     } else {
       dispatch({
         type: MESSAGE,
@@ -1118,7 +1102,7 @@ export const returnApprove = (id, role) => async (dispatch) => {
   }
 };
 
-export const directReturn = (id, role) => async (dispatch) => {
+export const directReturn = async (id, role, filters, dispatch, setBorrow) => {
   dispatch({ type: LOADING_START });
 
   try {
@@ -1142,7 +1126,7 @@ export const directReturn = (id, role) => async (dispatch) => {
           path: "",
         },
       });
-      dispatch(getBorrowBooks({}, role));
+      getBorrowBooks(filters, role, dispatch, setBorrow);
     } else {
       dispatch({
         type: MESSAGE,
@@ -1160,7 +1144,13 @@ export const directReturn = (id, role) => async (dispatch) => {
   }
 };
 
-export const gettingRequestCancel = (id, role) => async (dispatch) => {
+export const gettingRequestCancel = async (
+  id,
+  role,
+  filters,
+  dispatch,
+  setBorrow
+) => {
   dispatch({ type: LOADING_START });
 
   try {
@@ -1189,7 +1179,7 @@ export const gettingRequestCancel = (id, role) => async (dispatch) => {
           path: "",
         },
       });
-      dispatch(getBorrowBooks({}, role));
+      getBorrowBooks(filters, role, dispatch, setBorrow);
     } else {
       dispatch({
         type: MESSAGE,
@@ -1311,7 +1301,7 @@ export const assignBookTeacher =
     }
   };
 
-export const getDashboard = () => async (dispatch) => {
+export const getDashboard = async (dispatch, setDashboardData) => {
   dispatch({ type: LOADING_START });
 
   try {
@@ -1326,10 +1316,7 @@ export const getDashboard = () => async (dispatch) => {
     const result = await response.json();
 
     if (result.success) {
-      dispatch({
-        type: "DASHBOARD_DATA",
-        payload: result,
-      });
+      setDashboardData(result);
     }
   } catch (error) {
     console.error("Error fetching books:", error);

@@ -23,13 +23,13 @@ const Page = () => {
   const [selectedBookNumbers, setSelectedBookNumbers] = useState({});
   const dispatch = useDispatch();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [studentBorrow, setStudentborrow] = useState();
 
   const handleAction = (callback) => {
     if (isButtonDisabled) return;
     setIsButtonDisabled(true);
     setTimeout(() => setIsButtonDisabled(false), 5000);
     callback();
-    setActiveFilter("all");
   };
 
   const handleSelectChange = (id, value) => {
@@ -46,17 +46,22 @@ const Page = () => {
         type: MESSAGE,
         payload: { message: "Select book number", status: "warn", path: "" },
       });
-    dispatch(requestApprove(id, selectedNumber, "student"));
+    requestApprove(
+      id,
+      selectedNumber,
+      "student",
+      filters,
+      dispatch,
+      setStudentborrow
+    );
   };
 
-  const studentBorrow = useSelector((state) => state.studentBorrow);
-
   useEffect(() => {
-    dispatch(getBorrowBooks(filters, "student"));
+    getBorrowBooks(filters, "student", dispatch, setStudentborrow);
   }, [filters]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
         {filterButtons.map((btn) => (
           <button
@@ -179,8 +184,12 @@ const Page = () => {
                         <button
                           onClick={() =>
                             handleAction(() => {
-                              dispatch(
-                                gettingRequestCancel(item._id, "student")
+                              gettingRequestCancel(
+                                item._id,
+                                "student",
+                                filters,
+                                dispatch,
+                                setStudentborrow
                               );
                             })
                           }
@@ -195,7 +204,13 @@ const Page = () => {
                       <button
                         onClick={() =>
                           handleAction(() => {
-                            dispatch(directReturn(item._id, "student"));
+                            directReturn(
+                              item._id,
+                              "student",
+                              filters,
+                              dispatch,
+                              setStudentborrow
+                            );
                           })
                         }
                         className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-xs"
@@ -208,7 +223,13 @@ const Page = () => {
                       <button
                         onClick={() =>
                           handleAction(() => {
-                            dispatch(returnApprove(item._id, "student"));
+                            returnApprove(
+                              item._id,
+                              "student",
+                              filters,
+                              dispatch,
+                              setStudentborrow
+                            );
                           })
                         }
                         className="w-full bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-xs"

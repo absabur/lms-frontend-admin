@@ -1,11 +1,9 @@
 "use client";
-import { logout } from "@/store/Action";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
-  const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
 
   useEffect(() => {}, []);
@@ -24,12 +22,6 @@ const Profile = () => {
       >
         Change Password
       </Link>
-      <button
-        onClick={() => dispatch(logout())}
-        className="absolute top-[75px] right-[20px] bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded"
-      >
-        Logout
-      </button>
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         {/* Avatar */}
         <img

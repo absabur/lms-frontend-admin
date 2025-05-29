@@ -4,13 +4,13 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
 
-const BookPaginate = ({ books, filters, setFilters }) => {
+const BookPaginate = ({ books, filters, setFilters, setBooks }) => {
   const dispatch = useDispatch();
   const changePage = (newPage) => {
     const newFilters = { ...filters, page: newPage };
     setFilters(newFilters);
     localStorage.setItem("bookFilters", JSON.stringify(newFilters));
-    dispatch(getBooks(newFilters));
+    getBooks(newFilters, dispatch, setBooks);
   };
   
   return (

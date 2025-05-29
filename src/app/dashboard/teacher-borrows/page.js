@@ -23,12 +23,12 @@ const Page = () => {
   const [selectedBookNumbers, setSelectedBookNumbers] = useState({});
   const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(false);
+  const [teacherBorrow, setTeacherborrow] = useState({});
 
   const handleWithDelay = (callback) => {
     if (isDisabled) return;
     setIsDisabled(true);
     callback(); // call your logic immediately
-    setActiveFilter("all");
     setTimeout(() => setIsDisabled(false), 5000); // re-enable after 5s
   };
 
@@ -46,13 +46,18 @@ const Page = () => {
         type: MESSAGE,
         payload: { message: "Select book number", status: "warn", path: "" },
       });
-    dispatch(requestApprove(id, selectedNumber, "teacher"));
+    requestApprove(
+      id,
+      selectedNumber,
+      "teacher",
+      filters,
+      dispatch,
+      setTeacherborrow
+    );
   };
 
-  const teacherBorrow = useSelector((state) => state.teacherBorrow);
-
   useEffect(() => {
-    dispatch(getBorrowBooks(filters, "teacher"));
+    getBorrowBooks(filters, "teacher", dispatch, setTeacherborrow);
   }, [filters]);
 
   const filterButtons = [
@@ -96,7 +101,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
         {filterButtons.map((btn) => (
           <button
@@ -246,8 +251,12 @@ const Page = () => {
                             disabled={isDisabled}
                             onClick={() =>
                               handleWithDelay(() => {
-                                dispatch(
-                                  gettingRequestCancel(item._id, "teacher")
+                                gettingRequestCancel(
+                                  item._id,
+                                  "teacher",
+                                  filters,
+                                  dispatch,
+                                  setTeacherborrow
                                 );
                               })
                             }
@@ -270,7 +279,13 @@ const Page = () => {
                           disabled={isDisabled}
                           onClick={() =>
                             handleWithDelay(() => {
-                              dispatch(directReturn(item._id, "teacher"));
+                              directReturn(
+                                item._id,
+                                "teacher",
+                                filters,
+                                dispatch,
+                                setTeacherborrow
+                              );
                             })
                           }
                           className={`w-full px-2 py-1 text-xs text-white rounded ${
@@ -290,7 +305,13 @@ const Page = () => {
                           disabled={isDisabled}
                           onClick={() =>
                             handleWithDelay(() => {
-                              dispatch(returnApprove(item._id, "teacher"));
+                              returnApprove(
+                                item._id,
+                                "teacher",
+                                filters,
+                                dispatch,
+                                setTeacherborrow
+                              );
                             })
                           }
                           className={`w-full px-2 py-1 text-xs text-white rounded ${

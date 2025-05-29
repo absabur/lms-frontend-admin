@@ -152,8 +152,18 @@ const AddStudentPage = () => {
             </select>
           </div>
         ))}
-        {[["district", "District", fixedValues?.districts]].map(
-          ([name, label, options]) => (
+        {[
+          ["district", "District", fixedValues?.districts],
+          ["upazila", "Upazila", fixedValues?.upazilas],
+        ].map(([name, label, options]) => {
+          const isUpazila = name === "upazila";
+          const filteredOptions = isUpazila
+            ? options?.filter(
+                (option) => option?.districtId?._id === form.district
+              )
+            : options;
+
+          return (
             <div key={name} className="flex flex-col">
               <label
                 htmlFor={name}
@@ -161,52 +171,25 @@ const AddStudentPage = () => {
               >
                 {label}
               </label>
-              <input
-                list={`${name}-options`}
+              <select
                 id={name}
                 name={name}
                 value={form[name]}
                 onChange={handleChange}
+                disabled={isUpazila && !form.district}
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder={`Select ${label}`}
-              />
-              <datalist id={`${name}-options`}>
-                {options?.map((option) => (
-                  <option key={option._id} value={option.name} />
+              >
+                <option value="">{`Select ${label}`}</option>
+                {filteredOptions?.map((option) => (
+                  <option key={option._id} value={option._id}>
+                    {option.name}
+                  </option>
                 ))}
-              </datalist>
+              </select>
             </div>
-          )
-        )}
-        {[["upazila", "Upazila", fixedValues?.upazilas]].map(
-          ([name, label, options]) => (
-            <div key={name} className="flex flex-col">
-              <label
-                htmlFor={name}
-                className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
-              >
-                {label}
-              </label>
-              <input
-                list={`${name}-options`}
-                id={name}
-                name={name}
-                value={form[name]}
-                onChange={handleChange}
-                disabled={!form.district}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder={`Select ${label}`}
-              />
-              <datalist id={`${name}-options`}>
-                {options?.map((option) => {
-                  if (option?.districtId?._id === form.district) {
-                    return <option key={option._id} value={option.name} />;
-                  }
-                })}
-              </datalist>
-            </div>
-          )
-        )}
+          );
+        })}
+
         <div className="flex flex-col col-span-2">
           <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
             Address

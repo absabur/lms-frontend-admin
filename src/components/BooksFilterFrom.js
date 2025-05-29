@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-const BooksFilterFrom = ({ filters, setFilters }) => {
+const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
   const fixedValues = useSelector((state) => state.fixedValues);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ const BooksFilterFrom = ({ filters, setFilters }) => {
     const newFilters = { ...filters, [name]: value, page: 1 };
     setFilters(newFilters);
     localStorage.setItem("bookFilters", JSON.stringify(newFilters));
-    dispatch(getBooks(newFilters));
+    getBooks(newFilters, dispatch, setBooks);
   };
 
   return (
@@ -203,7 +203,7 @@ const BooksFilterFrom = ({ filters, setFilters }) => {
               };
               setFilters(defaultFilters);
               localStorage.removeItem("bookFilters");
-              dispatch(getBooks(defaultFilters));
+              getBooks(defaultFilters, dispatch, setBooks);
             }}
           >
             Reset

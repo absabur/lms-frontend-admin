@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from "@/store/Action.js";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import BooksFilterFrom from "@/components/BooksFilterFrom";
 import BookPaginate from "@/components/BookPaginate";
 import TableHead from "@/components/BookSort";
+import { getBooks } from "@/store/Action";
 
 const Page = () => {
   const [filters, setFilters] = useState(() => {
@@ -55,20 +55,20 @@ const Page = () => {
     };
   });
   const dispatch = useDispatch();
-  const books = useSelector((state) => state.books);
+  const [books, setBooks] = useState({});
 
   useEffect(() => {
     const savedFilters = localStorage.getItem("bookFilters");
     if (savedFilters) {
       const parsedFilters = JSON.parse(savedFilters);
-      dispatch(getBooks(parsedFilters)); // Re-fetch with saved filters
+      getBooks(parsedFilters, dispatch, setBooks); // Re-fetch with saved filters
     } else {
-      dispatch(getBooks()); // Fetch default if no filters
+      getBooks(filters, dispatch, setBooks); // Fetch default if no filters
     }
   }, []);
 
   const router = useRouter();
-  
+
   return (
     <div className="min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
@@ -89,10 +89,15 @@ const Page = () => {
             <TableHead
               filters={filters}
               setFilters={setFilters}
+              setBooks={setBooks}
             />
           </thead>
           <tbody>
-            <BooksFilterFrom filters={filters} setFilters={setFilters} />
+            <BooksFilterFrom
+              filters={filters}
+              setFilters={setFilters}
+              setBooks={setBooks}
+            />
             {books?.books?.map((book, index) => (
               <tr
                 key={index}
@@ -141,7 +146,12 @@ const Page = () => {
           </tbody>
         </table>
       </div>
-      <BookPaginate books={books} filters={filters} setFilters={setFilters} />
+      <BookPaginate
+        books={books}
+        filters={filters}
+        setFilters={setFilters}
+        setBooks={setBooks}
+      />
     </div>
   );
 };
