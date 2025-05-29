@@ -26,7 +26,7 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
           placeholder="Search teachers..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full md:w-96 border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+          className="w-full md:w-96 border border-lborder dark:border-dborder rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         />
       </div>
 
@@ -45,9 +45,9 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
                   department: teacher.department
                 })
               }
-              className="bg-white rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
+              className="bg-light1 dark:bg-dark1 rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
             >
-              <div className="aspect-square bg-gray-100">
+              <div className="aspect-square bg-light1 dark:bg-dark1">
                 {teacher?.avatar?.url ? (
                   <img
                     src={teacher.avatar.url}
@@ -55,27 +55,27 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 italic">
+                  <div className="w-full h-full flex items-center justify-center text-light1 dark:text-dark1 italic">
                     No Image
                   </div>
                 )}
               </div>
 
               <div className="p-4 space-y-1">
-                <h3 className="text-lg font-semibold text-gray-800 truncate">
+                <h3 className="text-lg font-semibold text-dark1 dark:text-light1 truncate">
                   {teacher.name}
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-dark1 dark:text-light1">
                   Post: {teacher.post?.name}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-dark1 dark:text-light1">
                   Dept: {teacher.department?.name || "N/A"}
                 </p>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-gray-500 italic col-span-full">
+          <p className="text-dark1 dark:text-light1 italic col-span-full">
             No Teachers found.
           </p>
         )}

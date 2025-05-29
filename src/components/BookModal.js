@@ -5,18 +5,18 @@ export default function BookModal({ images, isOpen, setIsOpen }) {
 
   return (
     <div
-      className="fixed top-[-25px] left-0 inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      className="fixed top-[-25px] left-0 inset-0 bg-dark1 dark:bg-light1 bg-opacity-70 flex items-center justify-center z-50"
       onClick={() => setIsOpen(false)} // Close modal on overlay click
     >
       <div
-        className="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
+        className="bg-light1 dark:bg-dark1 rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
       >
         {/* Close button top right */}
         <div className="sticky top-0 flex justify-end z-10 mb-4">
           <button
             onClick={() => setIsOpen(false)}
-            className="px-3 text-2xl font-bold text-gray-600 hover:text-gray-900"
+            className="px-3 text-2xl font-bold text-dark1 dark:text-light1 hover:text-dark1 dark:text-light1"
             aria-label="Close modal"
           >
             &times;
@@ -25,7 +25,7 @@ export default function BookModal({ images, isOpen, setIsOpen }) {
 
         <div className="space-y-6">
           {images.length === 0 ? (
-            <p className="text-center text-gray-500">No images available.</p>
+            <p className="text-center text-dark1 dark:text-light1">No images available.</p>
           ) : (
             images.map((file, index) => {
               return (

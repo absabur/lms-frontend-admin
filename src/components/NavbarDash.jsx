@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ThemeToggle from "./ThemeToggle";
 
 export default function NavbarDash() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -25,13 +26,14 @@ export default function NavbarDash() {
   }, [auth_loaded, isAuthenticated, loaded]);
 
   return (
-    <nav className="bg-blue-500 text-white flex justify-around items-center flex-wrap gap-[20px] p-2">
-      <div className="text-white flex justify-center flex-wrap gap-[20px]">
-        <h1 className="text-3xl font-semibold text-gray-900 text-center">
+    <nav className="sticky top-0 z-[30] lg:z-[50] bg-light1 dark:bg-dark1 text-dark2 dark:text-light2 px-4 py-3 shadow shadow-dshadow dark:shadow-lshadow flex justify-between items-center">
+      <div className="text-light2 dark:text-dark2 flex justify-center flex-wrap gap-[20px]">
+        <h1 className="text-3xl font-semibold text-dark1 dark:text-light1 text-center">
           <Link href="/dashboard">BPI-LMS</Link>
         </h1>
       </div>
-      <div className="text-white flex justify-center flex-wrap gap-[20px]">
+      <div className="flex justify-center items-center gap-8">
+        <ThemeToggle />
         <Link href={`/dashboard/profile`}>
           <img
             src={profile?.avatar?.url}

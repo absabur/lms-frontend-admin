@@ -24,7 +24,7 @@ const TeacherCard = () => {
     }
   }, [id]);
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-6 space-y-4">
+    <div className="w-full max-w-3xl mx-auto bg-light1 dark:bg-dark1 shadow-md rounded-2xl p-6 space-y-4">
       {/* Top Section */}
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         {/* Avatar */}
@@ -36,9 +36,9 @@ const TeacherCard = () => {
 
         {/* Info */}
         <div className="flex-1 text-center md:text-left">
-          <h2 className="text-2xl font-bold text-gray-800">{teacher?.name}</h2>
-          <p className="text-sm text-gray-500">{teacher?.post?.name}</p>
-          <p className="text-sm text-gray-500">{teacher?.department?.name}</p>
+          <h2 className="text-2xl font-bold text-dark1 dark:text-light1">{teacher?.name}</h2>
+          <p className="text-sm text-dark1 dark:text-light1">{teacher?.post?.name}</p>
+          <p className="text-sm text-dark1 dark:text-light1">{teacher?.department?.name}</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@ const TeacherCard = () => {
       </div>
 
       {/* Metadata */}
-      <div className="text-xs text-gray-500">
+      <div className="text-xs text-dark1 dark:text-light1">
         <p>Created: {teacher?.createDate?.date || "N/A"}</p>
         <p>Updated: {teacher?.updateDate?.date || "N/A"}</p>
       </div>
@@ -80,9 +80,9 @@ const TeacherCard = () => {
                   .catch((err) => console.error("API error:", err));
               })
             }
-            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-black transition-all ${
+            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-dark2 dark:text-light2 transition-all ${
               isDisabled
-                ? "bg-gray-300"
+                ? "bg-light1 dark:bg-dark1"
                 : "bg-green-400 hover:bg-green-500 hover:shadow-xl"
             }`}
           >
@@ -105,10 +105,10 @@ const TeacherCard = () => {
                   .catch((err) => console.error("API error:", err));
               })
             }
-            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-black transition-all ${
+            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-dark2 dark:text-light2 transition-all ${
               isDisabled
-                ? "bg-gray-300"
-                : "bg-red-400 hover:bg-red-500 hover:shadow-xl"
+                ? "bg-light1 dark:bg-dark1"
+                : "bg-red-400 hover:bg-button2 dark:bg-button4 hover:shadow-xl"
             }`}
           >
             Ban
@@ -132,9 +132,9 @@ const TeacherCard = () => {
                   .catch((err) => console.error("API error:", err));
               })
             }
-            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-black transition-all ${
+            className={`cursor-pointer px-3 py-1 rounded text-xs border-none text-dark2 dark:text-light2 transition-all ${
               isDisabled
-                ? "bg-gray-300"
+                ? "bg-light1 dark:bg-dark1"
                 : "bg-green-400 hover:bg-green-500 hover:shadow-xl"
             }`}
           >
@@ -144,7 +144,7 @@ const TeacherCard = () => {
 
         <Link
           href={`/dashboard/teachers/edit-teacher/${teacher._id}`}
-          className="bg-yellow-400 hover:bg-yellow-500 hover:shadow-xl text-black px-3 py-1 rounded text-xs"
+          className="bg-yellow-400 hover:bg-yellow-500 hover:shadow-xl text-dark2 dark:text-light2 px-3 py-1 rounded text-xs"
         >
           Edit
         </Link>
@@ -156,8 +156,8 @@ const TeacherCard = () => {
 // Helper Components
 const Info = ({ label, value }) => (
   <div>
-    <p className="text-gray-600 text-sm font-medium">{label}</p>
-    <p className="text-gray-800 font-semibold">{value}</p>
+    <p className="text-dark1 dark:text-light1 text-sm font-medium">{label}</p>
+    <p className="text-dark1 dark:text-light1 font-semibold">{value}</p>
   </div>
 );
 
@@ -165,10 +165,10 @@ const StatusBadge = ({ label, active, inverse = false }) => {
   const color = inverse
     ? active
       ? "bg-red-100 text-red-600"
-      : "bg-gray-100 text-gray-400"
+      : "bg-light1 dark:bg-dark1 text-light1 dark:text-dark1"
     : active
     ? "bg-green-100 text-green-600"
-    : "bg-gray-100 text-gray-400";
+    : "bg-light1 dark:bg-dark1 text-light1 dark:text-dark1";
 
   return (
     <span className={`text-xs px-3 py-1 rounded-full font-medium ${color}`}>

@@ -72,8 +72,8 @@ const Page = () => {
             }}
             className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 ${
               activeFilter === btn.value
-                ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                ? "bg-button1 dark:bg-button3 text-light2 dark:text-dark2 border-blue-600 shadow-sm"
+                : "bg-light1 dark:bg-dark1 text-dark1 dark:text-light1 border-lborder dark:border-dborder hover:bg-light1 dark:bg-dark1"
             }`}
           >
             {btn.label}
@@ -88,9 +88,9 @@ const Page = () => {
       </div>
 
       {studentBorrow?.bookStudents?.length > 0 ? (
-        <div className="overflow-x-auto w-full rounded-lg shadow-sm border border-gray-200">
-          <table className="min-w-full text-sm text-left text-gray-700 bg-white">
-            <thead className="bg-gray-100 text-xs uppercase text-gray-600">
+        <div className="overflow-x-auto w-full rounded-lg shadow-sm border border-lborder dark:border-dborder">
+          <table className="min-w-full text-sm text-left text-dark1 dark:text-light1 bg-light1 dark:bg-dark1">
+            <thead className="bg-light1 dark:bg-dark1 text-xs uppercase text-dark1 dark:text-light1">
               <tr>
                 <th className="px-4 py-3 border">Book</th>
                 <th className="px-4 py-3 border">Number</th>
@@ -176,7 +176,7 @@ const Page = () => {
                           onClick={() =>
                             handleAction(() => handleApprove(item._id))
                           }
-                          className="w-full bg-green-500 hover:bg-green-600 text-white py-1 px-2 rounded text-xs"
+                          className="w-full bg-green-500 hover:bg-green-600 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
                           disabled={isButtonDisabled}
                         >
                           Approve
@@ -193,7 +193,7 @@ const Page = () => {
                               );
                             })
                           }
-                          className="w-full bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-xs"
+                          className="w-full bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
                           disabled={isButtonDisabled}
                         >
                           Reject
@@ -213,7 +213,7 @@ const Page = () => {
                             );
                           })
                         }
-                        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-xs"
+                        className="w-full bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
                         disabled={isButtonDisabled}
                       >
                         Direct Return
@@ -232,7 +232,7 @@ const Page = () => {
                             );
                           })
                         }
-                        className="w-full bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-xs"
+                        className="w-full bg-purple-500 hover:bg-purple-600 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
                         disabled={isButtonDisabled}
                       >
                         Approve Return
@@ -249,7 +249,7 @@ const Page = () => {
           </table>
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-10 text-sm">
+        <p className="text-center text-dark1 dark:text-light1 mt-10 text-sm">
           No books found.
         </p>
       )}
@@ -267,11 +267,11 @@ const Page = () => {
             forcePage={filters.page - 1}
             previousLabel="← Previous"
             containerClassName="flex flex-wrap gap-2 items-center justify-center sm:justify-start"
-            pageClassName="px-3 py-1 rounded bg-gray-200 text-sm cursor-pointer"
-            activeClassName="bg-green-100 text-black"
-            previousClassName="px-3 py-1 rounded bg-gray-300 text-sm cursor-pointer"
-            nextClassName="px-3 py-1 rounded bg-gray-300 text-sm cursor-pointer"
-            breakClassName="px-3 py-1 rounded bg-gray-100"
+            pageClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
+            activeClassName="bg-green-100 text-dark2 dark:text-light2"
+            previousClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
+            nextClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
+            breakClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1"
             disabledClassName="opacity-50 cursor-not-allowed"
           />
         </div>

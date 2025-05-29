@@ -22,7 +22,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
     const { name, value } = e.target;
     const newFilters = { ...filters, [name]: value, page: 1 };
     setFilters(newFilters);
-    localStorage.setItem("studentFilters", JSON.stringify(newFilters));
+    sessionStorage.setItem("studentFilters", JSON.stringify(newFilters));
     dispatch(getStudents(newFilters));
   };
 
@@ -43,7 +43,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           value={filters.name}
           onChange={handleInputChange}
           placeholder="Name"
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         />
       </td>
 
@@ -57,7 +57,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           value={filters.email}
           onChange={handleInputChange}
           placeholder="Email"
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         />
       </td>
 
@@ -69,7 +69,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           value={filters.phone}
           onChange={handleInputChange}
           placeholder="Phone"
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         />
       </td>
 
@@ -88,7 +88,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           name="session"
           value={filters.session}
           onChange={handleInputChange}
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         >
           <option value="">-- Select Session --</option>
           {fixedValues.sessions?.map((option) => (
@@ -105,7 +105,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           name="department"
           value={filters.department}
           onChange={handleInputChange}
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         >
           <option value="">-- Select Department --</option>
           {fixedValues.departments?.map((option) => (
@@ -122,7 +122,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           name="shift"
           value={filters.shift}
           onChange={handleInputChange}
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         >
           <option value="">-- Select Shift --</option>
           {fixedValues.shifts?.map((option) => (
@@ -139,7 +139,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           name="isApproved"
           value={filters.isApproved}
           onChange={handleInputChange}
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         >
           <option value="">--</option>
           <option value="true">Yes</option>
@@ -153,7 +153,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
           name="isBan"
           value={filters.isBan}
           onChange={handleInputChange}
-          className="w-full border rounded border-gray-300 px-2 py-1"
+          className="w-full border rounded border-lborder dark:border-dborder px-2 py-1"
         >
           <option value="">--</option>
           <option value="true">Yes</option>
@@ -165,7 +165,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
       <td className="flex justify-center m-1">
         <button
           type="button"
-          className="bg-red-500 hover:bg-red-600 text-white px-1 py-1 rounded-md font-medium shadow-sm"
+          className="bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-light2 dark:text-dark2 px-1 py-1 rounded-md font-medium shadow-sm"
           onClick={() => {
             const defaultFilters = {
               name: "",
@@ -181,7 +181,7 @@ const StudentFilterRow = ({ filters, setFilters }) => {
               limit: 10,
             };
             setFilters(defaultFilters);
-            localStorage.removeItem("studentFilters");
+            sessionStorage.removeItem("studentFilters");
             dispatch(getStudents(defaultFilters));
           }}
         >

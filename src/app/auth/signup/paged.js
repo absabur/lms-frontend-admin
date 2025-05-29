@@ -30,8 +30,8 @@ const page = () => {
   }, [signupEmail, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+    <div className="min-h-screen flex items-center justify-center bg-light1 dark:bg-dark1">
+      <div className="bg-light1 dark:bg-dark1 p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center mb-6">Sign Up</h2>
 
         <Formik
@@ -42,7 +42,7 @@ const page = () => {
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-dark1 dark:text-light1">
                   Email
                 </label>
                 <Field
@@ -50,7 +50,7 @@ const page = () => {
                   name="email"
                   id="email"
                   placeholder="Enter your email"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-lborder dark:border-dborder rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
                 <ErrorMessage
                   name="email"
@@ -62,7 +62,7 @@ const page = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none disabled:opacity-50"
+                className="w-full py-2 px-4 bg-indigo-600 text-light2 dark:text-dark2 rounded-md hover:bg-indigo-700 focus:outline-none disabled:opacity-50"
               >
                 {isSubmitting ? "Loading..." : "Next"}
               </button>

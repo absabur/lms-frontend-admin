@@ -59,7 +59,7 @@ const page = () => {
             <Field
               type="password"
               name="password"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               placeholder="Password"
               required
             />
@@ -68,7 +68,7 @@ const page = () => {
             <Field
               type="password"
               name="confirmPassword"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               placeholder="Confirm Password"
               required
             />
@@ -77,7 +77,7 @@ const page = () => {
             <Field
               type="text"
               name="verificationCode"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               placeholder="Verification Code"
               required
             />
@@ -86,7 +86,7 @@ const page = () => {
             <Field
               type="text"
               name="name"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               placeholder="Name"
               required
             />
@@ -95,7 +95,7 @@ const page = () => {
             <Field
               type="text"
               name="phone"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               placeholder="Phone"
               required
             />
@@ -104,7 +104,7 @@ const page = () => {
             <Field
               type="text"
               name="nId"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               placeholder="nId"
               required
             />
@@ -114,13 +114,13 @@ const page = () => {
               type="file"
               accept="image/*"
               onChange={(e) => setFieldValue("image", e.target.files[0])}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-lborder dark:border-dborder rounded-md"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+            className="w-full py-2 bg-button1 dark:bg-button3 text-light2 dark:text-dark2 rounded-md hover:bg-button1 dark:bg-button3 transition"
           >
             Submit
           </button>

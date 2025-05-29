@@ -23,7 +23,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
     const { name, value } = e.target;
     const newFilters = { ...filters, [name]: value, page: 1 };
     setFilters(newFilters);
-    localStorage.setItem("bookFilters", JSON.stringify(newFilters));
+    sessionStorage.setItem("bookFilters", JSON.stringify(newFilters));
     getBooks(newFilters, dispatch, setBooks);
   };
 
@@ -43,7 +43,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             value={filters.bookName}
             onChange={handleInputChange}
             placeholder="Book Name"
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           />
         </td>
         {/* Author */}
@@ -54,7 +54,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             value={filters.bookAuthor}
             onChange={handleInputChange}
             placeholder="Author"
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           />
         </td>
         {/* Publisher */}
@@ -65,7 +65,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             value={filters.publisher}
             onChange={handleInputChange}
             placeholder="Publisher"
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           />
         </td>
         {/* Edition */}
@@ -76,7 +76,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             value={filters.edition}
             onChange={handleInputChange}
             placeholder="Edition"
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           />
         </td>
         {/* Pages (optional filter?) */}
@@ -88,7 +88,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             name="country"
             value={filters.country}
             onChange={handleInputChange}
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           >
             <option value="">Country</option>
             {fixedValues?.countries?.map((option) => (
@@ -105,7 +105,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             name="language"
             value={filters.language}
             onChange={handleInputChange}
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           >
             <option value="">Language</option>
             {fixedValues?.languages?.map((option) => (
@@ -125,7 +125,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
               value={filters.mrpMin}
               onChange={handleInputChange}
               placeholder="Min"
-              className="w-1/2 border border-gray-300 rounded px-1 py-1"
+              className="w-1/2 border border-lborder dark:border-dborder rounded px-1 py-1"
             />
             <input
               type="number"
@@ -133,7 +133,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
               value={filters.mrpMax}
               onChange={handleInputChange}
               placeholder="Max"
-              className="w-1/2 border border-gray-300 rounded px-1 py-1"
+              className="w-1/2 border border-lborder dark:border-dborder rounded px-1 py-1"
             />
           </div>
         </td>
@@ -144,7 +144,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             name="shelf"
             value={filters.shelf}
             onChange={handleInputChange}
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           >
             <option value="">Shelf</option>
             {fixedValues?.shelves?.map((option) => (
@@ -161,7 +161,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
             name="department"
             value={filters.department}
             onChange={handleInputChange}
-            className="w-full border border-gray-300 rounded px-2 py-1"
+            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
           >
             <option value="">Department</option>
             {fixedValues?.departments?.map((option) => (
@@ -180,7 +180,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
         {/* Actions (reset/search etc.) */}
         <td className="border px-2 py-1 text-center">
           <button
-            className="bg-red-500 text-white px-2 py-1 rounded"
+            className="bg-button2 dark:bg-button4 text-light2 dark:text-dark2 px-2 py-1 rounded"
             onClick={() => {
               const defaultFilters = {
                 bookName: "",
@@ -202,7 +202,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
                 limit: 10,
               };
               setFilters(defaultFilters);
-              localStorage.removeItem("bookFilters");
+              sessionStorage.removeItem("bookFilters");
               getBooks(defaultFilters, dispatch, setBooks);
             }}
           >

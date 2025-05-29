@@ -8,7 +8,7 @@ const StudentPaginate = ({ students, filters, setFilters }) => {
   const changePage = (newPage) => {
     const newFilters = { ...filters, page: newPage };
     setFilters(newFilters);
-    localStorage.setItem("studentFilters", JSON.stringify(newFilters));
+    sessionStorage.setItem("studentFilters", JSON.stringify(newFilters));
     dispatch(getStudents(newFilters));
   };
   return (
@@ -25,11 +25,11 @@ const StudentPaginate = ({ students, filters, setFilters }) => {
             forcePage={filters.page - 1}
             previousLabel="← Previous"
             containerClassName="flex flex-wrap gap-2 items-center justify-center"
-            pageClassName="px-3 py-1 rounded bg-gray-200 text-sm"
-            activeClassName="bg-green-100 text-black"
-            previousClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-            nextClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-            breakClassName="px-3 py-1 rounded bg-gray-100"
+            pageClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm"
+            activeClassName="bg-green-100 text-dark2 dark:text-light2"
+            previousClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm"
+            nextClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm"
+            breakClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1"
             disabledClassName="opacity-50 cursor-not-allowed"
           />
         </div>

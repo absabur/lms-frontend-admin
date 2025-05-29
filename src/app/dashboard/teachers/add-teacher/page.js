@@ -48,7 +48,7 @@ const AddTeacherPage = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white p-6 shadow rounded-lg">
+    <div className="max-w-3xl mx-auto bg-light1 dark:bg-dark1 p-6 shadow rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">Add Teacher</h2>
       <form
         onSubmit={handleSubmit}
@@ -67,7 +67,7 @@ const AddTeacherPage = () => {
           <div key={field} className="flex flex-col">
             <label
               htmlFor={field}
-              className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
+              className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2"
             >
               {field}
             </label>
@@ -93,7 +93,7 @@ const AddTeacherPage = () => {
           <div key={name} className="flex flex-col">
             <label
               htmlFor={name}
-              className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2"
+              className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2"
             >
               {label}
             </label>
@@ -102,7 +102,7 @@ const AddTeacherPage = () => {
               name={name}
               value={form[name]}
               onChange={handleChange}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-lborder dark:border-dborder rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">-- Select {label} --</option>
               {options?.map((option) => (
@@ -115,7 +115,7 @@ const AddTeacherPage = () => {
         ))}
 
         <div className="col-span-2">
-          <label className="text-sm font-medium text-gray-700 mb-1 relative top-[15px] left-[5px] bg-white z-10 w-fit px-2">
+          <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
             image
           </label>
           <input
@@ -130,7 +130,7 @@ const AddTeacherPage = () => {
         <div className="col-span-2 text-center">
           <button
             type="submit"
-            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+            className="bg-button1 dark:bg-button3 text-light2 dark:text-dark2 px-6 py-2 rounded hover:bg-button1 dark:bg-button3"
           >
             Register Teacher
           </button>

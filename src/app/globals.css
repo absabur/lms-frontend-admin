@@ -4,23 +4,26 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #ff0000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #000000;
-    --color1: #00ff37;
-    --color2: #ff00ea;
+    --light1: #d9f3ff;
+    --dark1: #22023d;
+    --light2: #ffffff;
+    --dark2: #03031f;
+    --lshadow: #cfcfcf;
+    --dshadow: #838383;
+    --lborder: #ffffff;
+    --mborder: #a7a7a7;
+    --dborder: #030303;
+    --button1: #4817cc;
+    --button3: #00ffdd;
+    --button2: #ff0037;
+    --button4: #cc00ff;
     --max-width: 1440px
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 input, textarea, button{

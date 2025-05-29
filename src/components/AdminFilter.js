@@ -13,7 +13,7 @@ const AdminFilterForm = () => {
 
   const [filters, setFilters] = useState(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("adminFilters");
+      const stored = sessionStorage.getItem("adminFilters");
       return stored
         ? JSON.parse(stored)
         : {
@@ -47,14 +47,14 @@ const AdminFilterForm = () => {
     const { name, value } = e.target;
     const newFilters = { ...filters, [name]: value, page: 1 };
     setFilters(newFilters);
-    localStorage.setItem("adminFilters", JSON.stringify(newFilters));
+    sessionStorage.setItem("adminFilters", JSON.stringify(newFilters));
     dispatch(getAdmins(newFilters)); // Send filters to backend
   };
 
   const changePage = (newPage) => {
     const newFilters = { ...filters, page: newPage };
     setFilters(newFilters);
-    localStorage.setItem("adminFilters", JSON.stringify(newFilters));
+    sessionStorage.setItem("adminFilters", JSON.stringify(newFilters));
     dispatch(getAdmins(newFilters));
   };
 
@@ -65,7 +65,7 @@ const AdminFilterForm = () => {
   return (
     <>
       <form
-        className="relative bg-white p-6 rounded-xl shadow-lg space-y-6 mb-3 overflow-hidden transition-all duration-300"
+        className="relative bg-light1 dark:bg-dark1 p-6 rounded-xl shadow-lg space-y-6 mb-3 overflow-hidden transition-all duration-300"
         style={{ maxHeight: collapsed ? "90px" : "1200px" }}
       >
         <div className="flex justify-between items-center">
@@ -85,7 +85,7 @@ const AdminFilterForm = () => {
             ["phone", "Phone"],
           ].map(([name, label]) => (
             <div key={name}>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-dark1 dark:text-light1">
                 {label}
               </label>
               <input
@@ -105,7 +105,7 @@ const AdminFilterForm = () => {
             ["isBan", "Is Banned"],
           ].map(([name, label]) => (
             <div key={name}>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-dark1 dark:text-light1">
                 {label}
               </label>
               <select
@@ -123,7 +123,7 @@ const AdminFilterForm = () => {
 
           {/* Global Search */}
           <div className="col-span-full">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-dark1 dark:text-light1">
               Search (name, email, etc.)
             </label>
             <input
@@ -140,7 +140,7 @@ const AdminFilterForm = () => {
           {/* Sort Controls */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-dark1 dark:text-light1">
                 Sort By
               </label>
               <select
@@ -158,7 +158,7 @@ const AdminFilterForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-dark1 dark:text-light1">
                 Sort Order
               </label>
               <select
@@ -187,11 +187,11 @@ const AdminFilterForm = () => {
                 forcePage={filters.page - 1}
                 previousLabel="← Previous"
                 containerClassName="flex flex-wrap gap-2 items-center justify-center sm:justify-start"
-                pageClassName="px-3 py-1 rounded bg-gray-200 text-sm cursor-pointer"
-                activeClassName="bg-green-100 text-black"
-                previousClassName="px-3 py-1 rounded bg-gray-300 text-sm cursor-pointer"
-                nextClassName="px-3 py-1 rounded bg-gray-300 text-sm cursor-pointer"
-                breakClassName="px-3 py-1 rounded bg-gray-100"
+                pageClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
+                activeClassName="bg-green-100 text-dark2 dark:text-light2"
+                previousClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
+                nextClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
+                breakClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1"
                 disabledClassName="opacity-50 cursor-not-allowed"
               />
             </div>
@@ -201,7 +201,7 @@ const AdminFilterForm = () => {
           <div className="flex justify-center sm:justify-end">
             <button
               type="button"
-              className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-md font-medium shadow-sm"
+              className="bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-light2 dark:text-dark2 px-5 py-2 rounded-md font-medium shadow-sm"
               onClick={() => {
                 const defaultFilters = {
                   name: "",
@@ -218,7 +218,7 @@ const AdminFilterForm = () => {
                   limit: 10,
                 };
                 setFilters(defaultFilters);
-                localStorage.removeItem("adminFilters");
+                sessionStorage.removeItem("adminFilters");
                 dispatch(getAdmins(defaultFilters));
               }}
             >
@@ -239,11 +239,11 @@ const AdminFilterForm = () => {
             forcePage={filters.page - 1}
             previousLabel="← Previous"
             containerClassName="flex flex-wrap gap-2 items-center justify-center"
-            pageClassName="px-3 py-1 rounded bg-gray-200 text-sm"
-            activeClassName="bg-green-100 text-black"
-            previousClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-            nextClassName="px-3 py-1 rounded bg-gray-300 text-sm"
-            breakClassName="px-3 py-1 rounded bg-gray-100"
+            pageClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm"
+            activeClassName="bg-green-100 text-dark2 dark:text-light2"
+            previousClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm"
+            nextClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm"
+            breakClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1"
             disabledClassName="opacity-50 cursor-not-allowed"
           />
         </div>

@@ -37,8 +37,8 @@ const BookDetails = () => {
     <div className="mx-auto p-6">
       <div className="flex flex-wrap gap-6">
         <div className="w-[100%] flex flex-col justify-center items-center mb-3">
-          <h1 className="text-3xl font-bold text-gray-800">{book.bookName}</h1>
-          <p className="text-sm text-gray-500">by {book.bookAuthor}</p>
+          <h1 className="text-3xl font-bold text-dark1 dark:text-light1">{book.bookName}</h1>
+          <p className="text-sm text-dark1 dark:text-light1">by {book.bookAuthor}</p>
         </div>
         <div className="w-[100%] lg:w-[45%] flex justify-start items-center flex-col gap-3">
           {book.images?.[0]?.url ? (
@@ -52,7 +52,7 @@ const BookDetails = () => {
               {/* Prev Button */}
               <button
                 onClick={handlePrev}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-60"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-dark1 dark:bg-light1 bg-opacity-30 text-light2 dark:text-dark2 p-2 rounded-full hover:bg-opacity-60"
               >
                 ‹
               </button>
@@ -60,13 +60,13 @@ const BookDetails = () => {
               {/* Next Button */}
               <button
                 onClick={handleNext}
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-60"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-dark1 dark:bg-light1 bg-opacity-30 text-light2 dark:text-dark2 p-2 rounded-full hover:bg-opacity-60"
               >
                 ›
               </button>
             </div>
           ) : (
-            <div className="w-full max-w-md h-64 bg-gray-100 flex items-center justify-center rounded-xl text-gray-400">
+            <div className="w-full max-w-md h-64 bg-light1 dark:bg-dark1 flex items-center justify-center rounded-xl text-light1 dark:text-dark1">
               No Image Available
             </div>
           )}
@@ -94,14 +94,14 @@ const BookDetails = () => {
             <h2>
               <button
                 onClick={() => setModal(true)}
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
+                className="px-6 py-3 bg-button1 dark:bg-button3 text-light2 dark:text-dark2 font-semibold rounded-lg shadow-md hover:bg-button1 dark:bg-button3 transition-colors duration-300"
               >
                 Read This Book
               </button>
             </h2>
             <Link
               href={`/dashboard/books/edit-book/${book.slug}`}
-              className="px-6 py-3 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 transition-colors duration-300"
+              className="px-6 py-3 bg-yellow-600 text-light2 dark:text-dark2 font-semibold rounded-lg shadow-md hover:bg-yellow-700 transition-colors duration-300"
             >
               Edit Book
             </Link>
@@ -125,7 +125,7 @@ const BookDetails = () => {
           {/* Book Numbers */}
           {book.bookNumbers?.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-gray-700 mb-1">
+              <h2 className="text-lg font-semibold text-dark1 dark:text-light1 mb-1">
                 Book Numbers
               </h2>
               <div className="flex flex-wrap gap-2">
@@ -154,10 +154,10 @@ const BookDetails = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-gray-700 mb-1">
+          <h2 className="text-lg font-semibold text-dark1 dark:text-light1 mb-1">
             Description
           </h2>
-          <pre className="text-gray-600 p-2 max-w-full overflow-x-auto whitespace-pre-wrap break-words">
+          <pre className="text-dark1 dark:text-light1 p-2 max-w-full overflow-x-auto whitespace-pre-wrap break-words">
             {book.description}
           </pre>
         </div>
@@ -169,9 +169,9 @@ const BookDetails = () => {
 };
 
 const DetailItem = ({ label, value }) => (
-  <div className="bg-white shadow rounded-lg p-4">
-    <p className="text-xs text-gray-500">{label}</p>
-    <p className="text-base font-medium text-gray-800">{value || "N/A"}</p>
+  <div className="bg-light1 dark:bg-dark1 shadow rounded-lg p-4">
+    <p className="text-xs text-dark1 dark:text-light1">{label}</p>
+    <p className="text-base font-medium text-dark1 dark:text-light1">{value || "N/A"}</p>
   </div>
 );
 

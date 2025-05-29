@@ -26,7 +26,7 @@ const FindBook = ({ closeModal, setBookId }) => {
           placeholder="Search books..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full md:w-96 border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+          className="w-full md:w-96 border border-lborder dark:border-dborder rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         />
       </div>
 
@@ -46,10 +46,10 @@ const FindBook = ({ closeModal, setBookId }) => {
                   slug: book.slug,
                 })
               }
-              className="bg-white rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
+              className="bg-light1 dark:bg-dark1 rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
             >
               {/* Image */}
-              <div className={`aspect-[3/2] bg-gray-100`}>
+              <div className={`aspect-[3/2] bg-light1 dark:bg-dark1`}>
                 {book?.images?.[0]?.url ? (
                   <img
                     src={book.images[0].url}
@@ -57,7 +57,7 @@ const FindBook = ({ closeModal, setBookId }) => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 italic">
+                  <div className="w-full h-full flex items-center justify-center text-light1 dark:text-dark1 italic">
                     No Image
                   </div>
                 )}
@@ -65,20 +65,20 @@ const FindBook = ({ closeModal, setBookId }) => {
 
               {/* Text Info */}
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800 truncate">
+                <h3 className="text-lg font-semibold text-dark1 dark:text-light1 truncate">
                   {book.bookName}
                 </h3>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-light1 dark:text-dark1">
                   {book.bookAuthor || "Unknown Department"}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-dark1 dark:text-light1">
                   {book.department?.name || "Unknown Department"}
                 </p>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-gray-500 italic col-span-full">No books found.</p>
+          <p className="text-dark1 dark:text-light1 italic col-span-full">No books found.</p>
         )}
       </div>
     </div>

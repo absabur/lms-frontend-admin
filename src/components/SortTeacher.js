@@ -32,13 +32,13 @@ const TableHeaderTeacher = ({ filters, setFilters }) => {
 
     if (filters.sortBy === key) {
       return filters.sortOrder === "asc" ? (
-        <FaSortUp className="inline ml-1 text-green-600" />
+        <FaSortUp className="inline ml-1 text-light2 dark:text-dark2" />
       ) : (
-        <FaSortDown className="inline ml-1 text-green-600" />
+        <FaSortDown className="inline ml-1 text-light2 dark:text-dark2" />
       );
     }
 
-    return <FaSort className="inline ml-1" />;
+    return <FaSort className="opacity-50 inline ml-1" />;
   };
 
   return (

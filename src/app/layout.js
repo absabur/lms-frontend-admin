@@ -3,8 +3,8 @@ import "./globals.css";
 
 import { StoreProvider } from "@/store/StoreProvider.jsx";
 import Toast from "@/components/Toast";
-import Navbar from "@/components/NavbarAuth";
 import Loading from "@/components/Loading";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,14 +24,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <StoreProvider>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Toast />
-          <Loading />
-          {children}
+          <ThemeProvider attribute="class" enableSystem defaultTheme="system">
+            <Toast />
+            <Loading />
+            {children}
+          </ThemeProvider>
         </body>
       </StoreProvider>
     </html>

@@ -41,7 +41,7 @@ const SortableTableHeader = ({ filters, setFilters }) => {
       page: 1,
     };
     setFilters(newFilters);
-    localStorage.setItem("studentFilters", JSON.stringify(newFilters));
+    sessionStorage.setItem("studentFilters", JSON.stringify(newFilters));
     dispatch(getStudents(newFilters));
   };
 
@@ -54,13 +54,13 @@ const SortableTableHeader = ({ filters, setFilters }) => {
     return (
       <span className="flex flex-col">
         <FaSortUp
-          className={`text-xs ${
-            isActive && isAsc ? "text-green-600" : "text-gray-400"
+          className={`${
+            isActive && isAsc ? "text-light2 dark:text-dark2 mb-[-13px]" : "opacity-50 mb-[-13px]"
           }`}
         />
         <FaSortDown
-          className={`text-xs ${
-            isActive && isDesc ? "text-green-600" : "text-gray-400"
+          className={`${
+            isActive && isDesc ? "text-light2 dark:text-dark2" : "opacity-50"
           }`}
         />
       </span>

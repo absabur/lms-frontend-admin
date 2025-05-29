@@ -29,7 +29,7 @@ const TableHead = ({ filters, setFilters, setBooks }) => {
     };
 
     setFilters(updatedFilters);
-    localStorage.setItem("bookFilters", JSON.stringify(updatedFilters));
+    sessionStorage.setItem("bookFilters", JSON.stringify(updatedFilters));
     getBooks(updatedFilters, dispatch, setBooks);
   };
 

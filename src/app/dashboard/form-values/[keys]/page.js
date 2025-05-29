@@ -65,15 +65,15 @@ const page = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-semibold text-gray-800">
+      <h1 className="text-2xl font-semibold text-dark1 dark:text-light1">
         {keys?.toUpperCase()}
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {fixedValues[keys]?.map((item) => (
           <div key={item._id} className="w-full">
-            <div className="border p-4 rounded-xl shadow-sm hover:shadow-md bg-white hover:bg-gray-50 transition-all duration-200">
-              <h3 className="text-base font-medium text-gray-700 capitalize truncate">
+            <div className="border p-4 rounded-xl shadow-sm hover:shadow-md bg-light1 dark:bg-dark1 hover:bg-gray-50 transition-all duration-200">
+              <h3 className="text-base font-medium text-dark1 dark:text-light1 capitalize truncate">
                 {item.name}
               </h3>
             </div>
@@ -81,18 +81,18 @@ const page = () => {
         ))}
 
         <div className="w-full">
-          <div className="border p-4 rounded-xl shadow-sm bg-white hover:bg-gray-50 transition-all duration-200">
+          <div className="border p-4 rounded-xl shadow-sm bg-light1 dark:bg-dark1 hover:bg-gray-50 transition-all duration-200">
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Add new value"
-                className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="border border-lborder dark:border-dborder px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               />
               <button
                 type="submit"
-                className="bg-blue-600 text-white font-medium px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                className="bg-button1 dark:bg-button3 text-light2 dark:text-dark2 font-medium px-4 py-2 rounded-md hover:bg-button1 dark:bg-button3 transition"
               >
                 Add
               </button>

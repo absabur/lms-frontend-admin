@@ -67,14 +67,14 @@ const Dashboard = () => {
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-700">
           📚 Library Dashboard
         </h1>
-        <p className="text-gray-500 mt-2">
+        <p className="text-dark1 dark:text-light1 mt-2">
           Monitor borrowing, users, and book stats at a glance
         </p>
       </div>
 
       {/* Summary Chart */}
-      <div className="rounded-2xl bg-white shadow-xl p-6 mb-8 backdrop-blur-md border border-gray-100">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4 text-center">
+      <div className="rounded-2xl bg-light1 dark:bg-dark1 shadow-xl p-6 mb-8 backdrop-blur-md border border-lborder dark:border-dborder">
+        <h2 className="text-xl font-semibold text-dark1 dark:text-light1 mb-4 text-center">
           📊 Library Summary
         </h2>
         <ResponsiveContainer width="100%" height={350}>
@@ -111,7 +111,7 @@ const Dashboard = () => {
       {/* Two-Column Layout for Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Pie Chart */}
-        <div className="bg-white rounded-2xl shadow-xl p-6">
+        <div className="bg-light1 dark:bg-dark1 rounded-2xl shadow-xl p-6">
           <h2 className="text-lg font-semibold mb-4 text-indigo-600">
             🍰 Borrowing Ratio
           </h2>
@@ -141,7 +141,7 @@ const Dashboard = () => {
         </div>
 
         {/* Department-wise Book Count */}
-        <div className="bg-white rounded-2xl shadow-xl p-6">
+        <div className="bg-light1 dark:bg-dark1 rounded-2xl shadow-xl p-6">
           <h2 className="text-lg font-semibold mb-4 text-indigo-600">
             🏫 Books by Department
           </h2>
@@ -194,7 +194,7 @@ const Dashboard = () => {
       </div>
 
       {/* Monthly Borrow Trend */}
-      <div className="bg-white rounded-2xl shadow-xl p-6">
+      <div className="bg-light1 dark:bg-dark1 rounded-2xl shadow-xl p-6">
         <h2 className="text-lg font-semibold mb-4 text-indigo-600">
           📈 Monthly Borrowing Trend
         </h2>
