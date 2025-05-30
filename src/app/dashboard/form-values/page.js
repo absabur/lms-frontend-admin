@@ -35,15 +35,15 @@ const page = () => {
             .map((_, i) => (
               <div
                 key={i}
-                className="border p-4 rounded-lg shadow-md animate-pulse bg-light1 dark:bg-dark1"
+                className="border p-4 rounded-lg shadow-md animate-pulse bg-bgl1 dark:bg-bgd1"
               >
-                <div className="h-4 w-2/3 bg-light1 dark:bg-dark1 rounded" />
+                <div className="h-4 w-2/3 bg-bgl1 dark:bg-bgd1 rounded" />
               </div>
             ))
         : Object.entries(fixedValues).map(([key, value]) => (
             <Link href={`/dashboard/form-values/${key}`} key={key}>
-              <div className="border p-4 rounded-lg bg-light1 dark:bg-dark1 shadow-md hover:bg-light1 dark:bg-dark1 transition">
-                <h3 className="text-sm text-dark1 dark:text-light1 capitalize">
+              <div className="border p-4 rounded-lg bg-bgl1 dark:bg-bgd1 shadow-md hover:bg-bgl1 dark:bg-bgd1 transition">
+                <h3 className="text-sm text-bgd1 dark:text-bgl1 capitalize">
                   {key} ({value.length})
                 </h3>
               </div>

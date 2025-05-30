@@ -26,8 +26,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-light1 dark:bg-dark1">
-      <div className="bg-light1 dark:bg-dark1 p-8 rounded-lg shadow-lg w-96">
+    <div className="min-h-screen flex items-center justify-center bg-bgl1 dark:bg-bgd1">
+      <div className="bg-bgl1 dark:bg-bgd1 p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
 
         <Formik
@@ -40,7 +40,7 @@ const LoginPage = () => {
               <div className="mb-4">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-dark1 dark:text-light1"
+                  className="block text-sm font-medium text-bgd1 dark:text-bgl1"
                 >
                   Email
                 </label>
@@ -49,7 +49,7 @@ const LoginPage = () => {
                   name="email"
                   id="email"
                   placeholder="Enter your email"
-                  className="mt-1 block w-full px-3 py-2 border border-lborder dark:border-dborder rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-borl dark:border-bord rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
                 <ErrorMessage
                   name="email"
@@ -61,7 +61,7 @@ const LoginPage = () => {
               <div className="mb-4">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-dark1 dark:text-light1"
+                  className="block text-sm font-medium text-bgd1 dark:text-bgl1"
                 >
                   Password
                 </label>
@@ -70,7 +70,7 @@ const LoginPage = () => {
                   name="password"
                   id="password"
                   placeholder="Enter your password"
-                  className="mt-1 block w-full px-3 py-2 border border-lborder dark:border-dborder rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-borl dark:border-bord rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
                 <ErrorMessage
                   name="password"
@@ -82,7 +82,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-2 px-4 bg-indigo-600 text-light2 dark:text-dark2 rounded-md hover:bg-indigo-700 focus:outline-none disabled:opacity-50"
+                className="w-full py-2 px-4 bg-indigo-600 text-bgl2 dark:text-bgd2 rounded-md hover:bg-indigo-700 focus:outline-none disabled:opacity-50"
               >
                 {isSubmitting ? "Loading..." : "Login"}
               </button>

@@ -37,11 +37,11 @@ const UpdateProfilePage = () => {
   });
 
   return (
-    <div className="min-h-screen flex justify-center items-start bg-gray-50 py-8 px-4">
+    <div className="min-h-screen flex justify-center items-start py-8 px-4">
       <form
         onSubmit={formik.handleSubmit}
         encType="multipart/form-data"
-        className="bg-light1 dark:bg-dark1 w-full max-w-4xl p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="border dark:border-bord bg-bgl1 dark:bg-bgd1 w-full max-w-4xl p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-6"
       >
         <h2 className="text-3xl font-bold text-center mb-6 col-span-2">
           Update Profile
@@ -54,7 +54,7 @@ const UpdateProfilePage = () => {
           { label: "NID", name: "nId", type: "text" },
         ].map((field) => (
           <div key={field.name} className="flex flex-col">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               {field.label}
             </label>
             <input
@@ -63,7 +63,7 @@ const UpdateProfilePage = () => {
               value={formik.values[field.name]}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder rounded-md p-3"
+              className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3"
             />
             {formik.touched[field.name] && formik.errors[field.name] && (
               <p className="text-red-500 text-sm mt-1">
@@ -80,21 +80,21 @@ const UpdateProfilePage = () => {
             <img
               src={URL.createObjectURL(formik.values.image)}
               alt={`Preview`}
-              className="w-24 h-24 object-cover rounded-md border border-lborder dark:border-dborder"
+              className="w-24 h-24 object-cover rounded-md border border-borl dark:border-bord"
               onLoad={(e) => URL.revokeObjectURL(e.target.src)}
             />
           ) : (
             <img
               src={profile?.avatar?.url}
               alt="Profile Avatar"
-              className="w-24 h-24 object-cover rounded-md border border-lborder dark:border-dborder"
+              className="w-24 h-24 object-cover rounded-md border border-borl dark:border-bord"
             />
           )}
         </div>
 
         {/* Image Upload (full width) */}
         <div className="flex flex-col col-span-2">
-          <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">Image (Upload new image)</label>
+          <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">Image (Upload new image)</label>
           <input
             type="file"
             name="image"
@@ -102,14 +102,14 @@ const UpdateProfilePage = () => {
             onChange={(event) => {
               formik.setFieldValue("image", event.currentTarget.files[0]);
             }}
-            className="border border-lborder dark:border-dborder rounded-md p-2"
+            className="border border-borl dark:border-bord rounded-md p-2"
           />
         </div>
 
         {/* Submit Button (full width) */}
         <button
           type="submit"
-          className="col-span-2 bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-light2 dark:text-dark2 py-3 rounded-md font-semibold transition disabled:opacity-50"
+          className="col-span-2 bg-buttonp hover:bg-buttona text-textd py-3 rounded-md font-semibold transition disabled:opacity-50"
           disabled={formik.isSubmitting}
         >
           Update Profile

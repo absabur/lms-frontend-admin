@@ -26,9 +26,9 @@ export default function NavbarDash() {
   }, [auth_loaded, isAuthenticated, loaded]);
 
   return (
-    <nav className="sticky top-0 z-[30] lg:z-[50] bg-light1 dark:bg-dark1 text-dark2 dark:text-light2 px-4 py-3 shadow shadow-dshadow dark:shadow-lshadow flex justify-between items-center">
-      <div className="text-light2 dark:text-dark2 flex justify-center flex-wrap gap-[20px]">
-        <h1 className="text-3xl font-semibold text-dark1 dark:text-light1 text-center">
+    <nav className="sticky top-0 z-[30] lg:z-[50] bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 px-4 py-3 shadow shadow-shadl dark:shadow-shadd flex justify-between items-center">
+      <div className="text-bgl2 dark:text-bgd2 flex justify-center flex-wrap gap-[20px]">
+        <h1 className="text-3xl font-semibold text-bgd1 dark:text-bgl1 text-center">
           <Link href="/dashboard">BPI-LMS</Link>
         </h1>
       </div>

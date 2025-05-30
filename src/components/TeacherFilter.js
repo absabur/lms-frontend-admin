@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fixdeValues, getTeachers } from "@/store/Action"; // Your redux async thunk
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
+const TeacherFilterForm = ({ filters, setFilters }) => {
   const dispatch = useDispatch();
 
   const fixedValues = useSelector((state) => state.fixedValues);
@@ -29,7 +29,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
   return (
     <tr>
       {/* # and Image and Actions don't have filters, so render empty td */}
-      <td colSpan={2} className="border px-2 py-1 font-semibold">
+      <td colSpan={2} className="px-2 py-1 font-semibold">
         <div className="flex items-center gap-2">
           Filters <FaLongArrowAltRight />
         </div>
@@ -42,7 +42,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           value={filters.name}
           onChange={handleInputChange}
           placeholder="Filter Name"
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         />
       </td>
       {/* Email filter */}
@@ -53,7 +53,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           value={filters.email}
           onChange={handleInputChange}
           placeholder="Filter Email"
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         />
       </td>
       {/* Phone filter */}
@@ -64,7 +64,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           value={filters.phone}
           onChange={handleInputChange}
           placeholder="Filter Phone"
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         />
       </td>
       {/* Post filter (select) */}
@@ -73,7 +73,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           name="post"
           value={filters.post}
           onChange={handleInputChange}
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         >
           <option value="">-- All Posts --</option>
           {fixedValues.posts?.map((post) => (
@@ -89,7 +89,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           name="department"
           value={filters.department}
           onChange={handleInputChange}
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         >
           <option value="">-- All Departments --</option>
           {fixedValues.departments?.map((dept) => (
@@ -105,7 +105,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           name="isApproved"
           value={filters.isApproved}
           onChange={handleInputChange}
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         >
           <option value="">-- All --</option>
           <option value="true">Yes</option>
@@ -118,7 +118,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
           name="isBan"
           value={filters.isBan}
           onChange={handleInputChange}
-          className="border rounded border-lborder dark:border-dborder px-2 py-1 w-full"
+          className="border rounded border-borl dark:border-bord px-2 py-1 w-full"
         >
           <option value="">-- All --</option>
           <option value="true">Yes</option>
@@ -129,7 +129,7 @@ const TeacherFilterForm = ({ filters, setFilters, teachers }) => {
       <td className="flex justify-center">
         <button
           type="button"
-          className="bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-light2 dark:text-dark2 m-1 px-1 py-1 rounded-md font-medium shadow-sm"
+          className="bg-buttona hover:bg-buttonp text-textd m-1 px-1 py-1 rounded-md font-medium shadow-sm"
           onClick={() => {
             const defaultFilters = {
               name: "",

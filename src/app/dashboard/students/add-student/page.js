@@ -81,7 +81,7 @@ const AddStudentPage = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-light1 dark:bg-dark1 p-6 shadow rounded-lg">
+    <div className="border border-borl dark:border-bord  max-w-3xl mx-auto bg-bgl1 dark:bg-bgd1 p-6 shadow rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">Add Student</h2>
       <form
         onSubmit={handleSubmit}
@@ -105,7 +105,7 @@ const AddStudentPage = () => {
           <div key={field} className="flex flex-col">
             <label
               htmlFor={field}
-              className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2"
+              className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
             >
               {field}
             </label>
@@ -119,7 +119,7 @@ const AddStudentPage = () => {
               onChange={handleChange}
               required
               placeholder={field[0].toUpperCase() + field.slice(1)}
-              className="border px-3 py-2 rounded w-full"
+              className="dark:bg-bgd1 border border-borl dark:border-bord px-3 py-2 rounded w-full"
             />
           </div>
         ))}
@@ -132,7 +132,7 @@ const AddStudentPage = () => {
           <div key={name} className="flex flex-col">
             <label
               htmlFor={name}
-              className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2"
+              className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
             >
               {label}
             </label>
@@ -141,7 +141,7 @@ const AddStudentPage = () => {
               name={name}
               value={form[name]}
               onChange={handleChange}
-              className="border border-lborder dark:border-dborder rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">-- Select {label} --</option>
               {options?.map((option) => (
@@ -167,7 +167,7 @@ const AddStudentPage = () => {
             <div key={name} className="flex flex-col">
               <label
                 htmlFor={name}
-                className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2"
+                className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
               >
                 {label}
               </label>
@@ -177,7 +177,7 @@ const AddStudentPage = () => {
                 value={form[name]}
                 onChange={handleChange}
                 disabled={isUpazila && !form.district}
-                className="border border-lborder dark:border-dborder rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">{`Select ${label}`}</option>
                 {filteredOptions?.map((option) => (
@@ -191,7 +191,7 @@ const AddStudentPage = () => {
         })}
 
         <div className="flex flex-col col-span-2">
-          <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+          <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             Address
           </label>
           <textarea
@@ -199,12 +199,12 @@ const AddStudentPage = () => {
             rows="3"
             value={form["address"]}
             onChange={handleChange}
-            className="border border-lborder dark:border-dborder rounded-md p-3 resize-none"
+            className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3 resize-none"
           />
         </div>
 
         <div className="col-span-2">
-          <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+          <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             image
           </label>
           <input
@@ -212,14 +212,14 @@ const AddStudentPage = () => {
             accept="image/*"
             onChange={handleFileChange}
             required
-            className="border px-3 py-2 rounded w-full"
+            className="dark:bg-bgd1 dark:bg-bgd1 border border-borl dark:border-bord px-3 py-2 rounded w-full"
           />
         </div>
 
         <div className="col-span-2 text-center">
           <button
             type="submit"
-            className="bg-button1 dark:bg-button3 text-light2 dark:text-dark2 px-6 py-2 rounded hover:bg-button1 dark:bg-button3"
+            className="w-full bg-buttonp hover:bg-buttona text-textd px-6 py-2 rounded hover:bg-button1 dark:bg-button3"
           >
             Register Student
           </button>

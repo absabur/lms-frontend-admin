@@ -72,8 +72,8 @@ const Page = () => {
             }}
             className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 ${
               activeFilter === btn.value
-                ? "bg-button1 dark:bg-button3 text-light2 dark:text-dark2 border-blue-600 shadow-sm"
-                : "bg-light1 dark:bg-dark1 text-dark1 dark:text-light1 border-lborder dark:border-dborder hover:bg-light1 dark:bg-dark1"
+                ? "bg-buttonp dark:bg-buttonp text-bgl2 dark:text-bgl2 border-blue-600 shadow-sm"
+                : "bg-bgl1 dark:bg-bgd1 text-bgd1 dark:text-bgl1 border-borl dark:border-bord hover:bg-buttons dark:hover:bg-buttons hover:text-textd"
             }`}
           >
             {btn.label}
@@ -81,80 +81,83 @@ const Page = () => {
         ))}
         <Link
           href={`/dashboard/student-borrows/direct-assign`}
-          className="px-4 py-2 rounded ml-auto bg-yellow-300 hover:bg-yellow-500 border text-sm font-medium transition-all duration-300"
+          className="px-4 py-2 rounded ml-auto border text-sm font-medium transition-all duration-300 bg-buttona text-textd hover:bg-buttonp"
         >
           Direct Assign A Book
         </Link>
       </div>
 
       {studentBorrow?.bookStudents?.length > 0 ? (
-        <div className="overflow-x-auto w-full rounded-lg shadow-sm border border-lborder dark:border-dborder">
-          <table className="min-w-full text-sm text-left text-dark1 dark:text-light1 bg-light1 dark:bg-dark1">
-            <thead className="bg-light1 dark:bg-dark1 text-xs uppercase text-dark1 dark:text-light1">
+        <div className="overflow-x-auto w-full rounded-lg shadow-sm border border-borl dark:border-bord">
+          <table className="min-w-full text-sm text-left text-bgd1 dark:text-bgl1 bg-bgl1 dark:bg-bgd1">
+            <thead className="bg-buttonp dark:bg-buttonp text-bgl1 text-xs uppercase">
               <tr>
-                <th className="px-4 py-3 border">Book</th>
-                <th className="px-4 py-3 border">Number</th>
-                <th className="px-4 py-3 border">Author</th>
-                <th className="px-4 py-3 border">Dept</th>
-                <th className="px-4 py-3 border">Shelf</th>
-                <th className="px-4 py-3 border">MRP</th>
-                <th className="px-4 py-3 border bg-green-100">Student</th>
-                <th className="px-4 py-3 border bg-green-100">Department</th>
-                <th className="px-4 py-3 border bg-green-100">Session</th>
-                <th className="px-4 py-3 border bg-green-100">Shift</th>
-                <th className="px-4 py-3 border bg-green-100">Roll</th>
-                <th className="px-4 py-3 border">Actions</th>
+                <th className="px-4 py-3">Book</th>
+                <th className="px-4 py-3">Number</th>
+                <th className="px-4 py-3">Author</th>
+                <th className="px-4 py-3">Dept</th>
+                <th className="px-4 py-3">Shelf</th>
+                <th className="px-4 py-3">MRP</th>
+                <th className="px-4 py-3 ">Student</th>
+                <th className="px-4 py-3 ">Department</th>
+                <th className="px-4 py-3 ">Session</th>
+                <th className="px-4 py-3 ">Shift</th>
+                <th className="px-4 py-3 ">Roll</th>
+                <th className="px-4 py-3">Actions</th>
               </tr>
             </thead>
             <tbody>
               {studentBorrow.bookStudents.map((item) => (
-                <tr key={item._id} className="hover:bg-gray-50 transition">
-                  <td className="px-4 py-3 border">
+                <tr
+                  key={item._id}
+                  className="odd:bg-bgl2 even:bg-bgl1 dark:odd:bg-bgd1 dark:even:bg-bgd2 hover:bg-buttons dark:hover:bg-buttons hover:text-textd"
+                >
+                  <td className="px-4 py-3">
                     <Link
                       href={`/dashboard/books/${item.book?.slug || "#"}`}
                       target="_blank"
-                      className="text-blue-600 hover:underline"
+                      className="hover:underline"
                     >
                       {item.book?.bookName || "N/A"}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 border text-center">
+                  <td className="px-4 py-3 text-center">
                     {item?.bookNumber || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border">
+                  <td className="px-4 py-3">
                     {item.book?.bookAuthor || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border">
+                  <td className="px-4 py-3">
                     {item.book?.department?.name || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border">
+                  <td className="px-4 py-3">
                     {item.book?.shelf?.name || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border text-right">
+                  <td className="px-4 py-3 text-right">
                     ৳{item.book?.mrp ?? "N/A"}
                   </td>
-                  <td className="px-4 py-3 border bg-green-100">
+                  <td className="px-4 py-3 ">
                     <Link
                       href={`/dashboard/teachers/${item.studentId._id}`}
                       target="_blank"
-                      className="text-blue-600 hover:underline"
+                      className="hover:underline"
                     >
                       {item.studentId?.name || "N/A"}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 border bg-green-100">
+                  <td className="px-4 py-3 ">
                     {item.studentId?.department?.name || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border bg-green-100">
+                  <td className="px-4 py-3 ">
                     {item.studentId?.session?.name || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border bg-green-100">
+                  <td className="px-4 py-3 ">
                     {item.studentId?.shift?.name || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border text-center bg-green-100">
+                  <td className="px-4 py-3 text-center ">
                     {item.studentId?.boardRoll || "N/A"}
                   </td>
-                  <td className="px-4 py-3 border space-y-1">
+                  <td className="px-4 py-3 space-y-1">
                     {item.takingApproveBy == null ? (
                       <>
                         <select
@@ -176,7 +179,7 @@ const Page = () => {
                           onClick={() =>
                             handleAction(() => handleApprove(item._id))
                           }
-                          className="w-full bg-green-500 hover:bg-green-600 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
+                          className="w-full bg-green-500 hover:bg-green-600 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
                           disabled={isButtonDisabled}
                         >
                           Approve
@@ -193,7 +196,7 @@ const Page = () => {
                               );
                             })
                           }
-                          className="w-full bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
+                          className="w-full bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
                           disabled={isButtonDisabled}
                         >
                           Reject
@@ -213,7 +216,7 @@ const Page = () => {
                             );
                           })
                         }
-                        className="w-full bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
+                        className="w-full bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
                         disabled={isButtonDisabled}
                       >
                         Direct Return
@@ -232,7 +235,7 @@ const Page = () => {
                             );
                           })
                         }
-                        className="w-full bg-purple-500 hover:bg-purple-600 text-light2 dark:text-dark2 py-1 px-2 rounded text-xs"
+                        className="w-full bg-purple-500 hover:bg-purple-600 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
                         disabled={isButtonDisabled}
                       >
                         Approve Return
@@ -249,7 +252,7 @@ const Page = () => {
           </table>
         </div>
       ) : (
-        <p className="text-center text-dark1 dark:text-light1 mt-10 text-sm">
+        <p className="text-center text-bgd1 dark:text-bgl1 mt-10 text-sm">
           No books found.
         </p>
       )}
@@ -267,11 +270,11 @@ const Page = () => {
             forcePage={filters.page - 1}
             previousLabel="← Previous"
             containerClassName="flex flex-wrap gap-2 items-center justify-center sm:justify-start"
-            pageClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
-            activeClassName="bg-green-100 text-dark2 dark:text-light2"
-            previousClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
-            nextClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1 text-sm cursor-pointer"
-            breakClassName="px-3 py-1 rounded bg-light1 dark:bg-dark1"
+            pageClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm cursor-pointer"
+            activeClassName=" text-bgd2 dark:text-bgl2"
+            previousClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm cursor-pointer"
+            nextClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm cursor-pointer"
+            breakClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1"
             disabledClassName="opacity-50 cursor-not-allowed"
           />
         </div>

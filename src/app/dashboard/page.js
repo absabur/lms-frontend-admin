@@ -32,7 +32,8 @@ const Dashboard = () => {
     teachers: dashboardData.teachersCount,
     students: dashboardData.studentsCount,
     uniqueBooksCount: dashboardData.uniqueBooksCount,
-    totalBooks: dashboardData.booksCount,
+    availabeBooksCount: dashboardData.availabeBooksCount,
+    totalBooksCount: dashboardData.totalBooksCount,
     teacherBorrow: dashboardData.currentBorrowTeachersCount,
     studentBorrow: dashboardData.currentBorrowStudentsCount,
     totalteacherBorrow: dashboardData.totalBorrowTeachersCount,
@@ -50,13 +51,13 @@ const Dashboard = () => {
     { name: "Unique Books", value: summary.uniqueBooksCount },
     {
       name: "Total Books",
-      value: summary.totalBooks + summary.teacherBorrow + summary.studentBorrow,
+      value: summary.totalBooksCount,
     },
     { name: "Teacher Borrow", value: summary.teacherBorrow },
     { name: "Student Borrow", value: summary.studentBorrow },
     {
       name: "Available Books",
-      value: summary.totalBooks,
+      value: summary.availabeBooksCount,
     },
   ];
 
@@ -67,14 +68,14 @@ const Dashboard = () => {
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-700">
           📚 Library Dashboard
         </h1>
-        <p className="text-dark1 dark:text-light1 mt-2">
+        <p className="text-bgd1 dark:text-bgl1 mt-2">
           Monitor borrowing, users, and book stats at a glance
         </p>
       </div>
 
       {/* Summary Chart */}
-      <div className="rounded-2xl bg-light1 dark:bg-dark1 shadow-xl p-6 mb-8 backdrop-blur-md border border-lborder dark:border-dborder">
-        <h2 className="text-xl font-semibold text-dark1 dark:text-light1 mb-4 text-center">
+      <div className="rounded-2xl bg-bgl1 dark:bg-bgd1 shadow-xl p-6 mb-8 backdrop-blur-md border border-borl dark:border-bord">
+        <h2 className="text-xl font-semibold text-bgd1 dark:text-bgl1 mb-4 text-center">
           📊 Library Summary
         </h2>
         <ResponsiveContainer width="100%" height={350}>
@@ -111,7 +112,7 @@ const Dashboard = () => {
       {/* Two-Column Layout for Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Pie Chart */}
-        <div className="bg-light1 dark:bg-dark1 rounded-2xl shadow-xl p-6">
+        <div className="bg-bgl1 dark:bg-bgd1 rounded-2xl shadow-xl p-6  border border-borl dark:border-bord">
           <h2 className="text-lg font-semibold mb-4 text-indigo-600">
             🍰 Borrowing Ratio
           </h2>
@@ -141,7 +142,7 @@ const Dashboard = () => {
         </div>
 
         {/* Department-wise Book Count */}
-        <div className="bg-light1 dark:bg-dark1 rounded-2xl shadow-xl p-6">
+        <div className="bg-bgl1 dark:bg-bgd1 rounded-2xl shadow-xl p-6  border border-borl dark:border-bord">
           <h2 className="text-lg font-semibold mb-4 text-indigo-600">
             🏫 Books by Department
           </h2>
@@ -194,7 +195,7 @@ const Dashboard = () => {
       </div>
 
       {/* Monthly Borrow Trend */}
-      <div className="bg-light1 dark:bg-dark1 rounded-2xl shadow-xl p-6">
+      <div className="bg-bgl1 dark:bg-bgd1 rounded-2xl shadow-xl p-6 border border-borl dark:border-bord">
         <h2 className="text-lg font-semibold mb-4 text-indigo-600">
           📈 Monthly Borrowing Trend
         </h2>

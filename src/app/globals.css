@@ -9,19 +9,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --light1: #d9f3ff;
-    --dark1: #22023d;
-    --light2: #ffffff;
-    --dark2: #03031f;
-    --lshadow: #cfcfcf;
-    --dshadow: #838383;
-    --lborder: #ffffff;
-    --mborder: #a7a7a7;
-    --dborder: #030303;
-    --button1: #4817cc;
-    --button3: #00ffdd;
-    --button2: #ff0037;
-    --button4: #cc00ff;
+    --buttonp: #1D4ED8;
+    --buttons: #275052;
+    --buttona: #9333EA;
+    --buttonw: #DC2626;
+
+    --bgl1: #FFFFFF;
+    --bgl2: #efe9f0;
+    --borl: #CCCCCC;
+    --shadl: #00000080;
+    --textl: #000000;
+
+    --bgd1: #000000;
+    --bgd2: #001318;
+    --bord: #444444;
+    --shadd: #ffffff48;
+    --textd: #E0E0E0;
+
     --max-width: 1440px
   }
 }

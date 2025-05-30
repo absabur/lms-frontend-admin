@@ -72,20 +72,20 @@ const Page = () => {
   return (
     <div className="min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl md:text-4xl font-bold text-dark1 dark:text-light1 text-center md:text-left">
+        <h1 className="text-2xl md:text-4xl font-bold text-bgd1 dark:text-bgl1 text-center md:text-left">
           All Books
         </h1>
         <Link
           href="/dashboard/books/add-book"
-          className="bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-light2 dark:text-dark2 font-medium px-5 py-2 rounded shadow"
+          className="bg-buttona hover:bg-buttonp text-bgl2 font-medium px-5 py-2 rounded shadow"
         >
           + Add Book
         </Link>
       </div>
 
-      <div className="overflow-x-auto bg-light1 dark:bg-dark1 rounded-lg shadow-lg">
-        <table className="min-w-full table-auto w-full text-sm text-left text-dark1 dark:text-light1">
-          <thead className="bg-button1 dark:bg-button3 text-light2 dark:text-dark2 sticky top-0 z-10">
+      <div className="overflow-x-auto bg-bgl1 dark:bg-bgd1 rounded-lg shadow-lg">
+        <table className="min-w-full table-auto w-full text-sm text-left text-bgd1 dark:text-bgl1 border border-borl dark:border-bord">
+          <thead className="bg-buttonp text-bgl2 sticky top-0 z-10">
             <TableHead
               filters={filters}
               setFilters={setFilters}
@@ -102,7 +102,7 @@ const Page = () => {
               <tr
                 key={index}
                 onClick={() => router.push(`/dashboard/books/${book.slug}`)}
-                className="odd:bg-light2 even:bg-light1 dark:bg-dark1 hover:bg-blue-100 border-t border-black-200 cursor-pointer"
+                className="odd:bg-bgl2 even:bg-bgl1 dark:odd:bg-bgd1 dark:even:bg-bgd2 hover:bg-buttons dark:hover:bg-buttons hover:text-textd cursor-pointer"
               >
                 <td className="px-3 py-2">{index + 1}</td>
                 <td className="px-3 py-2">
@@ -113,28 +113,28 @@ const Page = () => {
                       className="w-12 h-12 object-cover rounded"
                     />
                   ) : (
-                    <span className="text-light1 dark:text-dark1 italic">No image</span>
+                    <span className="text-bgl1 dark:text-bgd1 italic">No image</span>
                   )}
                 </td>
-                <td className="px-3 py-2">{book.bookName}</td>
-                <td className="px-3 py-2">{book.bookAuthor}</td>
-                <td className="px-3 py-2">{book.publisher}</td>
-                <td className="px-3 py-2">{book.edition}</td>
-                <td className="px-3 py-2">{book.numberOfPages}</td>
-                <td className="px-3 py-2">{book?.country?.name}</td>
-                <td className="px-3 py-2">{book.language?.name}</td>
-                <td className="px-3 py-2">{book.mrp}</td>
-                <td className="px-3 py-2">{book.shelf?.name}</td>
-                <td className="px-3 py-2">{book.department?.name}</td>
-                <td className="px-3 py-2">{book.quantity}</td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.bookName}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.bookAuthor}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.publisher}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.edition}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.numberOfPages}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book?.country?.name}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.language?.name}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.mrp}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.shelf?.name}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.department?.name}</span></td>
+                <td className="px-3 py-2"><span className="line-clamp-1">{book.quantity}</span></td>
                 <td className="px-3 py-2">
-                  {book.bookNumbers?.join(", ") || "-"}
+                  <span className="line-clamp-1">{book.bookNumbers?.join(", ") || "-"}</span>
                 </td>
                 <td className="px-3 py-2">
                   <div className="flex gap-2">
                     <Link
                       href={`/dashboard/books/edit-book/${book.slug}`}
-                      className="bg-yellow-400 hover:bg-yellow-500 hover:shadow-xl text-dark2 dark:text-light2 px-3 py-1 rounded text-xs"
+                      className="bg-buttonp text-textd hover:bg-buttona px-3 py-1 rounded text-xs"
                       onClick={(e) => e.stopPropagation()} // <-- add this
                     >
                       Edit

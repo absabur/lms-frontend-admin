@@ -55,12 +55,12 @@ const SortableTableHeader = ({ filters, setFilters }) => {
       <span className="flex flex-col">
         <FaSortUp
           className={`${
-            isActive && isAsc ? "text-light2 dark:text-dark2 mb-[-13px]" : "opacity-50 mb-[-13px]"
+            isActive && isAsc ? "text-bgl2 dark:text-bgd2 mb-[-13px]" : "opacity-50 mb-[-13px]"
           }`}
         />
         <FaSortDown
           className={`${
-            isActive && isDesc ? "text-light2 dark:text-dark2" : "opacity-50"
+            isActive && isDesc ? "text-bgl2 dark:text-bgd2" : "opacity-50"
           }`}
         />
       </span>
@@ -68,7 +68,7 @@ const SortableTableHeader = ({ filters, setFilters }) => {
   };
 
   return (
-    <tr>
+    <tr className="bg-buttonp text-textd">
       {headers.map(({ key, label, sortable }) => (
         <th
           key={key}

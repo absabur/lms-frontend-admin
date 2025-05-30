@@ -32,9 +32,9 @@ const TableHeaderTeacher = ({ filters, setFilters }) => {
 
     if (filters.sortBy === key) {
       return filters.sortOrder === "asc" ? (
-        <FaSortUp className="inline ml-1 text-light2 dark:text-dark2" />
+        <FaSortUp className="inline ml-1 text-bgl2 dark:text-bgd2" />
       ) : (
-        <FaSortDown className="inline ml-1 text-light2 dark:text-dark2" />
+        <FaSortDown className="inline ml-1 text-bgl2 dark:text-bgd2" />
       );
     }
 
@@ -42,12 +42,12 @@ const TableHeaderTeacher = ({ filters, setFilters }) => {
   };
 
   return (
-    <tr>
+    <tr className="bg-buttonp text-textd">
       {columns.map(({ key, label }, idx) => (
         <th
           key={idx}
           onClick={() => toggleSort(key)}
-          className={`px-3 py-2 border border-blue-600 whitespace-nowrap select-none cursor-pointer`}
+          className={`px-3 py-2 whitespace-nowrap select-none cursor-pointer`}
           title={key ? `Sort by ${label}` : ""}
         >
           {label}

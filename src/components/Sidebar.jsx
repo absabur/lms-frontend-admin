@@ -57,7 +57,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile top bar */}
-      <div className="md:hidden bg-light1 dark:bg-dark1 p-4 flex justify-between items-center text-dark2 dark:text-light2 w-full">
+      <div className="md:hidden bg-bgl1 dark:bg-bgd1 p-4 flex justify-between items-center text-bgd2 dark:text-bgl2 w-full">
         <button
           onClick={() => setIsSidebarOpen((prev) => !prev)}
           className="border-none"
@@ -74,7 +74,7 @@ export default function Sidebar() {
       <aside
         className={`${
           isSidebarOpen ? "block" : "hidden"
-        } shadow shadow-dshadow dark:shadow-lshadow x-10 md:block w-full border-b md:border-none md:w-[300px] bg-transparent text-dark2 dark:text-light2 p-4 min-w-[300px]`}
+        } bg-bgl2 shadow shadow-shadl dark:shadow-shadd x-10 md:block w-full border-b md:border-none md:w-[300px] bg-transparent text-textl dark:text-textd p-4 min-w-[300px]`}
       >
         <ul className="space-y-2 pt-4">
           {links.map(({ href, label, icon: Icon }) => {
@@ -84,10 +84,10 @@ export default function Sidebar() {
               <li key={href}>
                 <Link
                   href={href}
-                  className={`shadow shadow-dshadow dark:shadow-lshadow flex items-center gap-3 text-dark2 dark:text-light2 text-lg p-2 rounded-lg transition-colors ${
+                  className={`bg-bgl1 dark:bg-bgd1 shadow shadow-shadl dark:shadow-shadd hover:bg-buttons dark:hover:bg-buttons hover:text-textd flex items-center gap-3 text-lg p-2 rounded-lg ${
                     isActive
-                      ? "bg-light1 dark:bg-dark1 hover:bg-button4 hover:text-light1 text-dark2 dark:text-light2 dark:hover:bg-button2"
-                      : "shadow shadow-dshadow dark:shadow-lshadow flex items-center gap-3 w-full border-none bg-light2 dark:bg-dark2 hover:bg-button4 hover:text-light1 dark:hover:bg-button2 dark:hover:text-light1 dark:text-dark1 text-dark1 dark:text-light1 text-lg p-2 rounded-lg transition-colors"
+                      ? "bg-buttonp text-textd dark:bg-buttonp dark:text-textd"
+                      : ""
                   }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -99,7 +99,7 @@ export default function Sidebar() {
           <li>
             <button
               onClick={() => setShowLogoutModal(true)}
-              className="shadow shadow-dshadow dark:shadow-lshadow flex items-center gap-3 w-full border-none bg-light2 dark:bg-dark2 hover:bg-button4 hover:text-light1  dark:hover:bg-button2 dark:hover:text-light1 dark:text-dark1 text-dark1 dark:text-light1 text-lg p-2 rounded-lg transition-colors"
+              className="bg-bgl1 dark:bg-bgd1 shadow shadow-shadl dark:shadow-shadd hover:bg-buttons dark:hover:bg-buttons hover:text-textd flex items-center gap-3 w-full border-none text-lg p-2 rounded-lg"
             >
               <LogOut className="h-5 w-5" />
               Logout
@@ -110,22 +110,22 @@ export default function Sidebar() {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark1 dark:bg-light1 bg-opacity-50">
-          <div className="bg-light1 dark:bg-dark1 rounded-lg p-6 shadow-lg w-[90%] max-w-sm text-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-bgl2 dark:bg-bgd2 bg-opacity-20">
+          <div className="bg-bgl1 dark:bg-bgd1  border border-borl dark:border-bord rounded-lg p-6 shadow-lg w-[90%] max-w-sm text-center">
             <h2 className="text-lg font-semibold mb-4">Confirm Logout</h2>
-            <p className="mb-6 text-sm text-dark1 dark:text-light1">
+            <p className="mb-6 text-sm text-bgd1 dark:text-bgl1">
               Are you sure you want to log out?
             </p>
             <div className="flex justify-center gap-4">
               <button
                 onClick={confirmLogout}
-                className="bg-button2 dark:bg-button4 text-light2 dark:text-dark2 px-4 py-2 rounded hover:bg-button2 dark:bg-button4"
+                className="bg-buttonw text-textd px-4 py-2 rounded hover:bg-buttona"
               >
                 Yes, Logout
               </button>
               <button
                 onClick={() => setShowLogoutModal(false)}
-                className="bg-light1 dark:bg-dark1 text-dark2 dark:text-light2 px-4 py-2 rounded hover:bg-light1 dark:bg-dark1"
+                className="bg-bgd1 dark:bg-bgl1 text-bgl2 dark:text-bgd2 px-4 py-2 rounded"
               >
                 Cancel
               </button>

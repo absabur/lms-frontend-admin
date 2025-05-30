@@ -28,21 +28,21 @@ const AddCardOptions = () => {
   return (
     <>
       {/* Main Card Section */}
-      <div className="max-w-3xl mx-auto p-4 sm:p-6 bg-light1 dark:bg-dark1 rounded-xl shadow space-y-6">
+      <div className="max-w-3xl mx-auto p-4 sm:p-6 bg-bgl1 dark:bg-bgd1 rounded-xl shadow space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Add Book Card */}
           <div
             onClick={() => setModalType("book")}
-            className="relative flex items-center gap-4 p-4 border-2 border-dashed border-lborder dark:border-dborder rounded-lg cursor-pointer hover:border-blue-500 transition"
+            className="relative flex items-center gap-4 p-4 border-2 border-dashed border-borl dark:border-bord rounded-lg cursor-pointer hover:border-blue-500 transition"
           >
             {bookValues.slug && (singleBook.quantity <= 0) && (
-              <div className="flex items-center justify-center absolute top-[0] left-[0] w-full h-full bg-dark1 dark:bg-light1 bg-opacity-70 z-[2]">
+              <div className="flex items-center justify-center absolute top-[0] left-[0] w-full h-full bg-bgd1 dark:bg-bgl1 bg-opacity-70 z-[2]">
                 Book is out of stock
               </div>
             )}
             {bookValues?.id ? (
               <>
-                <div className="relative w-20 h-20 flex-shrink-0 bg-light1 dark:bg-dark1 rounded overflow-hidden">
+                <div className="relative w-20 h-20 flex-shrink-0 bg-bgl1 dark:bg-bgd1 rounded overflow-hidden">
                   {bookValues?.image ? (
                     <img
                       src={bookValues.image}
@@ -50,24 +50,24 @@ const AddCardOptions = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-light1 dark:text-dark1 text-sm">
+                    <div className="w-full h-full flex items-center justify-center text-bgl1 dark:text-bgd1 text-sm">
                       No Image
                     </div>
                   )}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-dark1 dark:text-light1 line-clamp-1">
+                  <h3 className="text-lg font-semibold text-bgd1 dark:text-bgl1 line-clamp-1">
                     {bookValues.name}
                   </h3>
-                  <p className="text-sm text-dark1 dark:text-light1">
+                  <p className="text-sm text-bgd1 dark:text-bgl1">
                     Author: {bookValues.author || "N/A"}
                   </p>
                 </div>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center w-full">
-                <Plus className="w-6 h-6 text-dark1 dark:text-light1" />
-                <p className="text-sm text-dark1 dark:text-light1 mt-1">Add Book</p>
+                <Plus className="w-6 h-6 text-bgd1 dark:text-bgl1" />
+                <p className="text-sm text-bgd1 dark:text-bgl1 mt-1">Add Book</p>
               </div>
             )}
           </div>
@@ -75,11 +75,11 @@ const AddCardOptions = () => {
           {/* Add Student Card */}
           <div
             onClick={() => setModalType("student")}
-            className="flex items-center gap-4 p-4 border-2 border-dashed border-lborder dark:border-dborder rounded-lg cursor-pointer hover:border-blue-500 transition"
+            className="flex items-center gap-4 p-4 border-2 border-dashed border-borl dark:border-bord rounded-lg cursor-pointer hover:border-blue-500 transition"
           >
             {studentValues?.id ? (
               <>
-                <div className="w-20 h-20 flex-shrink-0 bg-light1 dark:bg-dark1 rounded overflow-hidden">
+                <div className="w-20 h-20 flex-shrink-0 bg-bgl1 dark:bg-bgd1 rounded overflow-hidden">
                   {studentValues?.image ? (
                     <img
                       src={studentValues.image}
@@ -87,24 +87,24 @@ const AddCardOptions = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-light1 dark:text-dark1 text-sm">
+                    <div className="w-full h-full flex items-center justify-center text-bgl1 dark:text-bgd1 text-sm">
                       No Image
                     </div>
                   )}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-dark1 dark:text-light1 line-clamp-1">
+                  <h3 className="text-lg font-semibold text-bgd1 dark:text-bgl1 line-clamp-1">
                     {studentValues.name}
                   </h3>
-                  <p className="text-sm text-dark1 dark:text-light1">
+                  <p className="text-sm text-bgd1 dark:text-bgl1">
                     Roll: {studentValues.roll || "N/A"}
                   </p>
                 </div>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center w-full">
-                <Plus className="w-6 h-6 text-dark1 dark:text-light1" />
-                <p className="text-sm text-dark1 dark:text-light1 mt-1">Add Student</p>
+                <Plus className="w-6 h-6 text-bgd1 dark:text-bgl1" />
+                <p className="text-sm text-bgd1 dark:text-bgl1 mt-1">Add Student</p>
               </div>
             )}
           </div>
@@ -129,7 +129,7 @@ const AddCardOptions = () => {
         {/* Submit Button */}
         <button
           onClick={handleAssign}
-          className="w-full bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-light2 dark:text-dark2 font-semibold py-2 rounded-lg transition"
+          className="w-full bg-buttonp hover:bg-buttona text-bgl2 font-semibold py-2 rounded-lg transition"
         >
           Add
         </button>
@@ -137,11 +137,11 @@ const AddCardOptions = () => {
 
       {/* Modal for Book */}
       {modalType === "book" && (
-        <div className="fixed inset-0 z-50 bg-dark1 dark:bg-light1 bg-opacity-60 flex items-center justify-center px-4">
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-light1 dark:bg-dark1 rounded-lg p-6 shadow-lg">
+       <div className="fixed inset-0 z-50 bg-bgl1 dark:bg-bgd1 bg-opacity-60 flex items-center justify-center px-4">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-bgl2 dark:bg-bgd2 rounded-lg p-6 shadow-lg">
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 text-dark1 dark:text-light1 hover:text-red-500 transition"
+              className="absolute top-4 right-4 text-bgd1 dark:text-bgl1 hover:text-red-500 transition"
             >
               <X className="w-6 h-6" />
             </button>
@@ -152,11 +152,11 @@ const AddCardOptions = () => {
 
       {/* Modal for Student */}
       {modalType === "student" && (
-        <div className="fixed inset-0 z-50 bg-dark1 dark:bg-light1 bg-opacity-60 flex items-center justify-center px-4">
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-light1 dark:bg-dark1 rounded-lg p-6 shadow-lg">
+        <div className="fixed inset-0 z-50 bg-bgl1 dark:bg-bgd1 bg-opacity-60 flex items-center justify-center px-4">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-bgl2 dark:bg-bgd2 rounded-lg p-6 shadow-lg">
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 text-dark1 dark:text-light1 hover:text-red-500 transition"
+              className="absolute top-4 right-4 text-bgd1 dark:text-bgl1 hover:text-red-500 transition"
             >
               <X className="w-6 h-6" />
             </button>

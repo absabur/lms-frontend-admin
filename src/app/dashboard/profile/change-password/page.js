@@ -40,10 +40,10 @@ const ChangePasswordPage = () => {
   });
 
   return (
-    <div className="min-h-screen flex justify-center items-start bg-gray-50 py-12 px-4">
+    <div className="min-h-screen flex justify-center items-start py-12 px-4">
       <form
         onSubmit={formik.handleSubmit}
-        className="bg-light1 dark:bg-dark1 w-full max-w-xl p-8 rounded-lg shadow-lg flex flex-col gap-6"
+        className="border dark:border-bord bg-bgl1 dark:bg-bgd1 w-full max-w-xl p-8 rounded-lg shadow-lg flex flex-col gap-6"
       >
         <h2 className="text-2xl font-bold text-center">Change Password</h2>
 
@@ -55,7 +55,7 @@ const ChangePasswordPage = () => {
           <div key={field.name} className="flex flex-col">
             <label
               htmlFor={field.name}
-              className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2"
+              className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
             >
               {field.label}
             </label>
@@ -66,7 +66,7 @@ const ChangePasswordPage = () => {
               value={formik.values[field.name]}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder rounded-md p-3"
+              className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3"
             />
             {formik.touched[field.name] && formik.errors[field.name] && (
               <p className="text-red-500 text-sm mt-1">
@@ -79,7 +79,7 @@ const ChangePasswordPage = () => {
         <button
           type="submit"
           // disabled={formik.isSubmitting}
-          className="bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-light2 dark:text-dark2 py-3 rounded-md font-semibold transition disabled:opacity-50"
+          className="bg-buttonp hover:bg-buttona text-textd py-3 rounded-md font-semibold transition disabled:opacity-50"
         >
           Update Password
         </button>

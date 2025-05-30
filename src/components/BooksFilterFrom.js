@@ -30,65 +30,65 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
   return (
     <>
       <tr>
-        <td colSpan={2} className="border px-2 py-1 font-semibold">
+        <td colSpan={2} className="px-2 py-1 font-semibold">
           <div className="flex items-center gap-2">
             Filters <FaLongArrowAltRight />
           </div>
         </td>
         {/* Book Name */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <input
             type="text"
             name="bookName"
             value={filters.bookName}
             onChange={handleInputChange}
             placeholder="Book Name"
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           />
         </td>
         {/* Author */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <input
             type="text"
             name="bookAuthor"
             value={filters.bookAuthor}
             onChange={handleInputChange}
             placeholder="Author"
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           />
         </td>
         {/* Publisher */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <input
             type="text"
             name="publisher"
             value={filters.publisher}
             onChange={handleInputChange}
             placeholder="Publisher"
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           />
         </td>
         {/* Edition */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <input
             type="text"
             name="edition"
             value={filters.edition}
             onChange={handleInputChange}
             placeholder="Edition"
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           />
         </td>
         {/* Pages (optional filter?) */}
-        <td className="border px-2 py-1" />
+        <td className="px-2 py-1" />
 
         {/* Country Dropdown */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <select
             name="country"
             value={filters.country}
             onChange={handleInputChange}
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           >
             <option value="">Country</option>
             {fixedValues?.countries?.map((option) => (
@@ -100,12 +100,12 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
         </td>
 
         {/* Language Dropdown */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <select
             name="language"
             value={filters.language}
             onChange={handleInputChange}
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           >
             <option value="">Language</option>
             {fixedValues?.languages?.map((option) => (
@@ -117,7 +117,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
         </td>
 
         {/* MRP Min/Max */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <div className="flex gap-1">
             <input
               type="number"
@@ -125,7 +125,7 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
               value={filters.mrpMin}
               onChange={handleInputChange}
               placeholder="Min"
-              className="w-1/2 border border-lborder dark:border-dborder rounded px-1 py-1"
+              className="w-1/2 border border-borl dark:border-bord rounded px-1 py-1"
             />
             <input
               type="number"
@@ -133,18 +133,18 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
               value={filters.mrpMax}
               onChange={handleInputChange}
               placeholder="Max"
-              className="w-1/2 border border-lborder dark:border-dborder rounded px-1 py-1"
+              className="w-1/2 border border-borl dark:border-bord rounded px-1 py-1"
             />
           </div>
         </td>
 
         {/* Shelf Dropdown */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <select
             name="shelf"
             value={filters.shelf}
             onChange={handleInputChange}
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           >
             <option value="">Shelf</option>
             {fixedValues?.shelves?.map((option) => (
@@ -156,12 +156,12 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
         </td>
 
         {/* Department Dropdown */}
-        <td className="border px-2 py-1">
+        <td className="px-2 py-1">
           <select
             name="department"
             value={filters.department}
             onChange={handleInputChange}
-            className="w-full border border-lborder dark:border-dborder rounded px-2 py-1"
+            className="w-full border border-borl dark:border-bord rounded px-2 py-1"
           >
             <option value="">Department</option>
             {fixedValues?.departments?.map((option) => (
@@ -173,14 +173,14 @@ const BooksFilterFrom = ({ filters, setFilters, setBooks }) => {
         </td>
 
         {/* Quantity */}
-        <td className="border px-2 py-1" />
+        <td className="px-2 py-1" />
 
-        <td className="border px-2 py-1" />
+        <td className="px-2 py-1" />
 
         {/* Actions (reset/search etc.) */}
-        <td className="border px-2 py-1 text-center">
+        <td className="px-2 py-1 text-center">
           <button
-            className="bg-button2 dark:bg-button4 text-light2 dark:text-dark2 px-2 py-1 rounded"
+            className="bg-buttona hover:bg-buttonp text-bgl2 px-2 py-1 rounded"
             onClick={() => {
               const defaultFilters = {
                 bookName: "",

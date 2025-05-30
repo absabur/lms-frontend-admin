@@ -18,7 +18,7 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-6 bg-gray-50">
+    <div className="p-4 md:p-6">
       {/* Search */}
       <div className="mb-6">
         <input
@@ -26,7 +26,7 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
           placeholder="Search teachers..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full md:w-96 border border-lborder dark:border-dborder rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+          className="w-full md:w-96 border border-borl dark:border-bord rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         />
       </div>
 
@@ -45,37 +45,37 @@ const FindTeacher = ({ closeModal, setTeacherValues }) => {
                   department: teacher.department
                 })
               }
-              className="bg-light1 dark:bg-dark1 rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
+              className="bg-bgl1 dark:bg-bgd1 rounded-xl shadow border dark:border-bord  hover:-translate-y-1 transition-all cursor-pointer overflow-hidden"
             >
-              <div className="aspect-square bg-light1 dark:bg-dark1">
+              <div className="aspect-square bg-bgl1 dark:bg-bgd1">
                 {teacher?.avatar?.url ? (
                   <img
                     src={teacher.avatar.url}
                     alt={teacher.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-light1 dark:text-dark1 italic">
+                  <div className="w-full h-full flex items-center justify-center text-bgl1 dark:text-bgd1 italic">
                     No Image
                   </div>
                 )}
               </div>
 
               <div className="p-4 space-y-1">
-                <h3 className="text-lg font-semibold text-dark1 dark:text-light1 truncate">
+                <h3 className="text-lg font-semibold text-bgd1 dark:text-bgl1 truncate">
                   {teacher.name}
                 </h3>
-                <p className="text-sm text-dark1 dark:text-light1">
+                <p className="text-sm text-bgd1 dark:text-bgl1">
                   Post: {teacher.post?.name}
                 </p>
-                <p className="text-sm text-dark1 dark:text-light1">
+                <p className="text-sm text-bgd1 dark:text-bgl1">
                   Dept: {teacher.department?.name || "N/A"}
                 </p>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-dark1 dark:text-light1 italic col-span-full">
+          <p className="text-bgd1 dark:text-bgl1 italic col-span-full">
             No Teachers found.
           </p>
         )}

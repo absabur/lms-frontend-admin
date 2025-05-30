@@ -68,7 +68,7 @@ const page = () => {
   });
 
   return (
-    <div className="flex justify-center items-center bg-gray-50 px-4 py-6 rounded-lg">
+    <div className="flex justify-center items-center bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord px-4 py-6 rounded-lg">
       <form
         onSubmit={formik.handleSubmit}
         encType="multipart/form-data"
@@ -79,7 +79,7 @@ const page = () => {
         <div className="flex flex-wrap gap-4 items-start justify-center lg:justify-between">
           {/* Book Name */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Book Name:
             </label>
             <input
@@ -88,7 +88,7 @@ const page = () => {
               value={formik.values.bookName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.bookName && formik.errors.bookName && (
@@ -100,7 +100,7 @@ const page = () => {
 
           {/* Book Author */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Book Author:
             </label>
             <input
@@ -109,7 +109,7 @@ const page = () => {
               value={formik.values.bookAuthor}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.bookAuthor && formik.errors.bookAuthor && (
@@ -121,7 +121,7 @@ const page = () => {
 
           {/* Publisher */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Publisher:
             </label>
             <input
@@ -130,7 +130,7 @@ const page = () => {
               value={formik.values.publisher}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.publisher && formik.errors.publisher && (
@@ -142,7 +142,7 @@ const page = () => {
 
           {/* Edition */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Edition:
             </label>
             <input
@@ -151,7 +151,7 @@ const page = () => {
               value={formik.values.edition}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.edition && formik.errors.edition && (
@@ -163,7 +163,7 @@ const page = () => {
 
           {/* Number of Pages */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Number of Pages:
             </label>
             <input
@@ -172,7 +172,7 @@ const page = () => {
               value={formik.values.numberOfPages}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.numberOfPages && formik.errors.numberOfPages && (
@@ -184,7 +184,7 @@ const page = () => {
 
           {/* Country */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Country:
             </label>
             <select
@@ -192,7 +192,7 @@ const page = () => {
               value={formik.values.country}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             >
               <option value="">Select Country</option>
@@ -211,7 +211,7 @@ const page = () => {
 
           {/* Language */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Language:
             </label>
             <select
@@ -219,7 +219,7 @@ const page = () => {
               value={formik.values.language}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             >
               <option value="">Select Language</option>
@@ -238,7 +238,7 @@ const page = () => {
 
           {/* MRP */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               MRP:
             </label>
             <input
@@ -247,7 +247,7 @@ const page = () => {
               value={formik.values.mrp}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.mrp && formik.errors.mrp && (
@@ -257,7 +257,7 @@ const page = () => {
 
           {/* Shelf */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Shelf:
             </label>
             <select
@@ -265,7 +265,7 @@ const page = () => {
               value={formik.values.shelf}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             >
               <option value="">Select Shelf</option>
@@ -282,7 +282,7 @@ const page = () => {
 
           {/* Department */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Department:
             </label>
             <select
@@ -290,7 +290,7 @@ const page = () => {
               value={formik.values.department}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             >
               <option value="">Select Department</option>
@@ -309,7 +309,7 @@ const page = () => {
 
           {/* Quantity */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Quantity:
             </label>
             <input
@@ -318,7 +318,7 @@ const page = () => {
               value={formik.values.quantity}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
               required
             />
             {formik.touched.quantity && formik.errors.quantity && (
@@ -329,7 +329,7 @@ const page = () => {
           </div>
           {/* Book Numbers */}
           <div className="flex flex-col w-[100%] md:w-[48%] lg:w-[30%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Book Numbers:
             </label>
             <input
@@ -338,13 +338,13 @@ const page = () => {
               value={formik.values.bookNumbers}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
             />
           </div>
 
           {/* Description */}
           <div className="flex flex-col w-[100%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Description:
             </label>
             <textarea
@@ -352,7 +352,7 @@ const page = () => {
               value={formik.values.description}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
             />
           </div>
 
@@ -366,7 +366,7 @@ const page = () => {
                   <img
                     src={URL.createObjectURL(file)}
                     alt={`Preview ${index + 1}`}
-                    className="w-24 h-24 object-cover rounded-md border border-lborder dark:border-dborder"
+                    className="w-24 h-24 object-cover rounded-md border border-borl dark:border-bord"
                     onLoad={(e) => URL.revokeObjectURL(e.target.src)}
                   />
                   <div className="flex justify-between mt-1">
@@ -381,7 +381,7 @@ const page = () => {
                         ];
                         formik.setFieldValue("images", imagesArray);
                       }}
-                      className="text-sm px-2 py-1 bg-light1 dark:bg-dark1 rounded disabled:opacity-50"
+                      className="text-sm px-2 py-1 border border-borl dark:border-bord rounded disabled:opacity-20"
                     >
                       ←
                     </button>
@@ -396,7 +396,7 @@ const page = () => {
                         ];
                         formik.setFieldValue("images", imagesArray);
                       }}
-                      className="text-sm px-2 py-1 bg-light1 dark:bg-dark1 rounded disabled:opacity-50"
+                      className="text-sm px-2 py-1 border border-borl dark:border-bord rounded disabled:opacity-20"
                     >
                       →
                     </button>
@@ -408,7 +408,7 @@ const page = () => {
 
           {/* Image Upload */}
           <div className="flex flex-col w-[100%]">
-            <label className="text-sm font-medium text-dark1 dark:text-light1 mb-1 relative top-[15px] left-[5px] bg-light1 dark:bg-dark1 z-10 w-fit px-2">
+            <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               Book Images:
             </label>
             <input
@@ -420,7 +420,7 @@ const page = () => {
               onChange={(event) =>
                 formik.setFieldValue("images", Array.from(event.target.files))
               }
-              className="border border-lborder dark:border-dborder p-3 rounded-md"
+              className="border border-borl dark:border-bord p-3 rounded-md bg-bgl1 dark:bg-bgd1"
             />
             {formik.touched.images && formik.errors.images && (
               <div className="text-red-500 text-sm">{formik.errors.images}</div>
@@ -430,7 +430,7 @@ const page = () => {
 
         <button
           type="submit"
-          className="w-full py-3 mt-6 bg-button1 dark:bg-button3 text-light2 dark:text-dark2 font-semibold rounded-md"
+          className="w-full py-3 mt-6 bg-buttonp hover:bg-buttona text-bgl2 font-semibold rounded-md"
         >
           Add Book
         </button>

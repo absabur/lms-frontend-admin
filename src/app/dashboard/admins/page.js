@@ -24,7 +24,7 @@ const AllAdminsPage = () => {
   return (
     <div className="min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-2xl md:text-4xl font-bold text-dark1 dark:text-light1 text-center md:text-left">
+        <h1 className="text-2xl md:text-4xl font-bold text-bgd1 dark:text-bgl1 text-center md:text-left">
           All Admins
         </h1>
       </div>
@@ -32,9 +32,9 @@ const AllAdminsPage = () => {
       <AdminFilterForm />
       {/* Add optional AdminsFilterForm component here if needed */}
 
-      <div className="overflow-x-auto bg-light1 dark:bg-dark1 rounded-lg shadow-lg">
-        <table className="min-w-full table-auto w-full text-sm text-left text-dark1 dark:text-light1">
-          <thead className="bg-button1 dark:bg-button3 text-light2 dark:text-dark2 sticky top-0 z-10">
+      <div className="overflow-x-auto bg-bgl1 dark:bg-bgd1 rounded-lg shadow-lg">
+        <table className="min-w-full table-auto w-full text-sm text-left text-bgd1 dark:text-bgl1">
+          <thead className="bg-button1 dark:bg-button3 text-bgl2 dark:text-bgd2 sticky top-0 z-10">
             <tr>
               {[
                 "#",
@@ -61,14 +61,14 @@ const AllAdminsPage = () => {
               <tr
                 key={index}
                 onClick={() => router.push(`/dashboard/admins/${admin._id}`)}
-                className="odd:bg-light2 even:bg-light1 dark:bg-dark1 hover:bg-blue-100 border-t border-black-200 cursor-pointer"
+                className="odd:bg-bgl2 even:bg-bgl1 dark:bg-bgd1 hover:bg-blue-100 border-t border-black-200 cursor-pointer"
               >
                 <td className="px-3 py-2">{index + 1}</td>
                 <td className="px-3 py-2">{admin.name}</td>
                 <td className="px-3 py-2">
                   <img
                     src={admin?.avatar?.url}
-                    className="w-12 h-12 object-cover rounded-full border border-lborder dark:border-dborder"
+                    className="w-12 h-12 object-cover rounded-full border border-borl dark:border-bord"
                   />
                 </td>
                 <td className="px-3 py-2">{admin.email}</td>
