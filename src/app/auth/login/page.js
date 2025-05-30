@@ -82,7 +82,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-2 px-4 bg-indigo-600 text-bgl2 dark:text-bgd2 rounded-md hover:bg-indigo-700 focus:outline-none disabled:opacity-50"
+                className="w-full py-2 px-4 bg-buttonp text-textd rounded-md hover:bg-buttona focus:outline-none disabled:opacity-50"
               >
                 {isSubmitting ? "Loading..." : "Login"}
               </button>
