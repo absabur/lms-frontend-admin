@@ -48,11 +48,14 @@ const AddTeacherPage = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-bgl1 dark:bg-bgd1 p-6 shadow rounded-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">Add Teacher</h2>
+    <div className="max-w-3xl mx-auto bg-bgl1 dark:bg-bgd1 p-4 sm:p-6 shadow rounded-lg">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
+        Add Teacher
+      </h2>
+
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
       >
         {[
           "name",
@@ -67,12 +70,11 @@ const AddTeacherPage = () => {
           <div key={field} className="flex flex-col">
             <label
               htmlFor={field}
-              className="text-sm font-medium mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
+              className="text-sm font-medium mb-1 relative top-[14px] left-[6px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
             >
               {field}
             </label>
             <input
-              key={field}
               type={
                 field.toLowerCase().includes("password") ? "password" : "text"
               }
@@ -81,7 +83,7 @@ const AddTeacherPage = () => {
               onChange={handleChange}
               required
               placeholder={field[0].toUpperCase() + field.slice(1)}
-              className="border border-borl dark:border-bord  px-3 py-2 rounded w-full dark:bg-bgd1"
+              className="border border-borl dark:border-bord px-3 py-2 rounded w-full dark:bg-bgd1"
             />
           </div>
         ))}
@@ -93,7 +95,7 @@ const AddTeacherPage = () => {
           <div key={name} className="flex flex-col">
             <label
               htmlFor={name}
-              className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
+              className="text-sm font-medium mb-1 relative top-[14px] left-[6px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
             >
               {label}
             </label>
@@ -114,23 +116,23 @@ const AddTeacherPage = () => {
           </div>
         ))}
 
-        <div className="col-span-2">
-          <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
-            image
+        <div className="col-span-1 sm:col-span-2">
+          <label className="text-sm font-medium mb-1 relative top-[14px] left-[6px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
+            Image
           </label>
           <input
             type="file"
             accept="image/*"
             onChange={handleFileChange}
             required
-            className="border border-borl dark:border-bord  px-3 py-2 rounded w-full"
+            className="border border-borl dark:border-bord px-3 py-2 rounded w-full dark:bg-bgd1"
           />
         </div>
 
-        <div className="col-span-2 text-center">
+        <div className="col-span-1 sm:col-span-2 text-center">
           <button
             type="submit"
-            className="w-full bg-buttonp hover:bg-buttona text-textd px-6 py-2 rounded hover:bg-button1 dark:bg-button3"
+            className="w-full bg-buttonp hover:bg-buttona text-textd px-6 py-2 rounded dark:bg-button3"
           >
             Register Teacher
           </button>

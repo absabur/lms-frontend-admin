@@ -81,11 +81,11 @@ const AddStudentPage = () => {
   };
 
   return (
-    <div className="border border-borl dark:border-bord  max-w-3xl mx-auto bg-bgl1 dark:bg-bgd1 p-6 shadow rounded-lg">
+    <div className="border border-borl dark:border-bord max-w-3xl mx-auto bg-bgl1 dark:bg-bgd1 p-6 shadow rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">Add Student</h2>
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="w-full max-w-5xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4"
       >
         {[
           "name",
@@ -110,7 +110,6 @@ const AddStudentPage = () => {
               {field}
             </label>
             <input
-              key={field}
               type={
                 field.toLowerCase().includes("password") ? "password" : "text"
               }
@@ -152,6 +151,7 @@ const AddStudentPage = () => {
             </select>
           </div>
         ))}
+
         {[
           ["district", "District", fixedValues?.districts],
           ["upazila", "Upazila", fixedValues?.upazilas],
@@ -190,36 +190,36 @@ const AddStudentPage = () => {
           );
         })}
 
-        <div className="flex flex-col col-span-2">
+        <div className="flex flex-col md:col-span-2">
           <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             Address
           </label>
           <textarea
             name="address"
-            rows="3"
+            rows={3}
             value={form["address"]}
             onChange={handleChange}
             className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3 resize-none"
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
-            image
+            Image
           </label>
           <input
             type="file"
             accept="image/*"
             onChange={handleFileChange}
             required
-            className="dark:bg-bgd1 dark:bg-bgd1 border border-borl dark:border-bord px-3 py-2 rounded w-full"
+            className="dark:bg-bgd1 border border-borl dark:border-bord px-3 py-2 rounded w-full"
           />
         </div>
 
-        <div className="col-span-2 text-center">
+        <div className="md:col-span-2 text-center">
           <button
             type="submit"
-            className="w-full bg-buttonp hover:bg-buttona text-textd px-6 py-2 rounded hover:bg-button1 dark:bg-button3"
+            className="w-full bg-buttonp hover:bg-buttona text-textd px-6 py-2 rounded dark:bg-button3"
           >
             Register Student
           </button>

@@ -15,7 +15,6 @@ export default function Home() {
   useEffect(() => {
     dispatch(authenticated())
   }, [])
-  
 
   useEffect(() => {
     if (loaded && auth_loaded) {

@@ -22,7 +22,7 @@ export const metadata = {
     "This is a library management system that is used to manage the library.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }) {  
   return (
     <html lang="en" suppressHydrationWarning>
       <StoreProvider>

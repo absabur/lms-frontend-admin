@@ -1,13 +1,28 @@
 "use client";
 import { fixdeValues } from "@/store/Action";
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const page = () => {
   const { keys } = useParams();
   const [inputValue, setInputValue] = useState("");
+
+  if (
+    ![
+      "countries",
+      "languages",
+      "shelves",
+      "departments",
+      "sessions",
+      "shifts",
+      "districts",
+      "posts",
+      "upazilas",
+    ].includes(keys)
+  ) {
+    notFound();
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +41,6 @@ const page = () => {
           }),
         }
       );
-
-      if (!response.ok) throw new Error("Request failed");
-
       const data = await response.json();
       dispatch({
         type: "MESSAGE",

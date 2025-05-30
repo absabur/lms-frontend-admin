@@ -67,13 +67,13 @@ const UpdateTeacherPage = () => {
       <form
         onSubmit={formik.handleSubmit}
         encType="multipart/form-data"
-        className="bg-bgl1 dark:bg-bgd1 bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord w-full max-w-3xl p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-3"
+        className="bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord w-full max-w-full md:max-w-3xl p-6 md:p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-4"
       >
         <h2 className="text-3xl font-bold text-center mb-6 col-span-2">
           Update Teacher
         </h2>
 
-        {/* Name */}
+        {/* Name, Phone, Email, etc */}
         {[
           { label: "Name", name: "name", type: "text" },
           { label: "Phone", name: "phone", type: "text" },
@@ -81,7 +81,7 @@ const UpdateTeacherPage = () => {
           { label: "NID", name: "nId", type: "text" },
           { label: "Teacher ID", name: "teacherId", type: "text" },
         ].map((field) => (
-          <div key={field.name} className="flex flex-col">
+          <div key={field.name} className="flex flex-col w-full col-span-2 md:col-span-1">
             <label className="text-sm font-medium mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
               {field.label}
             </label>
@@ -91,7 +91,7 @@ const UpdateTeacherPage = () => {
               value={formik.values[field.name]}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="bg-bgl1 dark:bg-bgd1 bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3"
+              className="w-full bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3"
             />
             {formik.touched[field.name] && formik.errors[field.name] && (
               <p className="text-red-500 text-sm mt-1">
@@ -102,7 +102,7 @@ const UpdateTeacherPage = () => {
         ))}
 
         {/* Post */}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full col-span-2 md:col-span-1">
           <label
             htmlFor="post"
             className="text-sm font-medium mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
@@ -115,7 +115,7 @@ const UpdateTeacherPage = () => {
             value={formik.values.post}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">-- Select Posts --</option>
             {fixedValues?.posts?.map((option) => (
@@ -127,7 +127,7 @@ const UpdateTeacherPage = () => {
         </div>
 
         {/* Department */}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full col-span-2 md:col-span-1">
           <label
             htmlFor="department"
             className="text-sm font-medium mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
@@ -140,7 +140,7 @@ const UpdateTeacherPage = () => {
             value={formik.values.department}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">-- Select Department --</option>
             {fixedValues?.departments?.map((option) => (
@@ -152,7 +152,7 @@ const UpdateTeacherPage = () => {
         </div>
 
         {/* Address (full width) */}
-        <div className="flex flex-col col-span-2">
+        <div className="flex flex-col col-span-2 md:col-span-1 w-full">
           <label className="text-sm font-medium mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             Address
           </label>
@@ -162,7 +162,7 @@ const UpdateTeacherPage = () => {
             value={formik.values.address}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="bg-bgl1 dark:bg-bgd1 bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3 resize-none"
+            className="w-full bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-3 resize-none"
           />
           {formik.touched.address && formik.errors.address && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.address}</p>
@@ -170,25 +170,25 @@ const UpdateTeacherPage = () => {
         </div>
 
         {/* Image Preview (full width) */}
-        <div className="col-span-2 mb-4 flex flex-wrap gap-4">
+        <div className="col-span-2 md:col-span-1 mb-4 flex flex-wrap gap-4">
           {formik.values.image ? (
             <img
               src={URL.createObjectURL(formik.values.image)}
               alt={`Preview`}
-              className="w-24 h-24 object-cover rounded-md bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord"
+              className="w-24 max-w-full h-auto object-cover rounded-md bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord"
               onLoad={(e) => URL.revokeObjectURL(e.target.src)}
             />
           ) : (
             <img
               src={teacher?.avatar?.url}
               alt="Teacher Avatar"
-              className="w-24 h-24 object-cover rounded-md bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord"
+              className="w-24 max-w-full h-auto object-cover rounded-md bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord"
             />
           )}
         </div>
 
         {/* Image Upload (full width) */}
-        <div className="flex flex-col col-span-2">
+        <div className="flex flex-col col-span-2 md:col-span-1 w-full">
           <label className="text-sm font-medium mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             Image (Upload new image)
           </label>
@@ -199,14 +199,14 @@ const UpdateTeacherPage = () => {
             onChange={(event) => {
               formik.setFieldValue("image", event.currentTarget.files[0]);
             }}
-            className="bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-2"
+            className="w-full bg-bgl1 dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-2"
           />
         </div>
 
         {/* Submit Button (full width) */}
         <button
           type="submit"
-          className="col-span-2 bg-buttonp hover:bg-buttona text-textd py-3 rounded-md font-semibold transition disabled:opacity-50"
+          className="col-span-2 w-full bg-buttonp hover:bg-buttona text-textd py-3 rounded-md font-semibold transition disabled:opacity-50"
           disabled={formik.isSubmitting}
         >
           Update Teacher

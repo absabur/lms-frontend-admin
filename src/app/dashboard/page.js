@@ -2,7 +2,7 @@
 import DashboardSkeleton from "@/components/DashboardSkeleton";
 import { getDashboard } from "@/store/Action";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   BarChart,
   Bar,

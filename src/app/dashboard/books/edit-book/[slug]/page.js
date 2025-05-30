@@ -1,4 +1,5 @@
 import UpdateBookPage from "@/components/UpdateBook";
+import { notFound } from "next/navigation";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const response = await fetch(
@@ -10,6 +11,7 @@ export async function generateMetadata({ params }) {
   );
 
   const result = await response.json();
+  if (result.data.length <= 0) notFound();
   return {
     title: "LMS | Update ->" + result.data[0].bookName,
   };

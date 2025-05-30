@@ -1,4 +1,5 @@
 import BookDetails from "@/components/BookDetails";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -11,6 +12,7 @@ export async function generateMetadata({ params }) {
   );
 
   const result = await response.json();
+  if (result.data.length <= 0) notFound();
   return {
     title: "LMS | " + result.data[0].bookName,
   };

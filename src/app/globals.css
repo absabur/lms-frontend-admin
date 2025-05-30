@@ -9,14 +9,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --buttonp: #1D4ED8;
+    --buttonp: #1d4ed8;
     --buttons: #275052;
-    --buttona: #9333EA;
-    --buttonw: #DC2626;
+    --buttona: #9333ea;
+    --buttonw: #dc2626;
 
-    --bgl1: #FFFFFF;
+    --bgl1: #ffffff;
     --bgl2: #efe9f0;
-    --borl: #CCCCCC;
+    --borl: #cccccc;
     --shadl: #00000080;
     --textl: #000000;
 
@@ -24,12 +24,79 @@
     --bgd2: #001318;
     --bord: #444444;
     --shadd: #ffffff48;
-    --textd: #E0E0E0;
+    --textd: #e0e0e0;
 
-    --max-width: 1440px
+    --max-width: 1440px;
   }
 }
 
-input, textarea, button{
+input,
+textarea,
+button {
   border: 1px solid #000000;
+}
+
+.error-body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.sw-error-page-container {
+  text-align: center;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sw-error-page-content {
+  margin-bottom: 20px;
+}
+
+.sw-error-page-title {
+  font-size: 72px;
+  margin: 0;
+  color: #ff6b6b;
+}
+
+.sw-error-page-subtitle {
+  font-size: 32px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.sw-error-page-text {
+  font-size: 18px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.sw-error-page-button {
+  text-decoration: none;
+  background-color: #ff6b6b;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.sw-error-page-button:hover {
+  background-color: #ff4b4b;
+}
+
+.sw-error-page-illustration img {
+  max-width: 100%;
+  height: auto;
 }

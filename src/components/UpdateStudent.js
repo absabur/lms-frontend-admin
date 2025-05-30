@@ -90,13 +90,12 @@ const UpdateStudentPage = () => {
       <form
         onSubmit={formik.handleSubmit}
         encType="multipart/form-data"
-        className="dark:bg-bgd1 border border-borl dark:border-bord bg-bgl1 dark:bg-bgd1 w-full max-w-4xl p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-2"
+        className="dark:bg-bgd1 border border-borl dark:border-bord bg-bgl1 w-full max-w-4xl p-6 sm:p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-2 gap-4"
       >
-        <h2 className="text-3xl font-bold text-center mb-6 col-span-2">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6 col-span-1 md:col-span-2">
           Update Student
         </h2>
 
-        {/* Name */}
         {[
           { label: "Name", name: "name", type: "text" },
           { label: "Phone", name: "phone", type: "text" },
@@ -130,78 +129,39 @@ const UpdateStudentPage = () => {
           </div>
         ))}
 
-        {/* Post */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="session"
-            className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
-          >
-            Session
-          </label>
-          <select
-            id="session"
-            name="session"
-            value={formik.values.session}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">-- Select Session --</option>
-            {fixedValues?.sessions?.map((option) => (
-              <option key={option._id} value={option._id}>
-                {option.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col">
-          <label
-            htmlFor="shift"
-            className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
-          >
-            Shift
-          </label>
-          <select
-            id="shift"
-            name="shift"
-            value={formik.values.shift}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">-- Select Shift --</option>
-            {fixedValues?.shifts?.map((option) => (
-              <option key={option._id} value={option._id}>
-                {option.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Department */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="department"
-            className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
-          >
-            Department
-          </label>
-          <select
-            id="department"
-            name="department"
-            value={formik.values.department}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">-- Select Department --</option>
-            {fixedValues?.departments?.map((option) => (
-              <option key={option._id} value={option._id}>
-                {option.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        {[
+          { id: "session", label: "Session", options: fixedValues?.sessions },
+          { id: "shift", label: "Shift", options: fixedValues?.shifts },
+          {
+            id: "department",
+            label: "Department",
+            options: fixedValues?.departments,
+          },
+        ].map(({ id, label, options }) => (
+          <div key={id} className="flex flex-col">
+            <label
+              htmlFor={id}
+              className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2"
+            >
+              {label}
+            </label>
+            <select
+              id={id}
+              name={id}
+              value={formik.values[id]}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none"
+            >
+              <option value="">{`-- Select ${label} --`}</option>
+              {options?.map((option) => (
+                <option key={option._id} value={option._id}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        ))}
 
         {[
           ["district", "District", fixedValues?.districts],
@@ -229,7 +189,7 @@ const UpdateStudentPage = () => {
                 onChange={(e) => formik.setFieldValue(name, e.target.value)}
                 onBlur={formik.handleBlur}
                 disabled={isUpazila && !formik.values.district}
-                className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md px-3 py-2 focus:outline-none"
               >
                 <option value="">{`Select ${label}`}</option>
                 {filteredOptions?.map((option) => (
@@ -242,8 +202,7 @@ const UpdateStudentPage = () => {
           );
         })}
 
-        {/* Address (full width) */}
-        <div className="flex flex-col col-span-2">
+        <div className="flex flex-col col-span-1 md:col-span-2">
           <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             Address
           </label>
@@ -260,26 +219,26 @@ const UpdateStudentPage = () => {
           )}
         </div>
 
-        {/* Image Preview (full width) */}
-        <div className="col-span-2 mb-4 flex flex-wrap gap-4">
+        <div className="col-span-1 md:col-span-2 mb-4 flex flex-wrap gap-4">
           {formik.values.image ? (
             <img
               src={URL.createObjectURL(formik.values.image)}
-              alt={`Preview`}
+              alt="Preview"
               className="w-24 h-24 object-cover rounded-md dark:bg-bgd1 border border-borl dark:border-bord"
               onLoad={(e) => URL.revokeObjectURL(e.target.src)}
             />
           ) : (
-            <img
-              src={student?.avatar?.url}
-              alt="Student Avatar"
-              className="w-24 h-24 object-cover rounded-md dark:bg-bgd1 border border-borl dark:border-bord"
-            />
+            student?.avatar?.url && (
+              <img
+                src={student.avatar.url}
+                alt="Student Avatar"
+                className="w-24 h-24 object-cover rounded-md dark:bg-bgd1 border border-borl dark:border-bord"
+              />
+            )
           )}
         </div>
 
-        {/* Image Upload (full width) */}
-        <div className="flex flex-col col-span-2">
+        <div className="flex flex-col col-span-1 md:col-span-2">
           <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
             Image (Upload new image)
           </label>
@@ -287,17 +246,16 @@ const UpdateStudentPage = () => {
             type="file"
             name="image"
             accept="image/*"
-            onChange={(event) => {
-              formik.setFieldValue("image", event.currentTarget.files[0]);
-            }}
+            onChange={(event) =>
+              formik.setFieldValue("image", event.currentTarget.files[0])
+            }
             className="dark:bg-bgd1 border border-borl dark:border-bord rounded-md p-2"
           />
         </div>
 
-        {/* Submit Button (full width) */}
         <button
           type="submit"
-          className="col-span-2 bg-buttonp hover:bg-buttona text-textd py-2 px-4 rounded-md hover:bg-button1 dark:bg-button3 transition"
+          className="col-span-1 md:col-span-2 bg-buttonp hover:bg-buttona text-textd py-2 px-4 rounded-md transition"
         >
           Update
         </button>

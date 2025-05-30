@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import {
   AUTHENTICATED,
   GET_FIXED_VALUES,
