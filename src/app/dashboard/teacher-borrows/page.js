@@ -357,12 +357,12 @@ const Page = () => {
             pageCount={Math.ceil(teacherBorrow.total / filters.limit)}
             forcePage={filters.page - 1}
             previousLabel="← Previous"
-            containerClassName="flex flex-wrap gap-2 items-center justify-center sm:justify-start"
-            pageClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm cursor-pointer"
-            activeClassName="bg-green-100 text-bgd2 dark:text-bgl2"
-            previousClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm cursor-pointer"
-            nextClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm cursor-pointer"
-            breakClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1"
+            containerClassName="flex flex-wrap gap-2 items-center justify-center"
+            pageClassName="px-3 py-1 rounded text-sm transition-colors bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            activeClassName="bg-buttonp text-textd dark:bg-buttonp dark:text-bgd1"
+            previousClassName="px-3 py-1 rounded text-sm transition-colors bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            nextClassName="px-3 py-1 rounded text-sm transition-colors bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            breakClassName="px-3 py-1 rounded text-bgd2 dark:text-bgl2 bg-bgl1 dark:bg-bgd1"
             disabledClassName="opacity-50 cursor-not-allowed"
           />
         </div>

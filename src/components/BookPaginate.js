@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { getBooks } from "@/store/Action";
 import React from "react";
 import ReactPaginate from "react-paginate";
@@ -12,7 +12,7 @@ const BookPaginate = ({ books, filters, setFilters, setBooks }) => {
     sessionStorage.setItem("bookFilters", JSON.stringify(newFilters));
     getBooks(newFilters, dispatch, setBooks);
   };
-  
+
   return (
     <>
       {books?.total > 0 && (
@@ -27,11 +27,11 @@ const BookPaginate = ({ books, filters, setFilters, setBooks }) => {
             forcePage={filters.page - 1}
             previousLabel="← Previous"
             containerClassName="flex flex-wrap gap-2 items-center justify-center"
-            pageClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm"
-            activeClassName="bg-green-100 text-bgd2 dark:text-bgl2"
-            previousClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm"
-            nextClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1 text-sm"
-            breakClassName="px-3 py-1 rounded bg-bgl1 dark:bg-bgd1"
+            pageClassName="px-3 py-1 rounded text-sm transition-colors bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            activeClassName="bg-buttonp text-textd dark:bg-buttonp dark:text-bgd1"
+            previousClassName="px-3 py-1 rounded text-sm transition-colors bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            nextClassName="px-3 py-1 rounded text-sm transition-colors bg-bgl1 dark:bg-bgd1 text-bgd2 dark:text-bgl2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            breakClassName="px-3 py-1 rounded text-bgd2 dark:text-bgl2 bg-bgl1 dark:bg-bgd1"
             disabledClassName="opacity-50 cursor-not-allowed"
           />
         </div>
