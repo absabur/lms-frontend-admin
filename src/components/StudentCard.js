@@ -35,16 +35,16 @@ const StudentLibraryCard = ({ student }) => {
                   Library Card
                 </h1>
                 <p className="text-sm text-gray-500">
-                  {student.department.name}
+                  {student?.department?.name}
                 </p>
               </div>
             </div>
             <div className="text-sm text-right text-gray-500 space-y-1">
               <p>
-                <strong>Session:</strong> {student.session.name}
+                <strong>Session:</strong> {student?.session?.name}
               </p>
               <p>
-                <strong>Shift:</strong> {student.shift.name}
+                <strong>Shift:</strong> {student?.shift?.name}
               </p>
             </div>
           </div>
@@ -52,18 +52,18 @@ const StudentLibraryCard = ({ student }) => {
           {/* Profile */}
           <div className="flex gap-6 items-center mb-6">
             <img
-              src={student.avatar.url}
-              alt={student.name}
+              src={student?.avatar?.url}
+              alt={student?.name}
               className="w-28 h-28 rounded-2xl border-2 border-indigo-500 object-cover shadow-md"
             />
             <div className="text-left space-y-1">
               <h2 className="text-2xl font-semibold text-gray-800">
-                {student.name}
+                {student?.name}
               </h2>
-              <p className="text-sm text-gray-600">{student.banglaName}</p>
-              <p className="text-xs text-gray-500">{student.email}</p>
+              <p className="text-sm text-gray-600">{student?.banglaName}</p>
+              <p className="text-xs text-gray-500">{student?.email}</p>
               <span className="inline-block text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded shadow-sm">
-                📞 {student.phone}
+                📞 {student?.phone}
               </span>
             </div>
           </div>
@@ -72,34 +72,34 @@ const StudentLibraryCard = ({ student }) => {
           <div className="grid grid-cols-2 gap-y-3 text-sm text-left">
             <p>
               <span className="font-semibold">Father:</span>{" "}
-              {student.fathersName}
+              {student?.fathersName}
             </p>
             <p>
               <span className="font-semibold">Mother:</span>{" "}
-              {student.mothersName}
+              {student?.mothersName}
             </p>
             <p>
               <span className="font-semibold">Admission Roll:</span>{" "}
-              {student.addmissionRoll}
+              {student?.addmissionRoll}
             </p>
             <p>
               <span className="font-semibold">Board Roll:</span>{" "}
-              {student.boardRoll}
+              {student?.boardRoll}
             </p>
             <p>
               <span className="font-semibold">Reg. No:</span>{" "}
-              {student.registration}
+              {student?.registration}
             </p>
             <p>
               <span className="font-semibold">District:</span>{" "}
-              {student.district.name}
+              {student?.district?.name}
             </p>
             <p>
               <span className="font-semibold">Upazila:</span>{" "}
-              {student.upazila.name}
+              {student?.upazila?.name}
             </p>
             <p>
-              <span className="font-semibold">Village:</span> {student.village}
+              <span className="font-semibold">Village:</span> {student?.village}
             </p>
           </div>
 
@@ -136,7 +136,7 @@ const StudentLibraryCard = ({ student }) => {
           >
             Print
           </button>
-          <ScreenshotButton targetId="library-card" year={student.name} />
+          <ScreenshotButton targetId="library-card" year={student?.name} />
         </div>
       </div>
     </div>
