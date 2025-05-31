@@ -1,5 +1,6 @@
 "use client";
 import { fixdeValues } from "@/store/Action";
+import { MESSAGE } from "@/store/Constant";
 import { notFound, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,10 +43,18 @@ const page = () => {
         }
       );
       const data = await response.json();
-      dispatch({
-        type: "MESSAGE",
-        payload: { message: `${keys} added!`, status: "success" },
-      });
+      if (data.succes) {
+        dispatch({
+          type: MESSAGE,
+          payload: { message: data.message || `${keys} added!`, status: "success" },
+        });
+      } else {
+        dispatch({
+          type: MESSAGE,
+          payload: { message: data.error || `${keys} can't add!`, status: "error" },
+        });
+      }
+      console.log(data);
       dispatch(fixdeValues());
       setInputValue("");
     } catch (error) {

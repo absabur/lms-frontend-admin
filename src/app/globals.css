@@ -3,8 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #ff0000;
+  --buttonp: #1d4ed8;
+  --buttons: #275052;
+  --buttona: #9333ea;
+  --buttonw: #dc2626;
+
+  --bgl1: #ffffff;
+  --bgl2: #f0f3f7;
+  --borl: #cccccc;
+  --shadl: #00000080;
+  --textl: #000000;
+
+  --bgd1: #000000;
+  --bgd2: #001318;
+  --bord: #444444;
+  --shadd: #ffffff48;
+  --textd: #e0e0e0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,7 +29,7 @@
     --buttonw: #dc2626;
 
     --bgl1: #ffffff;
-    --bgl2: #efe9f0;
+    --bgl2: #f0f3f7;
     --borl: #cccccc;
     --shadl: #00000080;
     --textl: #000000;

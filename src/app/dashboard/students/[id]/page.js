@@ -1,4 +1,5 @@
 "use client";
+import StudentLibraryCard from "@/components/StudentCard";
 import { getStudentById } from "@/store/Action";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -26,6 +27,7 @@ const StudentCard = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto bg-bgl1 dark:bg-bgd1 border dark:border-bord shadow-md rounded-2xl p-6 space-y-4">
+      {student?._id && <StudentLibraryCard student={student} />}
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <img
           src={student?.avatar?.url}
@@ -70,7 +72,6 @@ const StudentCard = () => {
       <div className="text-xs text-bgd1 dark:text-bgl1">
         <p>Created: {student?.createDate?.date || "N/A"}</p>
         <p>Updated: {student?.updateDate?.date || "N/A"}</p>
-        <p>Updated By: {student?.updatedBy || "N/A"}</p>
       </div>
       <div className="flex gap-3">
         {student?._id && student?.isBan ? (

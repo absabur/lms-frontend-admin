@@ -30,18 +30,18 @@ export default function Sidebar() {
     setLinks([
       { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
       {
-        href: "/dashboard/teacher-borrows",
-        label: "Teacher Borrows",
-        icon: ClipboardList,
-      },
-      {
         href: "/dashboard/student-borrows",
         label: "Student Borrows",
         icon: ClipboardList,
       },
-      { href: "/dashboard/books", label: "Manage Books", icon: Book },
-      { href: "/dashboard/teachers", label: "Teachers", icon: User },
       { href: "/dashboard/students", label: "Students", icon: User },
+      { href: "/dashboard/books", label: "Manage Books", icon: Book },
+      {
+        href: "/dashboard/teacher-borrows",
+        label: "Teacher Borrows",
+        icon: ClipboardList,
+      },
+      { href: "/dashboard/teachers", label: "Teachers", icon: User },
       ...(profile?.isSuperAdmin
         ? [{ href: "/dashboard/admins", label: "Admins", icon: ShieldCheck }]
         : []),

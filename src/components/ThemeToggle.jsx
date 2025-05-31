@@ -1,6 +1,5 @@
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
-import { FaSun, FaMoon } from "react-icons/fa";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 export default function ThemeToggle() {
