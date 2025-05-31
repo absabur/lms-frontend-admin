@@ -6,7 +6,7 @@ const Skeleton = ({ className }) => (
 
 export default function DashboardSkeleton() {
   return (
-    <div className="p-4 sm:p-6 md:p-8 min-h-screen">
+    <div className="min-h-screen">
       {/* Header */}
       <div className="text-center mb-8">
         <Skeleton className="h-8 sm:h-10 md:h-12 w-80 mx-auto mb-2 bg-bgl1 dark:bg-bgd1" />
