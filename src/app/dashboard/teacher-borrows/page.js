@@ -178,9 +178,7 @@ const Page = () => {
                   </td>
 
                   {/* Author */}
-                  <td className="px-4 py-3">
-                    {item?.bookNumber || "N/A"}
-                  </td>
+                  <td className="px-4 py-3">{item?.bookNumber || "N/A"}</td>
 
                   <td className="px-4 py-3">
                     {item.book?.bookAuthor || "N/A"}
@@ -208,15 +206,11 @@ const Page = () => {
                       {item.teacherId?.name}
                     </Link>
                   </td>
-                  <td className="px-4 py-3">
-                    {item.teacherId?.teacherId}
-                  </td>
+                  <td className="px-4 py-3">{item.teacherId?.teacherId}</td>
                   <td className="px-4 py-3">
                     {item.teacherId?.department?.name}
                   </td>
-                  <td className="px-4 py-3">
-                    {item.teacherId?.post?.name}
-                  </td>
+                  <td className="px-4 py-3">{item.teacherId?.post?.name}</td>
 
                   {/* Actions */}
                   <td className="px-4 py-3 space-y-2 rounded-r-lg">
@@ -247,7 +241,7 @@ const Page = () => {
                             className={`w-1/2 px-2 py-1 text-bgl2 dark:text-bgd2 text-xs rounded ${
                               isDisabled
                                 ? "bg-bgl1 dark:bg-bgd1"
-                                : "bg-green-600 hover:bg-green-700"
+                                : "bg-buttonp hover:bg-buttona text-bgl2"
                             }`}
                           >
                             Approve
@@ -268,7 +262,7 @@ const Page = () => {
                             className={`w-1/2 px-2 py-1 text-bgl2 dark:text-bgd2 text-xs rounded ${
                               isDisabled
                                 ? "bg-bgl1 dark:bg-bgd1"
-                                : "bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4"
+                                : "bg-buttonw hover:bg-buttona text-bgl2"
                             }`}
                           >
                             Reject
@@ -296,7 +290,7 @@ const Page = () => {
                           className={`w-full px-2 py-1 text-xs text-bgl2 dark:text-bgd2 rounded ${
                             isDisabled
                               ? "bg-bgl1 dark:bg-bgd1"
-                              : "bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3"
+                              : "bg-buttonp hover:bg-buttona text-bgl2"
                           }`}
                         >
                           Direct Return
@@ -322,7 +316,7 @@ const Page = () => {
                           className={`w-full px-2 py-1 text-xs text-bgl2 dark:text-bgd2 rounded ${
                             isDisabled
                               ? "bg-bgl1 dark:bg-bgd1"
-                              : "bg-indigo-600 hover:bg-indigo-700"
+                              : "bg-buttonp hover:bg-buttona text-bgl2"
                           }`}
                         >
                           Return Approve

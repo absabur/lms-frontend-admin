@@ -179,7 +179,7 @@ const Page = () => {
                           onClick={() =>
                             handleAction(() => handleApprove(item._id))
                           }
-                          className="w-full bg-green-500 hover:bg-green-600 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
+                          className="w-full bg-buttonp hover:bg-buttona text-bgl2 py-1 px-2 rounded text-xs"
                           disabled={isButtonDisabled}
                         >
                           Approve
@@ -196,7 +196,7 @@ const Page = () => {
                               );
                             })
                           }
-                          className="w-full bg-button2 dark:bg-button4 hover:bg-button2 dark:bg-button4 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
+                          className="w-full bg-buttonw hover:bg-buttona text-bgl2 py-1 px-2 rounded text-xs"
                           disabled={isButtonDisabled}
                         >
                           Reject
@@ -216,7 +216,7 @@ const Page = () => {
                             );
                           })
                         }
-                        className="w-full bg-button1 dark:bg-button3 hover:bg-button1 dark:bg-button3 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
+                        className="w-full bg-buttonp hover:bg-buttona text-bgl2 py-1 px-2 rounded text-xs"
                         disabled={isButtonDisabled}
                       >
                         Direct Return
@@ -235,7 +235,7 @@ const Page = () => {
                             );
                           })
                         }
-                        className="w-full bg-purple-500 hover:bg-purple-600 text-bgl2 dark:text-bgd2 py-1 px-2 rounded text-xs"
+                        className="w-full bg-buttonp hover:bg-buttona text-bgl2 py-1 px-2 rounded text-xs"
                         disabled={isButtonDisabled}
                       >
                         Approve Return
