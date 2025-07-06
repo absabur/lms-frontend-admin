@@ -15,7 +15,7 @@ const Loading = () => {
         "I'm currently using free hosting, so it may take a little time for the server to start up."
       );
     }, 2000);
-  }, []);
+  }, [isLoading, auth_loaded]);
 
   return (
     <>
