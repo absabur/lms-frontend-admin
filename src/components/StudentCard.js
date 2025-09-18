@@ -6,7 +6,12 @@ import { useReactToPrint } from "react-to-print";
 const StudentLibraryCard = ({ student }) => {
   console.log(student);
   const contentRef = useRef(null);
-  const reactToPrintFn = useReactToPrint({ contentRef });
+  const reactToPrintFn = useReactToPrint({
+    contentRef,
+    documentTitle: `${student.name}-${
+      student?.boardRoll || student?.addmissionRoll
+    }-${student?.session?.name}`,
+  });
   if (!student) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -113,9 +118,7 @@ const StudentLibraryCard = ({ student }) => {
           <div className="mt-10 flex justify-between items-end px-4">
             {/* Seal */}
             <div className="flex flex-col items-center">
-              <div className="w-20 h-10 flex items-center justify-center text-sm text-indigo-600 font-semibold">
-                
-              </div>
+              <div className="w-20 h-10 flex items-center justify-center text-sm text-indigo-600 font-semibold"></div>
               <p className="text-xs text-gray-500 mt-2">Institutional Seal</p>
             </div>
 
@@ -136,7 +139,12 @@ const StudentLibraryCard = ({ student }) => {
           >
             Print
           </button>
-          <ScreenshotButton targetId="library-card" year={student?.name} />
+          <ScreenshotButton
+            targetId="library-card"
+            year={`${student.name}-${
+              student?.boardRoll || student?.addmissionRoll
+            }-${student?.session?.name}`}
+          />
         </div>
       </div>
     </div>

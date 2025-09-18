@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { fixdeValues, getStudentById, updateStudent } from "@/store/Action";
+import imageCompression from "browser-image-compression";
 
 const UpdateStudentPage = () => {
   const { id } = useParams();
@@ -72,15 +73,32 @@ const UpdateStudentPage = () => {
       union: Yup.string().required("Union is required"),
       village: Yup.string().required("Village is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = new FormData();
+
       for (const key in values) {
         if (key === "image" && values.image) {
-          formData.append("image", values.image);
+          try {
+            const options = {
+              maxSizeMB: 0.8,
+              maxWidthOrHeight: 1920,
+              useWebWorker: true,
+            };
+
+            const compressedFile = await imageCompression(
+              values.image,
+              options
+            );
+            formData.append("image", compressedFile);
+          } catch (error) {
+            console.error("Compression failed:", error);
+            formData.append("image", values.image);
+          }
         } else {
           formData.append(key, values[key]);
         }
       }
+
       dispatch(updateStudent(student._id, formData));
     },
   });

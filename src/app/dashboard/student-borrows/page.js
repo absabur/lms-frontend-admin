@@ -138,7 +138,7 @@ const Page = () => {
                   </td>
                   <td className="px-4 py-3 ">
                     <Link
-                      href={`/dashboard/teachers/${item.studentId._id}`}
+                      href={`/dashboard/teachers/${item?.studentId?._id}`}
                       target="_blank"
                       className="hover:underline"
                     >

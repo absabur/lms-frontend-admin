@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import imageCompression from "browser-image-compression";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -52,17 +53,33 @@ const page = () => {
       bookNumbers: Yup.string(),
       images: Yup.mixed().required("Images are required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formDataToSend = new FormData();
+
       for (const key in values) {
         if (key === "images" && values.images) {
           for (let i = 0; i < values.images.length; i++) {
-            formDataToSend.append("images", values.images[i]);
+            const imageFile = values.images[i];
+
+            const options = {
+              maxSizeMB: 0.8,
+              maxWidthOrHeight: 1920,
+              useWebWorker: true,
+            };
+
+            try {
+              const compressedFile = await imageCompression(imageFile, options);
+              formDataToSend.append("images", compressedFile);
+            } catch (error) {
+              console.error("Image compression error:", error);
+              formDataToSend.append("images", imageFile); // fallback
+            }
           }
         } else {
           formDataToSend.append(key, values[key]);
         }
       }
+
       dispatch(addBook(formDataToSend));
     },
   });

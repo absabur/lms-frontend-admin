@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { addTeacher, fixdeValues } from "@/store/Action";
+import imageCompression from "browser-image-compression";
 
 const AddTeacherPage = () => {
   const dispatch = useDispatch();
@@ -36,8 +37,24 @@ const AddTeacherPage = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    setForm((prev) => ({ ...prev, image: e.target.files[0] }));
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const options = {
+        maxSizeMB: 0.8,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+
+      const compressedFile = await imageCompression(file, options);
+
+      setForm((prev) => ({ ...prev, image: compressedFile }));
+    } catch (error) {
+      console.error("Image compression failed:", error);
+      setForm((prev) => ({ ...prev, image: file }));
+    }
   };
 
   const handleSubmit = (e) => {

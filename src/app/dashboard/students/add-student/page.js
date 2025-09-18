@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { fixdeValues, addStudent } from "@/store/Action";
+import imageCompression from "browser-image-compression";
 
 const AddStudentPage = () => {
   const dispatch = useDispatch();
@@ -68,15 +69,32 @@ const AddStudentPage = () => {
       password: Yup.string().required("Password is required"),
       confirmPassword: Yup.string().required("Confirm Password is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formData = new FormData();
+
       for (const key in values) {
         if (key === "image" && values.image) {
-          formData.append("image", values.image);
+          try {
+            const options = {
+              maxSizeMB: 0.8,
+              maxWidthOrHeight: 1920,
+              useWebWorker: true,
+            };
+
+            const compressedImage = await imageCompression(
+              values.image,
+              options
+            );
+            formData.append("image", compressedImage);
+          } catch (error) {
+            console.error("Image compression failed:", error);
+            formData.append("image", values.image);
+          }
         } else {
           formData.append(key, values[key]);
         }
       }
+
       dispatch(addStudent(formData));
     },
   });
@@ -126,7 +144,11 @@ const AddStudentPage = () => {
         ))}
         {[
           { label: "Password", name: "password", type: "password" },
-          { label: "Confirm Password", name: "confirmPassword", type: "password" }
+          {
+            label: "Confirm Password",
+            name: "confirmPassword",
+            type: "password",
+          },
         ].map((field) => (
           <div key={field.name} className="flex flex-col">
             <label className="text-sm font-medium text-bgd1 dark:text-bgl1 mb-1 relative top-[15px] left-[5px] bg-bgl1 dark:bg-bgd1 z-10 w-fit px-2">
