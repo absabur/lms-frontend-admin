@@ -9,13 +9,13 @@ const Loading = () => {
   const auth_loaded = useSelector((state) => state.auth_loaded);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    setTimeout(() => {
-      setMessage(
-        "I'm currently using free hosting, so it may take a little time for the server to start up."
-      );
-    }, 2000);
-  }, [isLoading, auth_loaded]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setMessage(
+  //       "I'm currently using free hosting, so it may take a little time for the server to start up."
+  //     );
+  //   }, 2000);
+  // }, [isLoading, auth_loaded]);
 
   return (
     <>
