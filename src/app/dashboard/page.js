@@ -202,7 +202,7 @@ const Dashboard = () => {
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
             // data={dashboardData.chartData || []}
-            data={Array(4)
+            data={Array(1)
               .fill(dashboardData.chartData || [])
               .flat()}
           >
