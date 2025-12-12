@@ -66,7 +66,7 @@ const Dashboard = () => {
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-700">
-          📚 Library Dashboard
+           Library Dashboard
         </h1>
         <p className="text-bgd1 dark:text-bgl1 mt-2">
           Monitor borrowing, users, and book stats at a glance

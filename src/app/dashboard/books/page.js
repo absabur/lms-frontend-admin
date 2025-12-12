@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import BooksFilterFrom from "@/components/BooksFilterFrom";
 import BookPaginate from "@/components/BookPaginate";
@@ -113,22 +113,48 @@ const Page = () => {
                       className="w-12 h-12 object-cover rounded"
                     />
                   ) : (
-                    <span className="text-bgl1 dark:text-bgd1 italic">No image</span>
+                    <span className="text-bgl1 dark:text-bgd1 italic">
+                      No image
+                    </span>
                   )}
                 </td>
-                <td className="px-3 py-2"><span className="line-clamp-1">{book.bookName}</span></td>
-                <td className="px-3 py-2"><span className="line-clamp-1">{book.bookAuthor}</span></td>
-                <td className="px-3 py-2"><span className="line-clamp-1">{book.publisher}</span></td>
-                <td className="px-3 py-2 text-center"><span className="line-clamp-1">{book.edition}</span></td>
-                <td className="px-3 py-2 text-center"><span className="line-clamp-1">{book.numberOfPages}</span></td>
-                <td className="px-3 py-2 text-center"><span className="line-clamp-1">{book?.country?.name}</span></td>
-                <td className="px-3 py-2 text-center"><span className="line-clamp-1">{book.language?.name}</span></td>
-                <td className="px-3 py-2 text-center"><span className="line-clamp-1">{book.mrp}</span></td>
-                <td className="px-3 py-2"><span className="line-clamp-1">{book.shelf?.name}</span></td>
-                <td className="px-3 py-2"><span className="line-clamp-1">{book.department?.name}</span></td>
-                <td className="px-3 py-2 text-center"><span className="line-clamp-1">{book.quantity}</span></td>
                 <td className="px-3 py-2">
-                  <span className="line-clamp-1">{book.bookNumbers?.join(", ") || "-"}</span>
+                  <span className="line-clamp-1">{book.bookName}</span>
+                </td>
+                <td className="px-3 py-2">
+                  <span className="line-clamp-1">{book.bookAuthor}</span>
+                </td>
+                <td className="px-3 py-2">
+                  <span className="line-clamp-1">{book.publisher}</span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <span className="line-clamp-1">{book.edition}</span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <span className="line-clamp-1">{book.numberOfPages}</span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <span className="line-clamp-1">{book?.country?.name}</span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <span className="line-clamp-1">{book.language?.name}</span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <span className="line-clamp-1">{book.mrp}</span>
+                </td>
+                <td className="px-3 py-2">
+                  <span className="line-clamp-1">{book.shelf?.name}</span>
+                </td>
+                <td className="px-3 py-2">
+                  <span className="line-clamp-1">{book.department?.name}</span>
+                </td>
+                <td className="px-3 py-2 text-center">
+                  <span className="line-clamp-1">{book.quantity}</span>
+                </td>
+                <td className="px-3 py-2">
+                  <span className="line-clamp-1">
+                    {book.bookNumbers?.join(", ") || "-"}
+                  </span>
                 </td>
                 <td className="px-3 py-2">
                   <div className="flex gap-2">

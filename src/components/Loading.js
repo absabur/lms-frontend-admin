@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import "../css/loading.css";
 import { useEffect, useState } from "react";
 
-const Loading = () => {
+const Loading = ({ load = false }) => {
   const isLoading = useSelector((state) => state.isLoading);
+  const loaded = useSelector((state) => state.loaded);
   const auth_loaded = useSelector((state) => state.auth_loaded);
   const [message, setMessage] = useState("");
 
@@ -19,7 +20,7 @@ const Loading = () => {
 
   return (
     <>
-      {(isLoading || !auth_loaded) && (
+      {(isLoading || !loaded || !auth_loaded || load) && (
         <div className="loading-overlay">
           <div className="loader">
             <div className="spinner" />

@@ -33,7 +33,7 @@ const StudentLibraryCard = ({ student }) => {
           <div className="flex items-center justify-between mb-6 border-b pb-4">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 bg-indigo-600 rounded-full text-white flex items-center justify-center font-bold text-2xl shadow-inner">
-                📚
+                
               </div>
               <div className="text-left">
                 <h1 className="text-xl font-bold uppercase tracking-wide text-indigo-700">
